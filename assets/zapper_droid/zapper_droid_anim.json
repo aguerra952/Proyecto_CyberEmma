@@ -1,0 +1,156 @@
+{
+    "anims": [
+        {
+            "key": "zapper_droid_attack",
+            "type": "frames",
+            "repeat": -1,
+            "frameRate": 12,
+            "frames": [
+                {
+                    "key": "zapper_droid",
+                    "frame": "zapper_attack_0"
+                },
+                {
+                    "key": "zapper_droid",
+                    "frame": "zapper_attack_1"
+                },
+                {
+                    "key": "zapper_droid",
+                    "frame": "zapper_attack_2"
+                },
+                {
+                    "key": "zapper_droid",
+                    "frame": "zapper_attack_3"
+                },
+                {
+                    "key": "zapper_droid",
+                    "frame": "zapper_attack_4"
+                },
+                {
+                    "key": "zapper_droid",
+                    "frame": "zapper_attack_5"
+                },
+                {
+                    "key": "zapper_droid",
+                    "frame": "zapper_attack_6"
+                },
+                {
+                    "key": "zapper_droid",
+                    "frame": "zapper_attack_7"
+                },
+                {
+                    "key": "zapper_droid",
+                    "frame": "zapper_attack_8"
+                },
+                {
+                    "key": "zapper_droid",
+                    "frame": "zapper_attack_9"
+                }
+            ]
+        },
+        {
+            "key": "zapper_droid_death",
+            "type": "frames",
+            "repeat": -1,
+            "frameRate": 12,
+            "frames": [
+                {
+                    "key": "zapper_droid",
+                    "frame": "zapper_death_0"
+                },
+                {
+                    "key": "zapper_droid",
+                    "frame": "zapper_death_1"
+                },
+                {
+                    "key": "zapper_droid",
+                    "frame": "zapper_death_2"
+                },
+                {
+                    "key": "zapper_droid",
+                    "frame": "zapper_death_3"
+                },
+                {
+                    "key": "zapper_droid",
+                    "frame": "zapper_death_4"
+                },
+                {
+                    "key": "zapper_droid",
+                    "frame": "zapper_death_5"
+                },
+                {
+                    "key": "zapper_droid",
+                    "frame": "zapper_death_6"
+                },
+                {
+                    "key": "zapper_droid",
+                    "frame": "zapper_death_7"
+                }
+            ]
+        },
+        {
+            "key": "zapper_droid_run",
+            "type": "frames",
+            "repeat": -1,
+            "frameRate": 12,
+            "frames": [
+                {
+                    "key": "zapper_droid",
+                    "frame": "zapper_run_0"
+                },
+                {
+                    "key": "zapper_droid",
+                    "frame": "zapper_run_1"
+                },
+                {
+                    "key": "zapper_droid",
+                    "frame": "zapper_run_2"
+                },
+                {
+                    "key": "zapper_droid",
+                    "frame": "zapper_run_3"
+                },
+                {
+                    "key": "zapper_droid",
+                    "frame": "zapper_run_4"
+                },
+                {
+                    "key": "zapper_droid",
+                    "frame": "zapper_run_5"
+                }
+            ]
+        },
+        {
+            "key": "zapper_droid_idle",
+            "type": "frames",
+            "repeat": -1,
+            "frameRate": 12,
+            "frames": [
+                {
+                    "key": "zapper_droid",
+                    "frame": "zapper_idle_0"
+                },
+                {
+                    "key": "zapper_droid",
+                    "frame": "zapper_idle_1"
+                },
+                {
+                    "key": "zapper_droid",
+                    "frame": "zapper_idle_2"
+                },
+                {
+                    "key": "zapper_droid",
+                    "frame": "zapper_idle_3"
+                },
+                {
+                    "key": "zapper_droid",
+                    "frame": "zapper_idle_4"
+                },
+                {
+                    "key": "zapper_droid",
+                    "frame": "zapper_idle_5"
+                }
+            ]
+        }
+    ]
+}

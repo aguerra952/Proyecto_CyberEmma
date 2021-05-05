@@ -1,0 +1,528 @@
+{
+    "frames": [
+        {
+            "filename": "emma_aim_0",
+            "frame": {
+                "w": 240,
+                "h": 240,
+                "x": 0,
+                "y": 0
+            },
+            "anchor": {
+                "x": 0.5,
+                "y": 0.5
+            }
+        },
+        {
+            "filename": "emma_aim_1",
+            "frame": {
+                "w": 240,
+                "h": 240,
+                "x": 240,
+                "y": 0
+            },
+            "anchor": {
+                "x": 0.5,
+                "y": 0.5
+            }
+        },
+        {
+            "filename": "emma_aim_2",
+            "frame": {
+                "w": 240,
+                "h": 240,
+                "x": 0,
+                "y": 240
+            },
+            "anchor": {
+                "x": 0.5,
+                "y": 0.5
+            }
+        },
+        {
+            "filename": "emma_aim_3",
+            "frame": {
+                "w": 240,
+                "h": 240,
+                "x": 240,
+                "y": 240
+            },
+            "anchor": {
+                "x": 0.5,
+                "y": 0.5
+            }
+        },
+        {
+            "filename": "emma_aim_4",
+            "frame": {
+                "w": 240,
+                "h": 240,
+                "x": 480,
+                "y": 0
+            },
+            "anchor": {
+                "x": 0.5,
+                "y": 0.5
+            }
+        },
+        {
+            "filename": "emma_aim_5",
+            "frame": {
+                "w": 240,
+                "h": 240,
+                "x": 480,
+                "y": 240
+            },
+            "anchor": {
+                "x": 0.5,
+                "y": 0.5
+            }
+        },
+        {
+            "filename": "emma_aim_6",
+            "frame": {
+                "w": 240,
+                "h": 240,
+                "x": 0,
+                "y": 480
+            },
+            "anchor": {
+                "x": 0.5,
+                "y": 0.5
+            }
+        },
+        {
+            "filename": "emma_aim_7",
+            "frame": {
+                "w": 240,
+                "h": 240,
+                "x": 240,
+                "y": 480
+            },
+            "anchor": {
+                "x": 0.5,
+                "y": 0.5
+            }
+        },
+        {
+            "filename": "emma_death_0",
+            "frame": {
+                "w": 240,
+                "h": 240,
+                "x": 480,
+                "y": 480
+            },
+            "anchor": {
+                "x": 0.5,
+                "y": 0.5
+            }
+        },
+        {
+            "filename": "emma_death_1",
+            "frame": {
+                "w": 240,
+                "h": 240,
+                "x": 720,
+                "y": 0
+            },
+            "anchor": {
+                "x": 0.5,
+                "y": 0.5
+            }
+        },
+        {
+            "filename": "emma_death_2",
+            "frame": {
+                "w": 240,
+                "h": 240,
+                "x": 720,
+                "y": 240
+            },
+            "anchor": {
+                "x": 0.5,
+                "y": 0.5
+            }
+        },
+        {
+            "filename": "emma_death_3",
+            "frame": {
+                "w": 240,
+                "h": 240,
+                "x": 720,
+                "y": 480
+            },
+            "anchor": {
+                "x": 0.5,
+                "y": 0.5
+            }
+        },
+        {
+            "filename": "emma_death_4",
+            "frame": {
+                "w": 240,
+                "h": 240,
+                "x": 0,
+                "y": 720
+            },
+            "anchor": {
+                "x": 0.5,
+                "y": 0.5
+            }
+        },
+        {
+            "filename": "emma_death_5",
+            "frame": {
+                "w": 240,
+                "h": 240,
+                "x": 240,
+                "y": 720
+            },
+            "anchor": {
+                "x": 0.5,
+                "y": 0.5
+            }
+        },
+        {
+            "filename": "emma_death_6",
+            "frame": {
+                "w": 240,
+                "h": 240,
+                "x": 480,
+                "y": 720
+            },
+            "anchor": {
+                "x": 0.5,
+                "y": 0.5
+            }
+        },
+        {
+            "filename": "emma_death_7",
+            "frame": {
+                "w": 240,
+                "h": 240,
+                "x": 720,
+                "y": 720
+            },
+            "anchor": {
+                "x": 0.5,
+                "y": 0.5
+            }
+        },
+        {
+            "filename": "emma_idle_0",
+            "frame": {
+                "w": 240,
+                "h": 240,
+                "x": 960,
+                "y": 0
+            },
+            "anchor": {
+                "x": 0.5,
+                "y": 0.5
+            }
+        },
+        {
+            "filename": "emma_idle_1",
+            "frame": {
+                "w": 240,
+                "h": 240,
+                "x": 960,
+                "y": 240
+            },
+            "anchor": {
+                "x": 0.5,
+                "y": 0.5
+            }
+        },
+        {
+            "filename": "emma_idle_2",
+            "frame": {
+                "w": 240,
+                "h": 240,
+                "x": 960,
+                "y": 480
+            },
+            "anchor": {
+                "x": 0.5,
+                "y": 0.5
+            }
+        },
+        {
+            "filename": "emma_idle_3",
+            "frame": {
+                "w": 240,
+                "h": 240,
+                "x": 960,
+                "y": 720
+            },
+            "anchor": {
+                "x": 0.5,
+                "y": 0.5
+            }
+        },
+        {
+            "filename": "emma_jump_0",
+            "frame": {
+                "w": 240,
+                "h": 240,
+                "x": 0,
+                "y": 960
+            },
+            "anchor": {
+                "x": 0.5,
+                "y": 0.5
+            }
+        },
+        {
+            "filename": "emma_jump_1",
+            "frame": {
+                "w": 240,
+                "h": 240,
+                "x": 240,
+                "y": 960
+            },
+            "anchor": {
+                "x": 0.5,
+                "y": 0.5
+            }
+        },
+        {
+            "filename": "emma_run_0",
+            "frame": {
+                "w": 240,
+                "h": 240,
+                "x": 480,
+                "y": 960
+            },
+            "anchor": {
+                "x": 0.5,
+                "y": 0.5
+            }
+        },
+        {
+            "filename": "emma_run_1",
+            "frame": {
+                "w": 240,
+                "h": 240,
+                "x": 720,
+                "y": 960
+            },
+            "anchor": {
+                "x": 0.5,
+                "y": 0.5
+            }
+        },
+        {
+            "filename": "emma_run_2",
+            "frame": {
+                "w": 240,
+                "h": 240,
+                "x": 960,
+                "y": 960
+            },
+            "anchor": {
+                "x": 0.5,
+                "y": 0.5
+            }
+        },
+        {
+            "filename": "emma_run_3",
+            "frame": {
+                "w": 240,
+                "h": 240,
+                "x": 1200,
+                "y": 0
+            },
+            "anchor": {
+                "x": 0.5,
+                "y": 0.5
+            }
+        },
+        {
+            "filename": "emma_run_4",
+            "frame": {
+                "w": 240,
+                "h": 240,
+                "x": 1200,
+                "y": 240
+            },
+            "anchor": {
+                "x": 0.5,
+                "y": 0.5
+            }
+        },
+        {
+            "filename": "emma_run_5",
+            "frame": {
+                "w": 240,
+                "h": 240,
+                "x": 1200,
+                "y": 480
+            },
+            "anchor": {
+                "x": 0.5,
+                "y": 0.5
+            }
+        },
+        {
+            "filename": "emma_run_6",
+            "frame": {
+                "w": 240,
+                "h": 240,
+                "x": 1200,
+                "y": 720
+            },
+            "anchor": {
+                "x": 0.5,
+                "y": 0.5
+            }
+        },
+        {
+            "filename": "emma_run_7",
+            "frame": {
+                "w": 240,
+                "h": 240,
+                "x": 1200,
+                "y": 960
+            },
+            "anchor": {
+                "x": 0.5,
+                "y": 0.5
+            }
+        },
+        {
+            "filename": "emma_run_8",
+            "frame": {
+                "w": 240,
+                "h": 240,
+                "x": 0,
+                "y": 1200
+            },
+            "anchor": {
+                "x": 0.5,
+                "y": 0.5
+            }
+        },
+        {
+            "filename": "emma_run_9",
+            "frame": {
+                "w": 240,
+                "h": 240,
+                "x": 240,
+                "y": 1200
+            },
+            "anchor": {
+                "x": 0.5,
+                "y": 0.5
+            }
+        },
+        {
+            "filename": "emma_run_10",
+            "frame": {
+                "w": 240,
+                "h": 240,
+                "x": 480,
+                "y": 1200
+            },
+            "anchor": {
+                "x": 0.5,
+                "y": 0.5
+            }
+        },
+        {
+            "filename": "emma_run_11",
+            "frame": {
+                "w": 240,
+                "h": 240,
+                "x": 720,
+                "y": 1200
+            },
+            "anchor": {
+                "x": 0.5,
+                "y": 0.5
+            }
+        },
+        {
+            "filename": "emma_run_12",
+            "frame": {
+                "w": 240,
+                "h": 240,
+                "x": 960,
+                "y": 1200
+            },
+            "anchor": {
+                "x": 0.5,
+                "y": 0.5
+            }
+        },
+        {
+            "filename": "emma_run_13",
+            "frame": {
+                "w": 240,
+                "h": 240,
+                "x": 1200,
+                "y": 1200
+            },
+            "anchor": {
+                "x": 0.5,
+                "y": 0.5
+            }
+        },
+        {
+            "filename": "emma_shoot_0",
+            "frame": {
+                "w": 240,
+                "h": 240,
+                "x": 1440,
+                "y": 0
+            },
+            "anchor": {
+                "x": 0.5,
+                "y": 0.5
+            }
+        },
+        {
+            "filename": "emma_shoot_1",
+            "frame": {
+                "w": 240,
+                "h": 240,
+                "x": 1440,
+                "y": 240
+            },
+            "anchor": {
+                "x": 0.5,
+                "y": 0.5
+            }
+        },
+        {
+            "filename": "emma_shoot_2",
+            "frame": {
+                "w": 240,
+                "h": 240,
+                "x": 1440,
+                "y": 480
+            },
+            "anchor": {
+                "x": 0.5,
+                "y": 0.5
+            }
+        },
+        {
+            "filename": "emma_shoot_3",
+            "frame": {
+                "w": 240,
+                "h": 240,
+                "x": 1440,
+                "y": 720
+            },
+            "anchor": {
+                "x": 0.5,
+                "y": 0.5
+            }
+        }
+    ],
+    "meta": {
+        "description": "Atlas generado con Atlas Packer Gamma V2",
+        "web": "https://gammafp.github.io/atlas-packer-phaser/"
+    }
+}

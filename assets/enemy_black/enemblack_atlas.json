@@ -1,0 +1,281 @@
+{
+    "frames": [
+        {
+            "filename": "enemblack_death_0",
+            "frame": {
+                "w": 48,
+                "h": 48,
+                "x": 0,
+                "y": 0
+            },
+            "anchor": {
+                "x": 0.5,
+                "y": 0.5
+            }
+        },
+        {
+            "filename": "enemblack_death_1",
+            "frame": {
+                "w": 48,
+                "h": 48,
+                "x": 48,
+                "y": 0
+            },
+            "anchor": {
+                "x": 0.5,
+                "y": 0.5
+            }
+        },
+        {
+            "filename": "enemblack_death_2",
+            "frame": {
+                "w": 48,
+                "h": 48,
+                "x": 0,
+                "y": 48
+            },
+            "anchor": {
+                "x": 0.5,
+                "y": 0.5
+            }
+        },
+        {
+            "filename": "enemblack_death_3",
+            "frame": {
+                "w": 48,
+                "h": 48,
+                "x": 48,
+                "y": 48
+            },
+            "anchor": {
+                "x": 0.5,
+                "y": 0.5
+            }
+        },
+        {
+            "filename": "enemblack_death_4",
+            "frame": {
+                "w": 48,
+                "h": 48,
+                "x": 96,
+                "y": 0
+            },
+            "anchor": {
+                "x": 0.5,
+                "y": 0.5
+            }
+        },
+        {
+            "filename": "enemblack_death_5",
+            "frame": {
+                "w": 48,
+                "h": 48,
+                "x": 96,
+                "y": 48
+            },
+            "anchor": {
+                "x": 0.5,
+                "y": 0.5
+            }
+        },
+        {
+            "filename": "enemblack_death_6",
+            "frame": {
+                "w": 48,
+                "h": 48,
+                "x": 0,
+                "y": 96
+            },
+            "anchor": {
+                "x": 0.5,
+                "y": 0.5
+            }
+        },
+        {
+            "filename": "enemblack_death_7",
+            "frame": {
+                "w": 48,
+                "h": 48,
+                "x": 48,
+                "y": 96
+            },
+            "anchor": {
+                "x": 0.5,
+                "y": 0.5
+            }
+        },
+        {
+            "filename": "enemblack_idle_0",
+            "frame": {
+                "w": 48,
+                "h": 48,
+                "x": 96,
+                "y": 96
+            },
+            "anchor": {
+                "x": 0.5,
+                "y": 0.5
+            }
+        },
+        {
+            "filename": "enemblack_idle_1",
+            "frame": {
+                "w": 48,
+                "h": 48,
+                "x": 144,
+                "y": 0
+            },
+            "anchor": {
+                "x": 0.5,
+                "y": 0.5
+            }
+        },
+        {
+            "filename": "enemblack_idle_2",
+            "frame": {
+                "w": 48,
+                "h": 48,
+                "x": 144,
+                "y": 48
+            },
+            "anchor": {
+                "x": 0.5,
+                "y": 0.5
+            }
+        },
+        {
+            "filename": "enemblack_idle_3",
+            "frame": {
+                "w": 48,
+                "h": 48,
+                "x": 144,
+                "y": 96
+            },
+            "anchor": {
+                "x": 0.5,
+                "y": 0.5
+            }
+        },
+        {
+            "filename": "enemblack_idle_4",
+            "frame": {
+                "w": 48,
+                "h": 48,
+                "x": 0,
+                "y": 144
+            },
+            "anchor": {
+                "x": 0.5,
+                "y": 0.5
+            }
+        },
+        {
+            "filename": "enemblack_jump_0",
+            "frame": {
+                "w": 48,
+                "h": 48,
+                "x": 48,
+                "y": 144
+            },
+            "anchor": {
+                "x": 0.5,
+                "y": 0.5
+            }
+        },
+        {
+            "filename": "enemblack_jump_1",
+            "frame": {
+                "w": 48,
+                "h": 48,
+                "x": 96,
+                "y": 144
+            },
+            "anchor": {
+                "x": 0.5,
+                "y": 0.5
+            }
+        },
+        {
+            "filename": "enemblack_run_0",
+            "frame": {
+                "w": 48,
+                "h": 48,
+                "x": 144,
+                "y": 144
+            },
+            "anchor": {
+                "x": 0.5,
+                "y": 0.5
+            }
+        },
+        {
+            "filename": "enemblack_run_1",
+            "frame": {
+                "w": 48,
+                "h": 48,
+                "x": 192,
+                "y": 0
+            },
+            "anchor": {
+                "x": 0.5,
+                "y": 0.5
+            }
+        },
+        {
+            "filename": "enemblack_run_2",
+            "frame": {
+                "w": 48,
+                "h": 48,
+                "x": 192,
+                "y": 48
+            },
+            "anchor": {
+                "x": 0.5,
+                "y": 0.5
+            }
+        },
+        {
+            "filename": "enemblack_run_3",
+            "frame": {
+                "w": 48,
+                "h": 48,
+                "x": 192,
+                "y": 96
+            },
+            "anchor": {
+                "x": 0.5,
+                "y": 0.5
+            }
+        },
+        {
+            "filename": "enemblack_run_4",
+            "frame": {
+                "w": 48,
+                "h": 48,
+                "x": 192,
+                "y": 144
+            },
+            "anchor": {
+                "x": 0.5,
+                "y": 0.5
+            }
+        },
+        {
+            "filename": "enemblack_run_5",
+            "frame": {
+                "w": 48,
+                "h": 48,
+                "x": 0,
+                "y": 192
+            },
+            "anchor": {
+                "x": 0.5,
+                "y": 0.5
+            }
+        }
+    ],
+    "meta": {
+        "description": "Atlas generado con Atlas Packer Gamma V2",
+        "web": "https://gammafp.github.io/atlas-packer-phaser/"
+    }
+}

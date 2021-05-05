@@ -1,0 +1,228 @@
+{
+    "anims": [
+        {
+            "key": "damaged",
+            "type": "frames",
+            "repeat": -1,
+            "frameRate": 12,
+            "frames": [
+                {
+                    "key": "striker",
+                    "frame": "striker_damaged_0"
+                },
+                {
+                    "key": "striker",
+                    "frame": "striker_damaged_1"
+                },
+                {
+                    "key": "striker",
+                    "frame": "striker_damaged_2"
+                },
+                {
+                    "key": "striker",
+                    "frame": "striker_damaged_3"
+                }
+            ]
+        },
+        {
+            "key": "attack",
+            "type": "frames",
+            "repeat": -1,
+            "frameRate": 12,
+            "frames": [
+                {
+                    "key": "striker",
+                    "frame": "striker_attack_0"
+                },
+                {
+                    "key": "striker",
+                    "frame": "striker_attack_1"
+                },
+                {
+                    "key": "striker",
+                    "frame": "striker_attack_2"
+                },
+                {
+                    "key": "striker",
+                    "frame": "striker_attack_3"
+                },
+                {
+                    "key": "striker",
+                    "frame": "striker_attack_4"
+                },
+                {
+                    "key": "striker",
+                    "frame": "striker_attack_5"
+                },
+                {
+                    "key": "striker",
+                    "frame": "striker_attack_6"
+                },
+                {
+                    "key": "striker",
+                    "frame": "striker_attack_7"
+                },
+                {
+                    "key": "striker",
+                    "frame": "striker_attack_8"
+                },
+                {
+                    "key": "striker",
+                    "frame": "striker_attack_9"
+                }
+            ]
+        },
+        {
+            "key": "death",
+            "type": "frames",
+            "repeat": -1,
+            "frameRate": 12,
+            "frames": [
+                {
+                    "key": "striker",
+                    "frame": "striker_death_0"
+                },
+                {
+                    "key": "striker",
+                    "frame": "striker_death_1"
+                },
+                {
+                    "key": "striker",
+                    "frame": "striker_death_2"
+                },
+                {
+                    "key": "striker",
+                    "frame": "striker_death_3"
+                },
+                {
+                    "key": "striker",
+                    "frame": "striker_death_4"
+                },
+                {
+                    "key": "striker",
+                    "frame": "striker_death_5"
+                },
+                {
+                    "key": "striker",
+                    "frame": "striker_death_6"
+                },
+                {
+                    "key": "striker",
+                    "frame": "striker_death_7"
+                },
+                {
+                    "key": "striker",
+                    "frame": "striker_death_8"
+                },
+                {
+                    "key": "striker",
+                    "frame": "striker_death_9"
+                },
+                {
+                    "key": "striker",
+                    "frame": "striker_death_10"
+                },
+                {
+                    "key": "striker",
+                    "frame": "striker_death_11"
+                },
+                {
+                    "key": "striker",
+                    "frame": "striker_death_12"
+                },
+                {
+                    "key": "striker",
+                    "frame": "striker_death_13"
+                },
+                {
+                    "key": "striker",
+                    "frame": "striker_death_14"
+                },
+                {
+                    "key": "striker",
+                    "frame": "striker_death_15"
+                }
+            ]
+        },
+        {
+            "key": "run",
+            "type": "frames",
+            "repeat": -1,
+            "frameRate": 12,
+            "frames": [
+                {
+                    "key": "striker",
+                    "frame": "striker_run_0"
+                },
+                {
+                    "key": "striker",
+                    "frame": "striker_run_1"
+                },
+                {
+                    "key": "striker",
+                    "frame": "striker_run_2"
+                },
+                {
+                    "key": "striker",
+                    "frame": "striker_run_3"
+                },
+                {
+                    "key": "striker",
+                    "frame": "striker_run_4"
+                },
+                {
+                    "key": "striker",
+                    "frame": "striker_run_5"
+                },
+                {
+                    "key": "striker",
+                    "frame": "striker_run_6"
+                },
+                {
+                    "key": "striker",
+                    "frame": "striker_run_7"
+                }
+            ]
+        },
+        {
+            "key": "idle",
+            "type": "frames",
+            "repeat": -1,
+            "frameRate": 12,
+            "frames": [
+                {
+                    "key": "striker",
+                    "frame": "striker_idle_0"
+                },
+                {
+                    "key": "striker",
+                    "frame": "striker_idle_1"
+                },
+                {
+                    "key": "striker",
+                    "frame": "striker_idle_2"
+                },
+                {
+                    "key": "striker",
+                    "frame": "striker_idle_3"
+                },
+                {
+                    "key": "striker",
+                    "frame": "striker_idle_4"
+                },
+                {
+                    "key": "striker",
+                    "frame": "striker_idle_5"
+                },
+                {
+                    "key": "striker",
+                    "frame": "striker_idle_6"
+                },
+                {
+                    "key": "striker",
+                    "frame": "striker_idle_7"
+                }
+            ]
+        }
+    ]
+}

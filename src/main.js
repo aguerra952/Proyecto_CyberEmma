@@ -1,0 +1,35 @@
+import Bootloader from './Bootloader.js';
+import UI from './Scenes/UI.js';
+import MainMenu from './Scenes/MainMenu.js';
+import Play from './Scenes/Play.js';
+
+const config = {
+    title: "CyberEmma",
+    version: "1.0.0",
+    type: Phaser.AUTO,
+    scale: {
+        parent: "phaser_container",
+        width: 1800,
+        height: 568,
+        mode: Phaser.Scale.FIT,
+        autoCenter: Phaser.Scale.CENTER_BOTH,
+    },
+    pixelArt: true,
+    physics: {
+        default: "arcade",
+        "arcade": {
+            debug: true,
+            gravity: {
+                y: 2000
+            }
+        }
+    },
+    scene: [
+       Bootloader,
+       UI,
+       MainMenu,
+       Play,
+    ]
+};
+
+new Phaser.Game(config);

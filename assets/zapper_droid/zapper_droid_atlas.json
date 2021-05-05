@@ -1,0 +1,398 @@
+{
+    "frames": [
+        {
+            "filename": "zapper_idle_0",
+            "frame": {
+                "w": 58,
+                "h": 41,
+                "x": 0,
+                "y": 0
+            },
+            "anchor": {
+                "x": 0.5,
+                "y": 0.5
+            }
+        },
+        {
+            "filename": "zapper_idle_1",
+            "frame": {
+                "w": 58,
+                "h": 41,
+                "x": 0,
+                "y": 41
+            },
+            "anchor": {
+                "x": 0.5,
+                "y": 0.5
+            }
+        },
+        {
+            "filename": "zapper_idle_2",
+            "frame": {
+                "w": 58,
+                "h": 41,
+                "x": 58,
+                "y": 0
+            },
+            "anchor": {
+                "x": 0.5,
+                "y": 0.5
+            }
+        },
+        {
+            "filename": "zapper_idle_3",
+            "frame": {
+                "w": 58,
+                "h": 41,
+                "x": 58,
+                "y": 41
+            },
+            "anchor": {
+                "x": 0.5,
+                "y": 0.5
+            }
+        },
+        {
+            "filename": "zapper_idle_4",
+            "frame": {
+                "w": 58,
+                "h": 41,
+                "x": 0,
+                "y": 82
+            },
+            "anchor": {
+                "x": 0.5,
+                "y": 0.5
+            }
+        },
+        {
+            "filename": "zapper_idle_5",
+            "frame": {
+                "w": 58,
+                "h": 41,
+                "x": 58,
+                "y": 82
+            },
+            "anchor": {
+                "x": 0.5,
+                "y": 0.5
+            }
+        },
+        {
+            "filename": "zapper_run_0",
+            "frame": {
+                "w": 58,
+                "h": 41,
+                "x": 116,
+                "y": 0
+            },
+            "anchor": {
+                "x": 0.5,
+                "y": 0.5
+            }
+        },
+        {
+            "filename": "zapper_run_1",
+            "frame": {
+                "w": 58,
+                "h": 41,
+                "x": 116,
+                "y": 41
+            },
+            "anchor": {
+                "x": 0.5,
+                "y": 0.5
+            }
+        },
+        {
+            "filename": "zapper_run_2",
+            "frame": {
+                "w": 58,
+                "h": 41,
+                "x": 116,
+                "y": 82
+            },
+            "anchor": {
+                "x": 0.5,
+                "y": 0.5
+            }
+        },
+        {
+            "filename": "zapper_run_3",
+            "frame": {
+                "w": 58,
+                "h": 41,
+                "x": 0,
+                "y": 123
+            },
+            "anchor": {
+                "x": 0.5,
+                "y": 0.5
+            }
+        },
+        {
+            "filename": "zapper_run_4",
+            "frame": {
+                "w": 58,
+                "h": 41,
+                "x": 58,
+                "y": 123
+            },
+            "anchor": {
+                "x": 0.5,
+                "y": 0.5
+            }
+        },
+        {
+            "filename": "zapper_run_5",
+            "frame": {
+                "w": 58,
+                "h": 41,
+                "x": 116,
+                "y": 123
+            },
+            "anchor": {
+                "x": 0.5,
+                "y": 0.5
+            }
+        },
+        {
+            "filename": "zapper_death_0",
+            "frame": {
+                "w": 58,
+                "h": 41,
+                "x": 0,
+                "y": 164
+            },
+            "anchor": {
+                "x": 0.5,
+                "y": 0.5
+            }
+        },
+        {
+            "filename": "zapper_death_1",
+            "frame": {
+                "w": 58,
+                "h": 41,
+                "x": 58,
+                "y": 164
+            },
+            "anchor": {
+                "x": 0.5,
+                "y": 0.5
+            }
+        },
+        {
+            "filename": "zapper_death_2",
+            "frame": {
+                "w": 58,
+                "h": 41,
+                "x": 116,
+                "y": 164
+            },
+            "anchor": {
+                "x": 0.5,
+                "y": 0.5
+            }
+        },
+        {
+            "filename": "zapper_death_3",
+            "frame": {
+                "w": 58,
+                "h": 41,
+                "x": 174,
+                "y": 0
+            },
+            "anchor": {
+                "x": 0.5,
+                "y": 0.5
+            }
+        },
+        {
+            "filename": "zapper_death_4",
+            "frame": {
+                "w": 58,
+                "h": 41,
+                "x": 174,
+                "y": 41
+            },
+            "anchor": {
+                "x": 0.5,
+                "y": 0.5
+            }
+        },
+        {
+            "filename": "zapper_death_5",
+            "frame": {
+                "w": 58,
+                "h": 41,
+                "x": 174,
+                "y": 82
+            },
+            "anchor": {
+                "x": 0.5,
+                "y": 0.5
+            }
+        },
+        {
+            "filename": "zapper_death_6",
+            "frame": {
+                "w": 58,
+                "h": 41,
+                "x": 174,
+                "y": 123
+            },
+            "anchor": {
+                "x": 0.5,
+                "y": 0.5
+            }
+        },
+        {
+            "filename": "zapper_death_7",
+            "frame": {
+                "w": 58,
+                "h": 41,
+                "x": 174,
+                "y": 164
+            },
+            "anchor": {
+                "x": 0.5,
+                "y": 0.5
+            }
+        },
+        {
+            "filename": "zapper_attack_0",
+            "frame": {
+                "w": 58,
+                "h": 41,
+                "x": 0,
+                "y": 205
+            },
+            "anchor": {
+                "x": 0.5,
+                "y": 0.5
+            }
+        },
+        {
+            "filename": "zapper_attack_1",
+            "frame": {
+                "w": 58,
+                "h": 41,
+                "x": 58,
+                "y": 205
+            },
+            "anchor": {
+                "x": 0.5,
+                "y": 0.5
+            }
+        },
+        {
+            "filename": "zapper_attack_2",
+            "frame": {
+                "w": 58,
+                "h": 41,
+                "x": 116,
+                "y": 205
+            },
+            "anchor": {
+                "x": 0.5,
+                "y": 0.5
+            }
+        },
+        {
+            "filename": "zapper_attack_3",
+            "frame": {
+                "w": 58,
+                "h": 41,
+                "x": 174,
+                "y": 205
+            },
+            "anchor": {
+                "x": 0.5,
+                "y": 0.5
+            }
+        },
+        {
+            "filename": "zapper_attack_4",
+            "frame": {
+                "w": 58,
+                "h": 41,
+                "x": 232,
+                "y": 0
+            },
+            "anchor": {
+                "x": 0.5,
+                "y": 0.5
+            }
+        },
+        {
+            "filename": "zapper_attack_5",
+            "frame": {
+                "w": 58,
+                "h": 41,
+                "x": 232,
+                "y": 41
+            },
+            "anchor": {
+                "x": 0.5,
+                "y": 0.5
+            }
+        },
+        {
+            "filename": "zapper_attack_6",
+            "frame": {
+                "w": 58,
+                "h": 41,
+                "x": 232,
+                "y": 82
+            },
+            "anchor": {
+                "x": 0.5,
+                "y": 0.5
+            }
+        },
+        {
+            "filename": "zapper_attack_7",
+            "frame": {
+                "w": 58,
+                "h": 41,
+                "x": 232,
+                "y": 123
+            },
+            "anchor": {
+                "x": 0.5,
+                "y": 0.5
+            }
+        },
+        {
+            "filename": "zapper_attack_8",
+            "frame": {
+                "w": 58,
+                "h": 41,
+                "x": 232,
+                "y": 164
+            },
+            "anchor": {
+                "x": 0.5,
+                "y": 0.5
+            }
+        },
+        {
+            "filename": "zapper_attack_9",
+            "frame": {
+                "w": 58,
+                "h": 41,
+                "x": 232,
+                "y": 205
+            },
+            "anchor": {
+                "x": 0.5,
+                "y": 0.5
+            }
+        }
+    ],
+    "meta": {
+        "description": "Atlas generado con Atlas Packer Gamma V2",
+        "web": "https://gammafp.github.io/atlas-packer-phaser/"
+    }
+}

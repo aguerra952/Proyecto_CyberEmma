@@ -1,0 +1,204 @@
+{
+    "anims": [
+        {
+            "key": "emma_shoot",
+            "type": "frames",
+            "repeat": 0,
+            "frameRate": 20,
+            "frames": [
+                {
+                    "key": "emma",
+                    "frame": "emma_aim_0"
+                },
+                {
+                    "key": "emma",
+                    "frame": "emma_aim_1"
+                },
+                {
+                    "key": "emma",
+                    "frame": "emma_aim_2"
+                },
+                {
+                    "key": "emma",
+                    "frame": "emma_aim_3"
+                },
+                {
+                    "key": "emma",
+                    "frame": "emma_aim_4"
+                },
+                {
+                    "key": "emma",
+                    "frame": "emma_aim_5"
+                },
+                {
+                    "key": "emma",
+                    "frame": "emma_aim_6"
+                },
+                {
+                    "key": "emma",
+                    "frame": "emma_aim_7"
+                },
+                {
+                    "key": "emma",
+                    "frame": "emma_shoot_0"
+                },
+                {
+                    "key": "emma",
+                    "frame": "emma_shoot_1"
+                },
+                {
+                    "key": "emma",
+                    "frame": "emma_shoot_2"
+                },
+                {
+                    "key": "emma",
+                    "frame": "emma_shoot_3"
+                }
+            ]
+        },
+        {
+            "key": "emma_death",
+            "type": "frames",
+            "repeat": -1,
+            "frameRate": 8,
+            "frames": [
+                {
+                    "key": "emma",
+                    "frame": "emma_death_0"
+                },
+                {
+                    "key": "emma",
+                    "frame": "emma_death_1"
+                },
+                {
+                    "key": "emma",
+                    "frame": "emma_death_2"
+                },
+                {
+                    "key": "emma",
+                    "frame": "emma_death_3"
+                },
+                {
+                    "key": "emma",
+                    "frame": "emma_death_4"
+                },
+                {
+                    "key": "emma",
+                    "frame": "emma_death_5"
+                },
+                {
+                    "key": "emma",
+                    "frame": "emma_death_6"
+                },
+                {
+                    "key": "emma",
+                    "frame": "emma_death_7"
+                }
+            ]
+        },
+        {
+            "key": "emma_jump",
+            "type": "frames",
+            "repeat": -1,
+            "frameRate": 4,
+            "frames": [
+                {
+                    "key": "emma",
+                    "frame": "emma_jump_0"
+                },
+                {
+                    "key": "emma",
+                    "frame": "emma_jump_1"
+                }
+            ]
+        },
+        {
+            "key": "emma_run",
+            "type": "frames",
+            "repeat": -1,
+            "frameRate": 9,
+            "frames": [
+                {
+                    "key": "emma",
+                    "frame": "emma_run_0"
+                },
+                {
+                    "key": "emma",
+                    "frame": "emma_run_1"
+                },
+                {
+                    "key": "emma",
+                    "frame": "emma_run_2"
+                },
+                {
+                    "key": "emma",
+                    "frame": "emma_run_3"
+                },
+                {
+                    "key": "emma",
+                    "frame": "emma_run_4"
+                },
+                {
+                    "key": "emma",
+                    "frame": "emma_run_5"
+                },
+                {
+                    "key": "emma",
+                    "frame": "emma_run_6"
+                },
+                {
+                    "key": "emma",
+                    "frame": "emma_run_7"
+                },
+                {
+                    "key": "emma",
+                    "frame": "emma_run_8"
+                },
+                {
+                    "key": "emma",
+                    "frame": "emma_run_9"
+                },
+                {
+                    "key": "emma",
+                    "frame": "emma_run_10"
+                },
+                {
+                    "key": "emma",
+                    "frame": "emma_run_11"
+                },
+                {
+                    "key": "emma",
+                    "frame": "emma_run_12"
+                },
+                {
+                    "key": "emma",
+                    "frame": "emma_run_13"
+                }
+            ]
+        },
+        {
+            "key": "emma_idle",
+            "type": "frames",
+            "repeat": -1,
+            "frameRate": 5,
+            "frames": [
+                {
+                    "key": "emma",
+                    "frame": "emma_idle_0"
+                },
+                {
+                    "key": "emma",
+                    "frame": "emma_idle_1"
+                },
+                {
+                    "key": "emma",
+                    "frame": "emma_idle_2"
+                },
+                {
+                    "key": "emma",
+                    "frame": "emma_idle_3"
+                }
+            ]
+        }
+    ]
+}

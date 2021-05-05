@@ -1,0 +1,164 @@
+{
+    "frames": [
+        {
+            "filename": "drone_idle",
+            "frame": {
+                "w": 55,
+                "h": 52,
+                "x": 0,
+                "y": 0
+            },
+            "anchor": {
+                "x": 0.5,
+                "y": 0.5
+            }
+        },
+        {
+            "filename": "drone_rotate_0",
+            "frame": {
+                "w": 55,
+                "h": 52,
+                "x": 0,
+                "y": 52
+            },
+            "anchor": {
+                "x": 0.5,
+                "y": 0.5
+            }
+        },
+        {
+            "filename": "drone_rotate_1",
+            "frame": {
+                "w": 55,
+                "h": 52,
+                "x": 55,
+                "y": 0
+            },
+            "anchor": {
+                "x": 0.5,
+                "y": 0.5
+            }
+        },
+        {
+            "filename": "drone_rotate_2",
+            "frame": {
+                "w": 55,
+                "h": 52,
+                "x": 55,
+                "y": 52
+            },
+            "anchor": {
+                "x": 0.5,
+                "y": 0.5
+            }
+        },
+        {
+            "filename": "drone_rotate_3",
+            "frame": {
+                "w": 55,
+                "h": 52,
+                "x": 0,
+                "y": 104
+            },
+            "anchor": {
+                "x": 0.5,
+                "y": 0.5
+            }
+        },
+        {
+            "filename": "drone_death_0",
+            "frame": {
+                "w": 55,
+                "h": 52,
+                "x": 55,
+                "y": 104
+            },
+            "anchor": {
+                "x": 0.5,
+                "y": 0.5
+            }
+        },
+        {
+            "filename": "drone_death_1",
+            "frame": {
+                "w": 55,
+                "h": 52,
+                "x": 110,
+                "y": 0
+            },
+            "anchor": {
+                "x": 0.5,
+                "y": 0.5
+            }
+        },
+        {
+            "filename": "drone_death_2",
+            "frame": {
+                "w": 55,
+                "h": 52,
+                "x": 110,
+                "y": 52
+            },
+            "anchor": {
+                "x": 0.5,
+                "y": 0.5
+            }
+        },
+        {
+            "filename": "drone_death_3",
+            "frame": {
+                "w": 55,
+                "h": 52,
+                "x": 110,
+                "y": 104
+            },
+            "anchor": {
+                "x": 0.5,
+                "y": 0.5
+            }
+        },
+        {
+            "filename": "drone_death_4",
+            "frame": {
+                "w": 55,
+                "h": 52,
+                "x": 0,
+                "y": 156
+            },
+            "anchor": {
+                "x": 0.5,
+                "y": 0.5
+            }
+        },
+        {
+            "filename": "drone_death_5",
+            "frame": {
+                "w": 55,
+                "h": 52,
+                "x": 55,
+                "y": 156
+            },
+            "anchor": {
+                "x": 0.5,
+                "y": 0.5
+            }
+        },
+        {
+            "filename": "drone_death_6",
+            "frame": {
+                "w": 55,
+                "h": 52,
+                "x": 110,
+                "y": 156
+            },
+            "anchor": {
+                "x": 0.5,
+                "y": 0.5
+            }
+        }
+    ],
+    "meta": {
+        "description": "Atlas generado con Atlas Packer Gamma V2",
+        "web": "https://gammafp.github.io/atlas-packer-phaser/"
+    }
+}

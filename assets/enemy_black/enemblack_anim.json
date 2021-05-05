@@ -1,0 +1,120 @@
+{
+    "anims": [
+        {
+            "key": "enemblack_run",
+            "type": "frames",
+            "repeat": -1,
+            "frameRate": 9,
+            "frames": [
+                {
+                    "key": "enemblack",
+                    "frame": "enemblack_run_0"
+                },
+                {
+                    "key": "enemblack",
+                    "frame": "enemblack_run_1"
+                },
+                {
+                    "key": "enemblack",
+                    "frame": "enemblack_run_2"
+                },
+                {
+                    "key": "enemblack",
+                    "frame": "enemblack_run_3"
+                },
+                {
+                    "key": "enemblack",
+                    "frame": "enemblack_run_4"
+                },
+                {
+                    "key": "enemblack",
+                    "frame": "enemblack_run_5"
+                }
+            ]
+        },
+        {
+            "key": "enemblack_jump",
+            "type": "frames",
+            "repeat": -1,
+            "frameRate": 12,
+            "frames": [
+                {
+                    "key": "enemblack",
+                    "frame": "enemblack_jump_0"
+                },
+                {
+                    "key": "enemblack",
+                    "frame": "enemblack_jump_1"
+                }
+            ]
+        },
+        {
+            "key": "enemblack_idle",
+            "type": "frames",
+            "repeat": -1,
+            "frameRate": 5,
+            "frames": [
+                {
+                    "key": "enemblack",
+                    "frame": "enemblack_idle_0"
+                },
+                {
+                    "key": "enemblack",
+                    "frame": "enemblack_idle_1"
+                },
+                {
+                    "key": "enemblack",
+                    "frame": "enemblack_idle_2"
+                },
+                {
+                    "key": "enemblack",
+                    "frame": "enemblack_idle_3"
+                },
+                {
+                    "key": "enemblack",
+                    "frame": "enemblack_idle_4"
+                }
+            ]
+        },
+        {
+            "key": "enemblack_death",
+            "type": "frames",
+            "repeat": 0,
+            "frameRate": 12,
+            "frames": [
+                {
+                    "key": "enemblack",
+                    "frame": "enemblack_death_0"
+                },
+                {
+                    "key": "enemblack",
+                    "frame": "enemblack_death_1"
+                },
+                {
+                    "key": "enemblack",
+                    "frame": "enemblack_death_2"
+                },
+                {
+                    "key": "enemblack",
+                    "frame": "enemblack_death_3"
+                },
+                {
+                    "key": "enemblack",
+                    "frame": "enemblack_death_4"
+                },
+                {
+                    "key": "enemblack",
+                    "frame": "enemblack_death_5"
+                },
+                {
+                    "key": "enemblack",
+                    "frame": "enemblack_death_6"
+                },
+                {
+                    "key": "enemblack",
+                    "frame": "enemblack_death_7"
+                }
+            ]
+        }
+    ]
+}
