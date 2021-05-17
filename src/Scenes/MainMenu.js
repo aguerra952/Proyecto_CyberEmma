@@ -4,7 +4,7 @@ class MainMenu extends Phaser.Scene {
     }
 
     init() {
-        this.sound.play('musicMenu', {volume: 2, loop: true});
+        // this.sound.play('musicMenu', {volume: 1, loop: true});
     }
 
     create() {
@@ -37,13 +37,13 @@ class MainMenu extends Phaser.Scene {
             frames: 'emma',
             frameRate: 3,
             repeat: -1
-        };
+        }
         //  Animacion de emma
         this.emmaIdle.anims.play(emmaIdle);
         //  Eventos del puntero sobre los textos
         this.textPlay.on('pointerover', () => {
             this.textPlay.alpha = 0.7;
-            this.sound.play('menu_navigate_2', {volume: 2, detune: -150});
+            this.sound.play('menu_navigate_1', {volume: 1, detune: -150});
         });
 
         this.textPlay.on('pointerout', () => {
@@ -52,7 +52,7 @@ class MainMenu extends Phaser.Scene {
 
         this.textHelp.on('pointerover', () => {
             this.textHelp.alpha = 0.7;
-            this.sound.play('menu_navigate_2', {volume: 2, detune: -150});
+            this.sound.play('menu_navigate_1', {volume: 1, detune: -150});
         });
         
         this.textHelp.on('pointerout', () => {
@@ -61,7 +61,7 @@ class MainMenu extends Phaser.Scene {
 
         this.textOptions.on('pointerover', () => {
             this.textOptions.alpha = 0.7;
-            this.sound.play('menu_navigate_2', {volume: 2, detune: -150});
+            this.sound.play('menu_navigate_1', {volume: 1, detune: -150});
         });
 
         this.textOptions.on('pointerout', () => {
@@ -71,7 +71,7 @@ class MainMenu extends Phaser.Scene {
         this.textPlay.on('pointerdown', () => {
             this.textPlay.clearAlpha();
             this.textPlay.setTint(0x7f5fa2);
-            this.sound.play('menu_navigate_1', {volume: 2});
+            this.sound.play('menu_navigate_2', {volume: 0.5});
             
             this.time.addEvent({
                 //  Añado tiempo de espera
@@ -93,11 +93,10 @@ class MainMenu extends Phaser.Scene {
             this.time.addEvent({
                 delay: 400,
                 callback: () => {
-                    this.input.setDefaultCursor('default');
-                    //this.scene.start('Play');
+                    // this.input.setDefaultCursor('default')
+                    //this.scene.start('Play')
                 },
             });
-            
         });
 
         this.textOptions.on('pointerdown', () => {
@@ -107,10 +106,10 @@ class MainMenu extends Phaser.Scene {
             this.time.addEvent({
                 delay: 600,
                 callback: () => {
-                    this.input.setDefaultCursor('default');
-                    //this.scene.start('Play');
+                    // this.input.setDefaultCursor('default')
+                    //this.scene.start('Play')
                 },
-            });
+            })
             
         });
     }

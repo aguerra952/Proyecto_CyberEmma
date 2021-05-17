@@ -10,7 +10,7 @@ class Play extends Phaser.Scene {
 
     init() {
         console.log('Se ha iniciado la escena Play');
-        // this.sound.play('musicPlay',{volume: 1, loop: true});
+        // this.sound.play('musicPlay',{volume: 1, loop: true})
         this.scene.launch('UI');
     }
 
@@ -18,59 +18,58 @@ class Play extends Phaser.Scene {
         //  Establezco la imagen de fondo
         this.add.image(0,0,'background')
         .setOrigin(0);
-
+        //  Creo el grupo donde introduciré los objetos estáticos
         this.floors = this.physics.add.staticGroup();
         
         //  large_floor: 1314x251 px
-        this.floors.create(900,this.scale.height + 50,'large_floor');
-        
+        this.floors.create(900, this.scale.height + 50,'large_floor');
         this.floors.getChildren()[0]
-        .setScale(1.32,1)
-        .setSize(1734.48,251);
+        .setScale(1.32, 1)
+        .setSize(1734.48, 251);
         
         //  floor: 512x512 px
-        this.floors.create(140,460,'floor');
-        this.floors.create(220,230,'floor');
-        this.floors.create(900,280,'floor');
+        this.floors.create(150, 475,'floor');
+        this.floors.create(220, 230,'floor');
+        this.floors.create(900, 280,'floor');
         this.floors.create(this.scale.width - 265,this.scale.height - 120,'floor');
         this.floors.create(this.scale.width - 215,this.scale.height/2 - 70,'floor');
 
-        var offset = 20;
+        let offset = 20;
 
         this.floors.getChildren()[1]
-        .setScale(0.4, 0.2)
-        .setSize(204.8,102.4 - offset);
+        .setScale(0.45, 0.15)
+        .setSize(230.4, 76.8 - offset);
         this.floors.getChildren()[2]
         .setScale(0.7, 0.2)
         .setSize(358.4,102.4 - offset);
         this.floors.getChildren()[3]
         .setScale(1.2, 0.25)
-        .setSize(614.4,128 - offset);
+        .setSize(614.4, 128 - offset);
         this.floors.getChildren()[4]
         .setScale(0.9, 0.26)
-        .setSize(460.8,133.12 - offset);
+        .setSize(460.8, 133.12 - offset);
         this.floors.getChildren()[5]
         .setScale(0.7, 0.2)
-        .setSize(358.4,102.4 - offset);
-
+        .setSize(358.4, 102.4 - offset);
+        //  Actualizo el cuerpo estático de los suelos
         this.floors.refresh();
-        
+        //  Añado un offset a cada miembro del grupo para que las físicas de los cuerpos disminuyan en el eje Y
         this.floors.getChildren()[0]
-        .setOffset(0,20); 
+        .setOffset(0, 20); 
         this.floors.getChildren()[1]
-        .setOffset(0,30); 
+        .setOffset(0, 30); 
         this.floors.getChildren()[2]
-        .setOffset(0,30); 
+        .setOffset(0, 30); 
         this.floors.getChildren()[3]
-        .setOffset(0,30); 
+        .setOffset(0, 30); 
         this.floors.getChildren()[4]
-        .setOffset(0,30); 
+        .setOffset(0, 30); 
         this.floors.getChildren()[5]
-        .setOffset(0,30); 
+        .setOffset(0, 30); 
         
         this.walls = this.physics.add.staticGroup();
         //  wall_end: 64x1021 px
-        this.walls.create(0,0,'wall_end')
+        this.walls.create(0,0, 'wall_end')
         .setScale(0.6)
         .setOrigin(0);
 
@@ -81,10 +80,10 @@ class Play extends Phaser.Scene {
         
         this.walls.refresh();
 
-        this.walls.getChildren()[0].setOffset(-25,0);
+        this.walls.getChildren()[0].setOffset(-25, 0);
         
         this.invisibleWalls = this.physics.add.staticGroup();
-        //  invible_black: 32x113 px
+        //  invisible_black: 32x113 px
         this.invisibleWalls.create(
             this.floors.getChildren()[0].body.width/2.6,
             this.floors.getChildren()[0].body.y - 55,
@@ -101,7 +100,7 @@ class Play extends Phaser.Scene {
             this.floors.getChildren()[2].x*2 - 25,
             this.floors.getChildren()[2].body.y - 55,
             'invisible_wall'
-        );
+        )
 
         this.invisibleWalls.create(
             this.floors.getChildren()[3].body.x - 15,
@@ -113,7 +112,7 @@ class Play extends Phaser.Scene {
             this.floors.getChildren()[3].body.x + 630,
             this.floors.getChildren()[3].body.y - 55,
             'invisible_wall'
-        );
+        )
 
         this.invisibleWalls.create(
             this.floors.getChildren()[4].body.x - 15,
@@ -127,7 +126,7 @@ class Play extends Phaser.Scene {
             'invisible_wall'
         );  
         
-        //this.invisibleWalls.setVisible(false);
+        // this.invisibleWalls.setVisible(false)
 
         //  Personaje principal Emma
         this.emma = new Emma({
@@ -136,22 +135,18 @@ class Play extends Phaser.Scene {
             y: 300
         });
         
-        //  Camara sigue a Emma
-        // var camera = this.cameras.main;
-        // camera.startFollow(this.emma);
-
-        //  Grupo donde se irán introduciendo los enemigos
+        //  Grupo donde se irán añadiendo los enemigos
         this.enemies = this.physics.add.group();
-
+        //  Genero a todos los enemigos del juego
         this.generateEnemies();
 
-        //  Colisión de Emma con los ítems
+        //  Colisión de Emma con las plataformas
         this.physics.add.collider(
             this.emma, 
             [this.walls, this.floors]
         );
 
-        //  Colisión de los enemigos con la plataforma base
+        //  Colisión de los enemigos con la plataforma inicial
         this.physics.add.collider(
             this.enemies, 
             this.floors.getChildren()[0]
@@ -159,28 +154,31 @@ class Play extends Phaser.Scene {
 
         //  Colisiones de los enemigos con las paredes invisibles y los suelos
         //  Colisión primer enemigo
-        var enemy1 = this.enemies.getChildren()[0];
+        let enemy1 = this.enemies.getChildren()[0];
         this.physics.add.collider(
             enemy1,
             this.floors.getChildren()[1], () => {
-                enemy1.anims.playReverse("drone_rotate");
+                enemy1.anims.playReverse('drone_rotate');
                 enemy1.direction = "left";
+                enemy1.velocity = this.randomNumber;
             }
         );
 
         this.physics.add.collider(
             enemy1,
             this.invisibleWalls.getChildren()[0], () => {
-                enemy1.anims.playReverse("drone_rotate");
+                enemy1.anims.playReverse('drone_rotate');
                 enemy1.direction = "right";
+                enemy2.velocity = this.randomNumber;
             }
         );
         // Colisión segundo enemigo
-        var enemy2 = this.enemies.getChildren()[1];
+        let enemy2 = this.enemies.getChildren()[1];
         this.physics.add.collider(
             enemy2,
             this.invisibleWalls.getChildren()[0], () => {
                 enemy2.direction = "left";
+                enemy2.velocity = this.randomNumber;
             }
         );
     
@@ -188,14 +186,17 @@ class Play extends Phaser.Scene {
             enemy2,
             this.invisibleWalls.getChildren()[1], () => {
                 enemy2.direction = "right";
+                enemy2.velocity = this.randomNumber;
             }
         ); 
         //  Colisión tercer enemigo
-        var enemy3 = this.enemies.getChildren()[2];
+        let enemy3 = this.enemies.getChildren()[2];
         this.physics.add.collider(
             enemy3,
             this.invisibleWalls.getChildren()[1], () => {
                 enemy3.direction = "left";
+                enemy3.body.reset(enemy3.body.position.x + 70, enemy3.body.position.y + 20);
+                enemy3.velocity = this.randomNumber;
             }
         );
     
@@ -203,162 +204,246 @@ class Play extends Phaser.Scene {
             enemy3,
             this.floors.getChildren()[4], () => {
                 enemy3.direction = "right";
+                enemy3.body.reset(enemy3.body.position.x, enemy3.body.position.y + 20);
+                enemy3.velocity = this.randomNumber;
             }
         );  
-        // //  Colisión cuarto enemigo
-        // var enemy4 = this.enemies.getChildren()[3];
-        // this.physics.add.collider(
-        //     enemy4,
-        //     this.walls.getChildren()[0], () => {
-        //         this.speedEnemy(enemy4, 62, true);
-        //     }
-        // );
+        //  Colisión cuarto enemigo
+        let enemy4 = this.enemies.getChildren()[3];
+        this.physics.add.collider(
+            enemy4,
+            this.walls.getChildren()[0], () => {
+                enemy4.direction = "left";
+                enemy4.velocity = this.randomNumber;
+            }
+        );
     
-        // this.physics.add.collider(
-        //     enemy4,
-        //     this.invisibleWalls.getChildren()[2], () => {
-        //         this.speedEnemy(enemy4, 55, false);
-        //     }
-        // ); 
-        // //  Colisión quinto enemigo
-        // var enemy5 = this.enemies.getChildren()[4];
-        // this.physics.add.collider(
-        //     enemy5,
-        //     this.invisibleWalls.getChildren()[3], () => {
-        //         this.speedEnemy(enemy5, 65, true);
-        //     }
-        // );
+        this.physics.add.collider(
+            enemy4,
+            this.invisibleWalls.getChildren()[2], () => {
+                enemy4.direction = "right";
+                enemy4.velocity = this.randomNumber;
+            }
+        );
+        //  Colisión quinto enemigo
+        let enemy5 = this.enemies.getChildren()[4];
+        this.physics.add.collider(
+            enemy5,
+            this.invisibleWalls.getChildren()[3], () => {
+                enemy5.direction = "left";
+                enemy5.body.reset(enemy5.body.position.x + 70, enemy5.body.position.y + 20);
+                enemy5.velocity = this.randomNumber;
+            }
+        );
     
-        // this.physics.add.collider(
-        //     enemy5,
-        //     this.invisibleWalls.getChildren()[4], () => {
-        //         this.speedEnemy(enemy5, 75, false);
-        //     }
-        // ); 
-        // //  Colisión sexto enemigo
-        // var enemy6 = this.enemies.getChildren()[5];
-        // this.physics.add.collider(
-        //     enemy6,
-        //     this.invisibleWalls.getChildren()[5], () => {
-        //         this.speedEnemy(enemy6, 64, true);
-        //     }
-        // );
+        this.physics.add.collider(
+            enemy5,
+            this.invisibleWalls.getChildren()[4], () => {
+                enemy5.direction = "right";
+                enemy5.body.reset(enemy5.body.position.x, enemy5.body.position.y + 20);
+                enemy5.velocity = this.randomNumber;
+            }
+        );
+        //  Colisión sexto enemigo
+        let enemy6 = this.enemies.getChildren()[5];
+        this.physics.add.collider(
+            enemy6,
+            this.invisibleWalls.getChildren()[5], () => {
+                enemy6.direction = "left";
+                enemy6.velocity = this.randomNumber;
+            }
+        );
     
-        // this.physics.add.collider(
-        //     enemy6,
-        //     this.walls.getChildren()[1], () => {
-        //         this.speedEnemy(enemy6, 45, false);
-        //     }
-        // ); 
-        // //  Colisión séptimo enemigo
-        // var enemy7 = this.enemies.getChildren()[6];
-        // this.physics.add.collider(
-        //     enemy7,
-        //     this.invisibleWalls.getChildren()[6], () => {
-        //         this.speedEnemy(enemy7, 68, true);
-        //     }
-        // );
+        this.physics.add.collider(
+            enemy6,
+            this.walls.getChildren()[1], () => {
+                enemy6.direction = "right";
+                enemy6.velocity = this.randomNumber;
+            }
+        );
+        //   Colisión séptimo enemigo
+        let enemy7 = this.enemies.getChildren()[6];
+        this.physics.add.collider(
+            enemy7,
+            this.invisibleWalls.getChildren()[6], () => {
+                enemy7.anims.playReverse('drone_rotate');
+                enemy7.direction = "left";
+                enemy7.velocity = this.randomNumber;
+            }
+        )
     
-        // this.physics.add.collider(
-        //     enemy7,
-        //     this.walls.getChildren()[1], () => {
-        //         this.speedEnemy(enemy7, 75, false);
-        //     }
-        // ); 
+        this.physics.add.collider(
+            enemy7,
+            this.walls.getChildren()[1], () => {
+                enemy7.anims.playReverse('drone_rotate');
+                enemy7.direction = "right";
+                enemy7.velocity = this.randomNumber;
+            }
+        ) 
 
-        // //  Colisión de los enemigos con las plataformas del segundo nivel
-        // this.physics.add.collider(
-        //     this.enemies, 
-        //     [
-        //         this.floors.getChildren()[2],
-        //         this.floors.getChildren()[3],
-        //         this.floors.getChildren()[4],
-        //         this.floors.getChildren()[5]
-        //     ]
-        // );
+        //  Colisión de los enemigos con las plataformas del segundo nivel
+        this.physics.add.collider(
+            this.enemies, 
+            [
+                this.floors.getChildren()[2],
+                this.floors.getChildren()[3],
+                this.floors.getChildren()[4],
+                this.floors.getChildren()[5]
+            ]
+        );
 
         //  Colisión de daño entre Emma y los enemigos
         this.physics.add.overlap(
             this.emma,
-            [enemy1,enemy2],
-            () => {
+            this.enemies.getChildren(), () => {
                 this.emma.emmaDamage();
             }
         );
 
-        //  Colisión de las balas con las paredes del juego
+        //  Colisión de las balas de Emma con las paredes
         this.physics.add.overlap(
-            this.emma.emmaBullets,
-            [this.walls, this.floors], () => {
-                this.emma.emmaBullets.destroyBullet();
+            this.emma.bullets,
+            [this.floors, this.walls], () => {
+                this.emma.destroyBullet();
             }
         );
 
         //  Colision de las balas de Emma con los enemigos
         this.physics.add.overlap(
-            this.emma.emmaBullets,
-            [enemy1,enemy2], 
+            this.emma.bullets,
+            this.enemies.getChildren(), 
             (enemy) => {
-                this.emma.emmaBullets.destroyBullet();
-                enemy.enemyDamage();
+                this.emma.destroyBullet();
+                enemy.enemyDamage()
+            }
+        );
+        
+        this.enemBlacks = [
+            this.enemBlack1,
+            this.enemBlack2,
+            this.enemBlack3
+        ];
+
+        this.enemBlacksBullets = [
+            this.enemBlack1.bullets, 
+            this.enemBlack2.bullets,
+            this.enemBlack3.bullets
+        ];
+        //  Colisión de las balas enemigas con las paredes
+        this.physics.add.overlap(
+            this.enemBlacksBullets,
+            [this.floors, this.walls], () => {
+                this.enemBlacks.forEach((enemBlack) => {
+                    enemBlack.destroyBullet();
+                });
             }
         );
 
-        //  Colision de las balas de los enemigos con Emma
-        var bullet = enemy2.bullets.getFirstAlive();
+        //  Colision de las balas enemigas con Emma
         this.physics.add.overlap(
-            bullet,
-            this.emma, 
-            (bullet) => {
-                bullet.destroy();
+            this.enemBlacksBullets,
+            this.emma, () => {
+                this.enemBlacks.forEach((enemBlack) => {
+                    enemBlack.destroyBullet();
+                });
+                this.emma.emmaDamage();
+            }
+        );
+
+        this.zappers = [
+            this.zapper1,
+            this.zapper2
+        ];
+
+        this.zapperBullets = [
+            this.zapper1.sparks,
+            this.zapper2.sparks
+        ];
+
+        //  Colisión de las las chispas con las paredes
+        this.physics.add.overlap(
+            this.zapperBullets,
+            [this.floors, this.walls], () => {
+                this.zappers.forEach((zapper) => {
+                    zapper.destroySpark();
+                });
+            }
+        );
+
+        // Colision de las chispas con Emma
+        this.physics.add.overlap(
+            this.zapperBullets,
+            this.emma, () => {
+                this.zappers.forEach((zapper) => {
+                    zapper.destroySpark();
+                });
                 this.emma.emmaDamage();
             }
         );
 
     }
 
-    update(time, delta) {
+    update(time) {
         this.emma.update();   
         
-        if(this.enemBlack1.life > 0) 
-            this.enemyFire(time, this.emma);
-        //  Actualizo a todos lo enemigos en el update de la escena del juego
+        //  Actualizo a todos los enemigos en el update de la escena
         this.enemies.getChildren().forEach((enemy) => {
             enemy.update();
+        })
+        
+        this.enemBlacks.forEach((enemBlack) => {
+            //  Cuando el enemigo muere ya no puede disparar
+            if(enemBlack.life > 0) 
+                this.enemyAttack(time, this.emma, enemBlack);
         });
 
+        this.zappers.forEach((zapper) => {
+            //  Cuando el enemigo muere ya no puede disparar
+            if(zapper.life > 0) {
+                this.enemyAttack(time, this.emma, zapper);
+                this.registry.events.emit('update_spark');
+            }
+        });
+
+        this.randomNumber = Phaser.Math.Between(30, 80);
     }
 
-    enemyFire(time,emma) {
-        Phaser.Actions.Call([this.enemBlack1], function (enemy) {
-            if(Math.abs(enemy.x - emma.x) <= 200 && Math.abs(enemy.y - emma.y) <= 20) {
+    enemyAttack(time, emma, enemy) {
+        if(enemy.getData('name') === "Enemy Black") {
+            if(Math.abs(enemy.x - emma.x) <= 300 && Math.abs(enemy.y - emma.y) <= 10) {
                 enemy.stopMovement(emma.x);
-                enemy.fire(time);
-            } else {
-                enemy.stop = false;
+                enemy.attack(time);
             }
-        }, this);
+        } 
+
+        if(enemy.getData('name') === "Zapper Droid") {
+            if(Math.abs(enemy.x - emma.x) <= 300 && Math.abs(enemy.y - emma.y) <= 10) {
+                enemy.changeDirection(emma.x);
+                enemy.attack(time);
+            }
+        } 
+        
     }
 
     generateEnemies() {
         var level1 = 400;
-        var level2 = 350;
+        var level2 = 300;
         var level3 = 90;
-        var block1 = this.invisibleWalls.getChildren()[0].body.x;
-        var block2 = this.invisibleWalls.getChildren()[1].body.x;
-        var block3 = this.invisibleWalls.getChildren()[2].body.x;
-        var block4 = this.invisibleWalls.getChildren()[3].body.x;
-        var block5 = this.invisibleWalls.getChildren()[4].body.x;
-        var block6 = this.invisibleWalls.getChildren()[5].body.x;
-        var block7 = this.invisibleWalls.getChildren()[6].body.x;
-        
-        var respawn1 = Phaser.Math.Between(280, block1 - 100);
-        var respawn2 = Phaser.Math.Between(block1 + 100, block2 - 100);
-        var respawn3 = Phaser.Math.Between(block2 + 100, this.floors.getChildren()[4].body.x);
-        var respawn4 = Phaser.Math.Between(this.walls.getChildren()[0].body.x + 100, block3 - 100);
+        var block1 = this.invisibleWalls.getChildren()[0].x;
+        var block2 = this.invisibleWalls.getChildren()[1].x;
+        var block3 = this.invisibleWalls.getChildren()[2].x;
+        var block4 = this.invisibleWalls.getChildren()[3].x;
+        var block5 = this.invisibleWalls.getChildren()[4].x;
+        var block6 = this.invisibleWalls.getChildren()[5].x;
+        var block7 = this.invisibleWalls.getChildren()[6].x;
+
+        var respawn1 = Phaser.Math.Between(350, block1 - 50);
+        var respawn2 = Phaser.Math.Between(block1 + 50, block2 - 50);
+        var respawn3 = Phaser.Math.Between(block2 + 100, this.floors.getChildren()[4].x - 250);
+        var respawn4 = Phaser.Math.Between(this.walls.getChildren()[0].x + 100, block3 - 100);
         var respawn5 = Phaser.Math.Between(block4 + 100, block5 - 100);
-        var respawn6 = Phaser.Math.Between(block6 + 100, this.walls.getChildren()[1].body.x - 100);
-        var respawn7 = Phaser.Math.Between(block7 + 100, this.walls.getChildren()[1].body.x - 100);
+        var respawn6 = Phaser.Math.Between(block6 + 100, this.walls.getChildren()[1].x - 50);
+        var respawn7 = Phaser.Math.Between(block7 + 100, this.walls.getChildren()[1].x - 50);
 
         this.drone1 = new Drone({
             physicsWorld: this.physics.world,
@@ -375,53 +460,47 @@ class Play extends Phaser.Scene {
             y: level1
         });
         this.enemies.add(this.enemBlack1);
-
-        this.zapper = new ZapperDroid({
+        
+        this.zapper1 = new ZapperDroid({
             physicsWorld: this.physics.world,
             scene: this,
             x: respawn3,
             y: level1
         });
-        this.enemies.add(this.zapper);
+        this.enemies.add(this.zapper1);
 
-        // this.enemBlack4 = new EnemyBlack({
-        //     physicsWorld: this.physics.world,
-        //     scene: this,
-        //     x: respawn4,
-        //     y: level3
-        // });
-        // this.enemies.add(this.enemBlack4);
-        // this.enemBlack4.update();
+        this.enemBlack2 = new EnemyBlack({
+            physicsWorld: this.physics.world,
+            scene: this,
+            x: respawn4,
+            y: level3
+        })
+        this.enemies.add(this.enemBlack2);
 
-        // this.enemBlack5 = new EnemyBlack({
-        //     physicsWorld: this.physics.world,
-        //     scene: this,
-        //     x: respawn5,
-        //     y: level3
-        // });
-        // this.enemies.add(this.enemBlack5);
-        // this.enemBlack5.update();
+        this.zapper2 = new ZapperDroid({
+            physicsWorld: this.physics.world,
+            scene: this,
+            x: respawn5,
+            y: level3
+        })
+        this.enemies.add(this.zapper2);
 
-        // this.enemBlack6 = new EnemyBlack({
-        //     physicsWorld: this.physics.world,
-        //     scene: this,
-        //     x: respawn6,
-        //     y: level2
-        // });
-        // this.enemies.add(this.enemBlack6);
-        // this.enemBlack6.update();
+        this.enemBlack3 = new EnemyBlack({
+            physicsWorld: this.physics.world,
+            scene: this,
+            x: respawn6,
+            y: level2
+        });
+        this.enemies.add(this.enemBlack3);
 
-        // this.enemBlack7 = new EnemyBlack({
-        //     physicsWorld: this.physics.world,
-        //     scene: this,
-        //     x: respawn7,
-        //     y: level3
-        // });
-        // this.enemies.add(this.enemBlack7);
-        // this.enemBlack7.update();
-
+        this.drone2 = new Drone({
+            physicsWorld: this.physics.world,
+            scene: this,
+            x: respawn7,
+            y: level3
+        });
+        this.enemies.add(this.drone2);
     }
-
 }
 
 export default Play;

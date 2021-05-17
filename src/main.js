@@ -5,7 +5,7 @@ import Play from './Scenes/Play.js';
 
 const config = {
     title: "CyberEmma",
-    version: "1.0.0",
+    version: "1.0",
     type: Phaser.AUTO,
     scale: {
         parent: "phaser_container",
@@ -30,6 +30,6 @@ const config = {
        MainMenu,
        Play,
     ]
-};
+}
 
 new Phaser.Game(config);

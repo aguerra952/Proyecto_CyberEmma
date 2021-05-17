@@ -1,4 +1,4 @@
-import BulletsGroup from "../Objects/BulletsGroup.js";
+import Bullets from "../Objects/Bullet.js"
 
 class Emma extends Phaser.GameObjects.Sprite {
   constructor(config) {
@@ -11,27 +11,28 @@ class Emma extends Phaser.GameObjects.Sprite {
     this.setScale(0.6);
     this.body.setSize(90, 190);
     this.body.setBounce(0.15);
-    this.body.setMass(200);
-    this.body.setCollideWorldBounds(true);
+
+    this.anims.play("emma_idle");
 
     this.jumping = false;
-    this.velocity = 260;
-    this.anims.play("emma_idle");
+    this.velocity = 250;
     this.prevMov = "emma_idle";
-
     this.hitDelay = false;
     this.life = 4;
-    //this.isFalling = this.body.y < 0;
 
     //  Defino las teclas que voy a utilizar
     this.keys = this.scene.input.keyboard.addKeys(
-      "LEFT, RIGHT, UP, A, D, W, J"
+      "LEFT, RIGHT, UP, DOWN, A, D, W, S, J"
     );
-    //  Añado las balas que Emma utiliza
-    this.emmaBullets = new BulletsGroup(this.scene);
+    
+    this.bullets = this.scene.physics.add.group({
+      classType: Bullets,
+      key: "bullet"
+    });
+
   }
 
-  update(time,delta) {
+  update(time) {
     if (this.keys.LEFT.isDown || this.keys.A.isDown) {
       this.body.velocity.x = -this.velocity;
       this.flipX = true;
@@ -63,12 +64,11 @@ class Emma extends Phaser.GameObjects.Sprite {
 
         // this.on("animationrepeat", () => {
         //   if (this.anims.currentAnim.key === "emma_shoot") {}
-        // });
+        // })
       }
     } else {
       //  Reseteo el tamaño del body
       this.body.velocity.x = 0;
-      this.body.setSize(90, 190);
 
       if (this.prevMov !== "idle" && !this.jumping) {
         this.prevMov = "idle";
@@ -76,11 +76,9 @@ class Emma extends Phaser.GameObjects.Sprite {
       }
     }
 
-    if (
-      (Phaser.Input.Keyboard.JustDown(this.keys.UP) ||
-        Phaser.Input.Keyboard.JustDown(this.keys.W)) &&
-      !this.jumping
-    ) {
+    if ((Phaser.Input.Keyboard.JustDown(this.keys.UP) ||
+      Phaser.Input.Keyboard.JustDown(this.keys.W)
+    ) && this.body.onFloor()) {
       this.jumping = true;
       this.body.velocity.y = -830;
 
@@ -91,27 +89,27 @@ class Emma extends Phaser.GameObjects.Sprite {
     } else if (this.body.blocked.down) {
       this.jumping = false;
     }
+
   }
 
   emmaDamage() {
     if (!this.hitDelay) {
       this.hitDelay = true;
 
-      //this.scene.sound.play('');
+      //this.scene.sound.play('')
 
       this.life--;
       this.scene.registry.events.emit("remove_life");
 
       if (this.life === 0) {
-        this.alive = false;
         this.scene.registry.events.emit("game_over");
       }
 
       this.scene.tweens.add({
         targets: this,
         alpha: 0.5,
-        duration: 250,
-        repeat: 3,
+        duration: 300,
+        repeat: 5,
         onRepeat: () => {
           this.clearAlpha();
         },
@@ -124,12 +122,27 @@ class Emma extends Phaser.GameObjects.Sprite {
   }
 
   shootBullet() {
-    this.emmaBullets.fireBullet(
-      this.body.position.x + 70,
-      this.body.position.y + 35,
-      this.directionBullet,
-      350
-    );
+    var bullet = this.bullets.get();
+    if(this.directionBullet === true) {
+      bullet.create(
+        this.body.position.x + 70, 
+        this.body.position.y + 35,  
+        this.directionBullet, 
+        350
+      );
+    } else {
+      bullet.create(
+        this.body.position.x - 20, 
+        this.body.position.y + 35,  
+        this.directionBullet, 
+        350
+      );
+    }
+    
+  }
+
+  destroyBullet() {
+    this.bullets.getFirstAlive(true).destroy();
   }
 }
 

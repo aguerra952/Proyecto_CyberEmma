@@ -3,35 +3,30 @@ class Bullet extends Phaser.Physics.Arcade.Sprite {
         super(scene, x, y, 'bullet');
     }
 
-    create(x, y, directionBullet, speed){
+    create(x, y, direction, speed){
         //  Reseteo el cuerpo de la bala
         this.body.reset(x,y);
-        
         this.setScale(1.1);
-        this.setActive(true);
-        this.setVisible(true);
         //  Quito la gravedad
         this.body.allowGravity = false;
-        
         //  Evito que al iniciar el juego el disparo sea hacia la izquierda
-        switch (directionBullet) {
+        switch (direction) {
             case true:
                 //  Cambio la dirección de la bala
-                this.setPosition(x,y); 
+                this.setPosition(x,y) ;
                 this.setVelocityX(speed);
                 break;
             case false:
-                this.setPosition(x - 50,y);
+                this.setPosition(x,y);
                 this.setFlipX(true);
                 this.setVelocityX(-speed);
                 break;
             default:
-                this.setPosition(x,y); 
+                this.setPosition(x,y) ;
                 this.setVelocityX(speed);
                 break;
         } 
     }
-
 
 }
 

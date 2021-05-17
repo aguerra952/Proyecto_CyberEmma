@@ -10,59 +10,61 @@ class Drone extends Phaser.GameObjects.Sprite {
     this.body.setSize(30, 45);
     this.body.offset.y = 10;
     this.body.setBounce(0.2);
-    this.body.setImmovable(true);
 
-    this.anims.play("drone_run");
+    this.anims.play("drone_idle");
 
     this.hitDelay = false;
     this.life = 3;
-    this.points = 30;
+    this.points = 20;
     this.velocity = 55;
-    this.direction = "left";
+    this.direction = "right";
   }
   
   update() {
-    if(this.direction === "left") {
-      this.body.velocity.x = this.velocity;
-      this.setFlipX(true);
-    } else if(this.direction === "right"){
+    if(this.direction === "right") {
       this.body.velocity.x = -this.velocity;
       this.setFlipX(false);
+    } else if(this.direction === "left"){
+      this.body.velocity.x = this.velocity;
+      this.setFlipX(true);
+    } else {
+      this.body.velocity.x = 0;
     }
   }
 
   enemyDamage() {
     if (!this.hitDelay) {
       this.hitDelay = true;
-      
-      this.scene.sound.play("damage", {volume: 0.2});
       this.life--;
       
       if(this.life === 0) {
-        this.body.setVelocityX(0);
+        this.direction = "none";
         this.anims.play("drone_death");
+        this.scene.sound.play('explosion', {volume: 0.5});
         this.scene.time.addEvent({
-          delay: 600,
+          delay: 800,
           callback: () => {
             this.scene.registry.events.emit('update_points', this.points);
             this.destroy();
           }
-        });
+        })
+      } else {
+        this.scene.sound.play("damage", {volume: 0.2});
+        
+        this.tint = 0xecd869
+        this.scene.time.addEvent({
+          delay: 200,
+          callback: () => {
+            this.hitDelay = false;
+            this.clearTint();
+          }
+        })
       }
 
-      this.setTint(0xecd869);
-
-      this.scene.time.addEvent({
-        delay: 200,
-        callback: () => {
-          this.hitDelay = false;
-          this.clearTint();
-        }
-      });
     }
      
   }
   
 }
-  
-  export default Drone;
+
+export default Drone;

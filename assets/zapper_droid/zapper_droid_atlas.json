@@ -1,89 +1,11 @@
 {
     "frames": [
         {
-            "filename": "zapper_idle_0",
-            "frame": {
-                "w": 58,
-                "h": 41,
-                "x": 0,
-                "y": 0
-            },
-            "anchor": {
-                "x": 0.5,
-                "y": 0.5
-            }
-        },
-        {
-            "filename": "zapper_idle_1",
-            "frame": {
-                "w": 58,
-                "h": 41,
-                "x": 0,
-                "y": 41
-            },
-            "anchor": {
-                "x": 0.5,
-                "y": 0.5
-            }
-        },
-        {
-            "filename": "zapper_idle_2",
-            "frame": {
-                "w": 58,
-                "h": 41,
-                "x": 58,
-                "y": 0
-            },
-            "anchor": {
-                "x": 0.5,
-                "y": 0.5
-            }
-        },
-        {
-            "filename": "zapper_idle_3",
-            "frame": {
-                "w": 58,
-                "h": 41,
-                "x": 58,
-                "y": 41
-            },
-            "anchor": {
-                "x": 0.5,
-                "y": 0.5
-            }
-        },
-        {
-            "filename": "zapper_idle_4",
-            "frame": {
-                "w": 58,
-                "h": 41,
-                "x": 0,
-                "y": 82
-            },
-            "anchor": {
-                "x": 0.5,
-                "y": 0.5
-            }
-        },
-        {
-            "filename": "zapper_idle_5",
-            "frame": {
-                "w": 58,
-                "h": 41,
-                "x": 58,
-                "y": 82
-            },
-            "anchor": {
-                "x": 0.5,
-                "y": 0.5
-            }
-        },
-        {
             "filename": "zapper_run_0",
             "frame": {
                 "w": 58,
                 "h": 41,
-                "x": 116,
+                "x": 0,
                 "y": 0
             },
             "anchor": {
@@ -96,7 +18,7 @@
             "frame": {
                 "w": 58,
                 "h": 41,
-                "x": 116,
+                "x": 0,
                 "y": 41
             },
             "anchor": {
@@ -109,6 +31,84 @@
             "frame": {
                 "w": 58,
                 "h": 41,
+                "x": 58,
+                "y": 0
+            },
+            "anchor": {
+                "x": 0.5,
+                "y": 0.5
+            }
+        },
+        {
+            "filename": "zapper_run_3",
+            "frame": {
+                "w": 58,
+                "h": 41,
+                "x": 58,
+                "y": 41
+            },
+            "anchor": {
+                "x": 0.5,
+                "y": 0.5
+            }
+        },
+        {
+            "filename": "zapper_run_4",
+            "frame": {
+                "w": 58,
+                "h": 41,
+                "x": 0,
+                "y": 82
+            },
+            "anchor": {
+                "x": 0.5,
+                "y": 0.5
+            }
+        },
+        {
+            "filename": "zapper_run_5",
+            "frame": {
+                "w": 58,
+                "h": 41,
+                "x": 58,
+                "y": 82
+            },
+            "anchor": {
+                "x": 0.5,
+                "y": 0.5
+            }
+        },
+        {
+            "filename": "zapper_idle_0",
+            "frame": {
+                "w": 58,
+                "h": 41,
+                "x": 116,
+                "y": 0
+            },
+            "anchor": {
+                "x": 0.5,
+                "y": 0.5
+            }
+        },
+        {
+            "filename": "zapper_idle_1",
+            "frame": {
+                "w": 58,
+                "h": 41,
+                "x": 116,
+                "y": 41
+            },
+            "anchor": {
+                "x": 0.5,
+                "y": 0.5
+            }
+        },
+        {
+            "filename": "zapper_idle_2",
+            "frame": {
+                "w": 58,
+                "h": 41,
                 "x": 116,
                 "y": 82
             },
@@ -118,7 +118,7 @@
             }
         },
         {
-            "filename": "zapper_run_3",
+            "filename": "zapper_idle_3",
             "frame": {
                 "w": 58,
                 "h": 41,
@@ -131,7 +131,7 @@
             }
         },
         {
-            "filename": "zapper_run_4",
+            "filename": "zapper_idle_4",
             "frame": {
                 "w": 58,
                 "h": 41,
@@ -144,7 +144,7 @@
             }
         },
         {
-            "filename": "zapper_run_5",
+            "filename": "zapper_idle_5",
             "frame": {
                 "w": 58,
                 "h": 41,
@@ -319,71 +319,6 @@
                 "h": 41,
                 "x": 232,
                 "y": 0
-            },
-            "anchor": {
-                "x": 0.5,
-                "y": 0.5
-            }
-        },
-        {
-            "filename": "zapper_attack_5",
-            "frame": {
-                "w": 58,
-                "h": 41,
-                "x": 232,
-                "y": 41
-            },
-            "anchor": {
-                "x": 0.5,
-                "y": 0.5
-            }
-        },
-        {
-            "filename": "zapper_attack_6",
-            "frame": {
-                "w": 58,
-                "h": 41,
-                "x": 232,
-                "y": 82
-            },
-            "anchor": {
-                "x": 0.5,
-                "y": 0.5
-            }
-        },
-        {
-            "filename": "zapper_attack_7",
-            "frame": {
-                "w": 58,
-                "h": 41,
-                "x": 232,
-                "y": 123
-            },
-            "anchor": {
-                "x": 0.5,
-                "y": 0.5
-            }
-        },
-        {
-            "filename": "zapper_attack_8",
-            "frame": {
-                "w": 58,
-                "h": 41,
-                "x": 232,
-                "y": 164
-            },
-            "anchor": {
-                "x": 0.5,
-                "y": 0.5
-            }
-        },
-        {
-            "filename": "zapper_attack_9",
-            "frame": {
-                "w": 58,
-                "h": 41,
-                "x": 232,
-                "y": 205
             },
             "anchor": {
                 "x": 0.5,
