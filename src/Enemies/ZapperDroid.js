@@ -10,8 +10,9 @@ class ZapperDroid extends Phaser.GameObjects.Sprite {
     this.scene.physics.world.enable(this);
 
     this.setScale(3);
-    this.body.setSize(20, 30);
+    this.body.setSize(20, 25);
     this.body.setBounce(0.2);
+    this.setDepth(1);
 
     this.life = 3;
     this.points = 40;
@@ -22,7 +23,7 @@ class ZapperDroid extends Phaser.GameObjects.Sprite {
     this.nextTick = 0;
     this.sparks = this.scene.physics.add.group({
       classType: Spark,
-      key: 'spark'
+      key: 'spark',
     });
   }
 
@@ -30,11 +31,11 @@ class ZapperDroid extends Phaser.GameObjects.Sprite {
     if(this.direction === "left") {
       this.body.velocity.x = this.velocity;
       this.setFlipX(false);
-      this.body.setOffset(5, 11);
+      this.body.setOffset(5, 18);
     } else if(this.direction === "right"){
       this.body.velocity.x = -this.velocity;
       this.setFlipX(true);
-      this.body.setOffset(30, 11);
+      this.body.setOffset(30, 18);
     } else {
       this.body.velocity.x = 0;
     }
@@ -44,33 +45,29 @@ class ZapperDroid extends Phaser.GameObjects.Sprite {
 
   }
 
-  //  Cambio la dirección para que tenga la dirección opuesta a la de Emma
-  changeDirection(emmaX) {
-    if(this.x > emmaX) {
-      this.direction = "right"; 
-    } else {
-      this.direction = "left";
-    }
-  }
-
-  attack(time) {
+  attack(time, angle) {
     if (time > this.nextTick) {
       //  Es la frecuencia de disparo en milisegundos
       var tickFreq = 2500;
       //  El próximo dispara es la suma del tickFreq más el tiempo del juego
       this.nextTick = time + tickFreq;
       //  Obtengo las balas
-      var spark = this.sparks.get();
-      if (this.direction === "left") {
+      if (this.direction === "left" && angle > 0) {
+        //  Obtengo las chispas que se disaparán por la izquierda
+        let sparkL = this.sparks.get();
         //  Dispara a la izquierda
-        if(spark && this.life > 0)
-          spark.create(this.x, this.y + 15, true, 250);
-      } else {
-        //  Dispara a la derecha
-        if(spark && this.life > 0)
-          spark.create(this.x, this.y + 15, false, 250);
-      }
+        if (sparkL) 
+          sparkL.create(this.x, this.y + 15, true, 300);
+      } 
       
+      if (this.direction === "right" && angle < 0) {
+        //  Obtengo las chispas que se disaparán por la derecha
+        let sparkR = this.sparks.get();
+        //  Dispara a la derecha
+        if (sparkR) 
+          sparkR.create(this.x, this.y + 15, false, 300);
+      }
+
     }
   }
   
@@ -89,14 +86,15 @@ class ZapperDroid extends Phaser.GameObjects.Sprite {
           delay: 750,
           callback: () => {
             this.scene.registry.events.emit('update_points', this.points);
+            this.scene.registry.events.emit('enemy_deaths', 1);
             this.destroy();
           }
         });
       } else {
         this.scene.sound.play('damage', {volume: 0.2});
-        //  Cuando recibe daño el enemigo cambia de color
+        //  Cuando recibe daño el enemigo este cambia de color
         this.tint = 0xecd869;
-        //  Se añade un delay para limpiar el color del enemigo
+        //  Se añade un evento de tiempo
         this.scene.time.addEvent({
           delay: 200,
           callback: () => {
