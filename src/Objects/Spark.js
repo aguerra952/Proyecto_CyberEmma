@@ -8,19 +8,18 @@ class Spark extends Phaser.Physics.Arcade.Sprite {
     }
 
     create(x, y, direction, speed) {
-        //  Reseteo el cuerpo de la bala
+        //  Reseteo el cuerpo de la chispa
         this.body.reset(x, y);
         this.setScale(0.15);
+        //  Cambio el color a la chispa
         this.tintTopLeft = 0xfff400;
         this.tintBottomRight = 0xf4d247;
-
         //  Quito la gravedad
         this.body.allowGravity = false;
         
-        //  Evito que al iniciar el juego el disparo sea hacia la izquierda
+        //  Cambio la dirección de la chispa
         switch (direction) {
             case true:
-                //  Cambio la dirección de la bala
                 this.setPosition(x,y) ;
                 this.setVelocityX(speed);
                 break;
@@ -30,12 +29,12 @@ class Spark extends Phaser.Physics.Arcade.Sprite {
                 this.setVelocityX(-speed);
                 break;
         }
-
+        //  Registro un método para hacer que la chispa gire según la dirección
         this.scene.registry.events.on('update_spark', () => {
             if(direction) {
-                this.angle += 4;
+                this.angle += 5;
             } else {
-                this.angle -= 4;
+                this.angle -= 5;
             }
         });
         
