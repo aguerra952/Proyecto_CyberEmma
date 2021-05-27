@@ -2,6 +2,7 @@ class Drone extends Phaser.GameObjects.Sprite {
   constructor(config) {
     super(config.scene, config.x, config.y, "drone");
 
+    this.setData({name: "Drone"});
     this.scene = config.scene;
     this.scene.add.existing(this);
     this.scene.physics.world.enable(this);
@@ -10,6 +11,7 @@ class Drone extends Phaser.GameObjects.Sprite {
     this.body.setSize(30, 45);
     this.body.offset.y = 10;
     this.body.setBounce(0.2);
+    this.setDepth(1);
 
     this.anims.play("drone_idle");
 
@@ -45,13 +47,14 @@ class Drone extends Phaser.GameObjects.Sprite {
           delay: 800,
           callback: () => {
             this.scene.registry.events.emit('update_points', this.points);
+            this.scene.registry.events.emit('enemy_deaths', 1);
             this.destroy();
           }
         })
       } else {
         this.scene.sound.play("damage", {volume: 0.2});
         
-        this.tint = 0xecd869
+        this.tint = 0xecd869;
         this.scene.time.addEvent({
           delay: 200,
           callback: () => {

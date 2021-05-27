@@ -12,9 +12,10 @@ class EnemyBlack extends Phaser.GameObjects.Sprite {
     this.setScale(2.9);
     this.body.setSize(20, 35);
     this.body.setBounce(0.2);
+    this.setDepth(1);
     
     this.life = 3;
-    this.points = 50;
+    this.points = 30;
     this.velocity = 50;
     this.direction = "left";
     this.hitDelay = false;
@@ -22,8 +23,9 @@ class EnemyBlack extends Phaser.GameObjects.Sprite {
     this.nextTick = 0;
     this.bullets = this.scene.physics.add.group({
       classType: Bullets,
-      key: 'bullet'
+      key: 'bullet',
     });
+
   }
 
   update() {
@@ -46,14 +48,11 @@ class EnemyBlack extends Phaser.GameObjects.Sprite {
 
   //  Pauso el movimiento del enemigo
   stopMovement(emmaX) {
-    //  Compruebo si el método está activo
-    if(this.active) {
-      //  El enemigo se para luego para poder disparar
-      this.body.velocity.x = 0;
-      //  Si se llama al método se reproduce la animación
-      this.anims.play('enemblack_idle', false);
-    } 
-
+    //  El enemigo se para luego para poder disparar
+    this.body.velocity.x = 0;
+    //  Si se llama al método se reproduce la animación
+    this.anims.play('enemblack_idle', false);
+    
     //  Reseteo la dirección para que tenga la dirección opuesta a la de Emma
     if(this.x > emmaX) {
       this.direction = "right"; 
@@ -75,11 +74,11 @@ class EnemyBlack extends Phaser.GameObjects.Sprite {
       if (this.direction === "left") {
         //  Dispara a la izquierda
         if (bullet) 
-          bullet.create(this.x + 50, this.y - 10, true, 250);
+          bullet.create(this.x + 50, this.y - 10, true, 300);
       } else {
         //  Dispara a la derecha
         if (bullet) 
-          bullet.create(this.x - 50, this.y - 10, false, 250);
+          bullet.create(this.x - 50, this.y - 10, false, 300);
       }
     } 
   }
@@ -99,6 +98,7 @@ class EnemyBlack extends Phaser.GameObjects.Sprite {
           delay: 600,
           callback: () => {
             this.scene.registry.events.emit('update_points', this.points);
+            this.scene.registry.events.emit('enemy_deaths', 1);
             this.destroy();
           }
         })
@@ -113,7 +113,7 @@ class EnemyBlack extends Phaser.GameObjects.Sprite {
             this.hitDelay = false;
             this.clearTint();
           },
-        })
+        });
       }
     }
      
