@@ -12,11 +12,9 @@ class Emma extends Phaser.GameObjects.Sprite {
     this.body.setSize(90, 190);
     this.body.setBounce(0.15);
 
-    this.anims.play("emma_idle");
-
     this.jumping = false;
     this.velocity = 250;
-    this.prevMov = "emma_idle";
+    this.prevMov = "idle";
     this.hitDelay = false;
     this.life = 4;
 
@@ -51,20 +49,27 @@ class Emma extends Phaser.GameObjects.Sprite {
         this.prevMov = "right";
         this.anims.play("emma_run");
       }
-    } else if (Phaser.Input.Keyboard.JustDown(this.keys.J)) {
-      this.body.setVelocityX(0);
-      this.body.setSize(90, 190);
-      
+    } else if (this.keys.J.isDown) {
       if (this.prevMov !== "shoot") {
         this.prevMov = "shoot";
         this.anims.play("emma_shoot");
+        this.body.velocity.x = 0;
+        this.ok = true;
         
-        this.shootBullet();
-        this.scene.sound.play("shootSound", { delay: 0.1, volume: 0.2 }); 
-
-        // this.on("animationrepeat", () => {
-        //   if (this.anims.currentAnim.key === "emma_shoot") {}
-        // })
+        this.on("animationcomplete", () => {
+          if(this.ok) {
+            this.ok = false;
+            
+            if (this.prevMov !== "jump") {
+              console.log("Emma dispara")
+              this.shootBullet();
+              this.scene.sound.play("shootSound", {volume: 0.2});
+            }
+            //  Emma dispara continuamente
+            // this.anims.play("emma_idle");
+            this.prevMov = "";
+          }
+        });
       }
     } else {
       //  Reseteo el tamaño del body
@@ -77,10 +82,10 @@ class Emma extends Phaser.GameObjects.Sprite {
     }
 
     if ((Phaser.Input.Keyboard.JustDown(this.keys.UP) ||
-      Phaser.Input.Keyboard.JustDown(this.keys.W)
-    ) && this.body.onFloor()) {
+      Phaser.Input.Keyboard.JustDown(this.keys.W)) &&
+      this.body.onFloor()) {
       this.jumping = true;
-      this.body.velocity.y = -830;
+      this.body.velocity.y = -850;
 
       if (this.prevMov !== "jump") {
         this.prevMov = "jump";
@@ -96,7 +101,7 @@ class Emma extends Phaser.GameObjects.Sprite {
     if (!this.hitDelay) {
       this.hitDelay = true;
 
-      //this.scene.sound.play('')
+      // this.scene.sound.play("");
 
       this.life--;
       this.scene.registry.events.emit("remove_life");
@@ -123,26 +128,21 @@ class Emma extends Phaser.GameObjects.Sprite {
 
   shootBullet() {
     var bullet = this.bullets.get();
-    if(this.directionBullet === true) {
+    if(this.directionBullet) {
       bullet.create(
         this.body.position.x + 70, 
         this.body.position.y + 35,  
-        this.directionBullet, 
-        350
-      );
+        this.directionBullet, 350);
     } else {
       bullet.create(
         this.body.position.x - 20, 
         this.body.position.y + 35,  
-        this.directionBullet, 
-        350
-      );
+        this.directionBullet, 350);
     }
-    
   }
 
   destroyBullet() {
-    this.bullets.getFirstAlive(true).destroy();
+    this.bullets.getFirstAlive().destroy();
   }
 }
 
