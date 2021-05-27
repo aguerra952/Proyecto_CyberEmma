@@ -15,7 +15,8 @@ class Bootloader extends Phaser.Scene {
             'invisible_wall',
             'bullet',
             'spark',
-            'life'
+            'life',
+            'heart_pixel'
         ]);
         //  Cargo la fuente del videojuego
         this.load.image('font', 'font/font.png');
