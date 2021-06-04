@@ -16,7 +16,9 @@ class Bootloader extends Phaser.Scene {
             'bullet',
             'spark',
             'life',
-            'heart_pixel'
+            'heart_pixel',
+            'home',
+            'return'
         ]);
         //  Cargo la fuente del videojuego
         this.load.image('font', 'font/font.png');
@@ -24,10 +26,11 @@ class Bootloader extends Phaser.Scene {
         //  Cargo el sonido del juego
         this.load.audio('musicPlay', 'music_play.mp3');
         this.load.audio('musicMenu', 'music_menu.mp3');
+        this.load.audio('gameOver', 'sound_effects/game_over.wav');
         this.load.audio('shootSound', 'sound_effects/ak47_cut.mp3');
         this.load.audio('damage','sound_effects/damage.mp3');
         this.load.audio('menu_selection_1', 'sound_effects/menu_selection_1.mp3');
-        this.load.audio('menu_selection_2', 'sound_effects/menu_selection_1.mp3');
+        this.load.audio('menu_selection_2', 'sound_effects/menu_selection_2.wav');
         this.load.audio('enemy_black', 'sound_effects/enemy_black.mp3');
         this.load.audio('explosion', 'sound_effects/explosion.mp3');
         this.load.audio('zapper_droid', 'sound_effects/zapper_droid.mp3');
@@ -46,9 +49,9 @@ class Bootloader extends Phaser.Scene {
         
         this.load.on('complete', () => {
             const fontConfig = this.cache.json.get('fontData');
-            this.cache.bitmapFont.add('font', Phaser.GameObjects.RetroFont.Parse(this, fontConfig));
+            this.cache.bitmapFont.add('future', Phaser.GameObjects.RetroFont.Parse(this, fontConfig));
 
-            this.scene.start('Play');
+            this.scene.start('GameOver');
         })
     }
 

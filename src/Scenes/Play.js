@@ -2,7 +2,6 @@ import Emma from '../Player/Emma.js';
 import EnemyBlack from '../Enemies/EnemyBlack.js';
 import Drone from "../Enemies/Drone.js";
 import ZapperDroid from "../Enemies/ZapperDroid.js";
-import UI from './UI.js';
 
 class Play extends Phaser.Scene {
     constructor() {
@@ -11,7 +10,7 @@ class Play extends Phaser.Scene {
 
     init() {
         console.log('Se ha iniciado la escena Play');
-        // this.sound.play('musicPlay',{volume: 0.8, loop: true});
+        this.sound.play('musicPlay',{volume: 0.8, loop: true});
         this.scene.launch('UI');
         this.countEnemyDeaths = 0;
     }
@@ -71,7 +70,7 @@ class Play extends Phaser.Scene {
         
         this.walls = this.physics.add.staticGroup();
         //  wall_end: 64x1021 px
-        this.walls.create(0,0, 'wall_end')
+        this.walls.create(0, 0, 'wall_end')
         .setScale(0.6)
         .setOrigin(0);
 
@@ -102,7 +101,7 @@ class Play extends Phaser.Scene {
             this.floors.getChildren()[2].x*2 - 25,
             this.floors.getChildren()[2].body.y - 55,
             'invisible_wall'
-        )
+        );
 
         this.invisibleWalls.create(
             this.floors.getChildren()[3].body.x - 15,
@@ -114,7 +113,7 @@ class Play extends Phaser.Scene {
             this.floors.getChildren()[3].body.x + 630,
             this.floors.getChildren()[3].body.y - 55,
             'invisible_wall'
-        )
+        );
 
         this.invisibleWalls.create(
             this.floors.getChildren()[4].body.x - 15,
@@ -144,10 +143,9 @@ class Play extends Phaser.Scene {
 
         //  Genero vida extra cuando se mate a un enemigo aleatorio
         var randomEnemy = Phaser.Math.Between(2, 7);
+        // console.log(randomEnemy);
         this.registry.events.on('enemy_deaths', (countEnemyDeaths) => {
             this.countEnemyDeaths += countEnemyDeaths;
-            // console.log(randomEnemy);
-            // console.log(this.countEnemyDeaths);
             if (randomEnemy === this.countEnemyDeaths) {
                 this.generateHeart();
             }
@@ -362,7 +360,7 @@ class Play extends Phaser.Scene {
             this.zapper2.sparks
         ];
 
-        //  Colisión de las las chispas con las paredes
+        // Colisión de las las chispas con las paredes
         this.physics.add.overlap(
             this.zapperBullets,
             [this.floors, this.walls], () => {
@@ -411,7 +409,6 @@ class Play extends Phaser.Scene {
     }
     
     enemyAttack(time, emma, enemy) {
-        
         if(enemy.getData('name') === "Enemy Black") {
             if (Math.abs(emma.x - enemy.x) <= 300 && Math.abs(emma.y - enemy.y) <= 10) {
                 enemy.stopMovement(emma.x);
@@ -420,7 +417,7 @@ class Play extends Phaser.Scene {
         } 
         
         if(enemy.getData('name') === "Zapper Droid") {
-            var angle = Math.atan2(emma.x - enemy.x, emma.x - enemy.y);
+            var angle = Math.atan2(emma.x - enemy.x, emma.y - enemy.y);
             if(Math.abs(emma.x - enemy.x) <= 300 && Math.abs(emma.y - enemy.y) <= 10) { 
                 enemy.attack(time, angle);
             }
@@ -506,7 +503,7 @@ class Play extends Phaser.Scene {
 
     generateHeart() {
         var levels = [400, 90];
-        var positionX = Phaser.Math.Between(100, 800);
+        var positionX = Phaser.Math.Between(200, 1000);
         var positionY = Phaser.Utils.Array.GetRandom(levels);
 
         this.heart = this.physics.add.image(positionX, positionY, 'heart_pixel').setScale(1.8);
@@ -524,10 +521,8 @@ class Play extends Phaser.Scene {
         //  Colisión de los corazones con Emma
         this.physics.add.overlap(
             this.emma, this.heart, () => { 
-                if (this.emma.life > 0 ){
-                    this.registry.events.emit('add_life', this.emma.life);
-                    this.heart.destroy();
-                }
+                this.registry.events.emit('add_life');
+                this.heart.destroy();
             }
         );
     }

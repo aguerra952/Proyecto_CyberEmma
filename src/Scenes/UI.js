@@ -1,50 +1,70 @@
 class UI extends Phaser.Scene {
     constructor() {
-        super({key: 'UI'})
+        super({key: 'UI'});
     }
-
+    
     init() {
         console.log('Se ha iniciado la escena UI');
         this.scene.bringToTop('UI');
         this.actual_points = 0;
-        this.round = 0;
+        this.lifes = 4;
     }
 
     create() {
-        this.groupLife = this.add.group({
-            key: 'life',
-            repeat: 3,
-            setXY: {
-                x: 40, 
-                y: this.scale.height - 55,
-                stepX: 80
-            }
-        }).setOrigin(0);
+        this.lifeImage = this.add.image(55, 20, 'life');
+
+        this.lifesCount = this.add.bitmapText(
+            110,
+            0,
+            'future',
+            this.lifes,
+        ).setOrigin(0)
+        .setFontSize(60);
+
+        this.containerLife = this.add.container(
+            20, 
+            this.scale.height - 50, 
+            [this.lifeImage, this.lifesCount]
+        );
 
         this.points = this.add.bitmapText(
             this.scale.width - 20,
             this.scale.height - 50,
-            'font',
-            'SCORE ' + Phaser.Utils.String.Pad('0', 6, '0', 1))
-        .setOrigin(1,0)
+            'future',
+            Phaser.Utils.String.Pad('0', 7, '0', 1)
+        ).setOrigin(1, 0)
         .setLetterSpacing(-5)
-        .setFontSize(55)
-        .setTint(0xffffff);
-
+        .setFontSize(55);
+            
         //  Eventos
         this.registry.events.on('remove_life', () => {
-            this.groupLife.getChildren()[this.groupLife.getChildren().length - 1].destroy();
+            this.lifes--;
+            this.lifesCount.setText(this.lifes);
+            this.registry.events.emit('remove_emma_life', this.lifes);
         });
-
-        this.registry.events.on('game_over', () => {
-            this.registry.events.removeAllListeners();
-            //this.scene.start('MainMenu', {points: this.actual_points})
+        
+        this.registry.events.on('add_life', () => {
+            this.lifes++;
+            this.lifesCount.setText(this.lifes);
+            this.registry.events.emit('add_emma_life', this.lifes);
         });
         
         this.registry.events.on('update_points', (points) => {
             this.actual_points += points;
-            this.points.setText('SCORE ' + Phaser.Utils.String.Pad(this.actual_points, 6, '0', 1));
+            this.points.setText(Phaser.Utils.String.Pad(this.actual_points, 7, '0', 1));
         });
+
+        this.registry.events.on('emma_life', (emmaLife) => {
+            this.lifes = emmaLife;
+        });
+
+        this.registry.events.on('game_over', () => {
+            //  Reseteo las vidas de Emma en la escena UI
+            this.registry.events.removeAllListeners();
+            this.scene.start('GameOver', {points: this.actual_points});
+        });
+        
+    
     }
 }
 
