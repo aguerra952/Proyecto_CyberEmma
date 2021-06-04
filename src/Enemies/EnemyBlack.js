@@ -74,11 +74,11 @@ class EnemyBlack extends Phaser.GameObjects.Sprite {
       if (this.direction === "left") {
         //  Dispara a la izquierda
         if (bullet) 
-          bullet.create(this.x + 50, this.y - 10, true, 300);
+          bullet.create(this.x + 50, this.y - 10, true, 250);
       } else {
         //  Dispara a la derecha
         if (bullet) 
-          bullet.create(this.x - 50, this.y - 10, false, 300);
+          bullet.create(this.x - 50, this.y - 10, false, 250);
       }
     } 
   }

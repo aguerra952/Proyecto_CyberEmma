@@ -51,13 +51,12 @@ class ZapperDroid extends Phaser.GameObjects.Sprite {
       var tickFreq = 2500;
       //  El próximo dispara es la suma del tickFreq más el tiempo del juego
       this.nextTick = time + tickFreq;
-      //  Obtengo las balas
       if (this.direction === "left" && angle > 0) {
         //  Obtengo las chispas que se disaparán por la izquierda
         let sparkL = this.sparks.get();
         //  Dispara a la izquierda
         if (sparkL) 
-          sparkL.create(this.x, this.y + 15, true, 300);
+          sparkL.create(this.x, this.y + 15, true, 250);
       } 
       
       if (this.direction === "right" && angle < 0) {
@@ -65,7 +64,7 @@ class ZapperDroid extends Phaser.GameObjects.Sprite {
         let sparkR = this.sparks.get();
         //  Dispara a la derecha
         if (sparkR) 
-          sparkR.create(this.x, this.y + 15, false, 300);
+          sparkR.create(this.x, this.y + 15, false, 250);
       }
 
     }
@@ -92,7 +91,7 @@ class ZapperDroid extends Phaser.GameObjects.Sprite {
         });
       } else {
         this.scene.sound.play('damage', {volume: 0.2});
-        //  Cuando recibe daño el enemigo este cambia de color
+        //  El enemigo cambia de color
         this.tint = 0xecd869;
         //  Se añade un evento de tiempo
         this.scene.time.addEvent({
