@@ -11,6 +11,7 @@ class Emma extends Phaser.GameObjects.Sprite {
     this.setScale(0.6);
     this.body.setSize(90, 190);
     this.body.setBounce(0.15);
+    this.setDepth(2);
 
     this.jumping = false;
     this.velocity = 250;
@@ -22,12 +23,21 @@ class Emma extends Phaser.GameObjects.Sprite {
     this.keys = this.scene.input.keyboard.addKeys(
       "LEFT, RIGHT, UP, DOWN, A, D, W, S, J"
     );
-    
+    //  Balas que utiliza Emma
     this.bullets = this.scene.physics.add.group({
       classType: Bullets,
       key: "bullet"
     });
 
+    this.scene.registry.events.emit("emma_life", this.life);
+
+    this.scene.registry.events.on('remove_emma_life', (removeLife) => {
+      this.life = removeLife;
+    });
+
+    this.scene.registry.events.on('add_emma_life', (addLife) => {
+      this.life = addLife;
+    });
   }
 
   update(time) {
@@ -61,18 +71,16 @@ class Emma extends Phaser.GameObjects.Sprite {
             this.ok = false;
             
             if (this.prevMov !== "jump") {
-              console.log("Emma dispara")
               this.shootBullet();
               this.scene.sound.play("shootSound", {volume: 0.2});
             }
             //  Emma dispara continuamente
-            // this.anims.play("emma_idle");
             this.prevMov = "";
           }
         });
       }
     } else {
-      //  Reseteo el tamaño del body
+      //  Establezco la velocidad a 0
       this.body.velocity.x = 0;
 
       if (this.prevMov !== "idle" && !this.jumping) {
@@ -95,6 +103,14 @@ class Emma extends Phaser.GameObjects.Sprite {
       this.jumping = false;
     }
 
+    if(this.life === 0) {
+      this.scene.input.keyboard.enabled = false;
+      this.body.enable = false;
+    } else {
+      this.scene.input.keyboard.enabled = true;
+      this.body.enable = true;
+    }
+
   }
 
   emmaDamage() {
@@ -107,22 +123,28 @@ class Emma extends Phaser.GameObjects.Sprite {
       this.scene.registry.events.emit("remove_life");
 
       if (this.life === 0) {
-        this.scene.registry.events.emit("game_over");
+        this.scene.sound.stopByKey('musicPlay');
+        this.anims.play("emma_death");
+        this.on("animationcomplete", () => {
+          this.scene.registry.events.emit("game_over");
+          this.scene.scene.pause('Play');
+        });
+      } else {
+        this.scene.tweens.add({
+          targets: this,
+          alpha: 0.5,
+          duration: 300,
+          repeat: 5,
+          onRepeat: () => {
+            this.clearAlpha();
+          },
+          onComplete: () => {
+            this.hitDelay = false;
+            this.clearAlpha();
+          }
+        });
       }
 
-      this.scene.tweens.add({
-        targets: this,
-        alpha: 0.5,
-        duration: 300,
-        repeat: 5,
-        onRepeat: () => {
-          this.clearAlpha();
-        },
-        onComplete: () => {
-          this.hitDelay = false;
-          this.clearAlpha();
-        }
-      });
     }
   }
 
