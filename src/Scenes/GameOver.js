@@ -38,27 +38,27 @@ class GameOver extends Phaser.Scene {
         this.playAgainText = this.add.bitmapText(0, 170, 'future', 'PLAY AGAIN', 50)
         .setOrigin(0.5)
         .setLetterSpacing(-8)
-        // .setAlpha(0)
+        .setAlpha(0)
         .setInteractive({useHandCursor: true});
         
         this.playAgainButton = this.add.image(180, 160, 'return')
         .setScale(0.6)
         .setTintFill(0xffffff)
         .setOrigin(0.5)
-        // .setAlpha(0)
+        .setAlpha(0)
         .setInteractive({useHandCursor: true});
 
         this.mainMenuText = this.add.bitmapText(0, 240, 'future', 'MAIN MENU', 50)
         .setOrigin(0.5)
         .setLetterSpacing(-8)
-        // .setAlpha(0)
+        .setAlpha(0)
         .setInteractive({useHandCursor: true});
         
         this.mainMenuButton = this.add.image(160, 230, 'home')
-        .setScale(0.6)
+        .setScale(0.5)
         .setTintFill(0xffffff)
         .setOrigin(0.5)
-        // .setAlpha(0)
+        .setAlpha(0)
         .setInteractive({useHandCursor: true});
 
         this.containerGameOver = this.add.container(
@@ -70,7 +70,7 @@ class GameOver extends Phaser.Scene {
                 this.mainMenuText, this.mainMenuButton
             ]
         );
-        //  Creo un time para agregar efectos al principio
+        //  Creo un timeline para agregar efectos al principio
         this.timeline = this.tweens.createTimeline();
         
         this.timeline.add({
@@ -88,14 +88,33 @@ class GameOver extends Phaser.Scene {
             duration: 500,
         });
 
-        // this.timeline.add({
-        //     targets: [this.playAgainText, this.playAgainButton],
-        //     delay: 400,
-        //     x: {from: -200, to: 0},
-        //     alpha: {from: 0, to: 1},
-        //     ease: 'Linear',
-        //     duration: 500,
-        // });
+        this.timeline.add({
+            targets: [this.playAgainText, this.playAgainButton],
+            delay: 300,
+            x:{
+                from: -100, to: function(target,targetKey,value,targetIndex,totalTargets,tween) {
+                    if (targetIndex === 1) return 180;
+                    else return 0;
+                }
+            },
+            alpha: {from: 0, to: 1},
+            ease: 'Linear',
+            duration: 500,
+        });
+
+        this.timeline.add({
+            targets: [this.mainMenuText, this.mainMenuButton],
+            delay: 400,
+            x:{
+                from: -100, to: function(target,targetKey,value,targetIndex,totalTargets,tween) {
+                    if (targetIndex === 1) return 160;
+                    else return 0;
+                }
+            },
+            alpha: {from: 0, to: 1},
+            ease: 'Linear',
+            duration: 500,
+        });
 
         this.timeline.play();
 
@@ -164,7 +183,7 @@ class GameOver extends Phaser.Scene {
                 this.add.tween({
                     targets: this.playAgainButton,
                     x: {value: 210, duration: 0},
-                    scale: {from: 0.6, to: 0.7},
+                    scale: {from: 0.5, to: 0.7},
                     angle : {from: 0, to: -360},
                     ease: 'Circular',
                     duration: 300,
@@ -182,7 +201,7 @@ class GameOver extends Phaser.Scene {
                 this.add.tween({
                     targets: this.playAgainButton,
                     x: {value: 180, duration: 0},
-                    scale: {from: 0.7, to: 0.6},
+                    scale: {from: 0.7, to: 0.5},
                     ease: 'Circular',
                     duration: 300,
                 });
@@ -201,8 +220,7 @@ class GameOver extends Phaser.Scene {
                 this.add.tween({
                     targets: this.mainMenuButton,
                     x: {value: 190, duration: 0},
-                    scale: {from: 0.6, to: 0.7},
-                    angle : {from: 0, to: -360},
+                    scale: {from: 0.5, to: 0.7},
                     ease: 'Circular',
                     duration: 300,
                 });
@@ -219,7 +237,7 @@ class GameOver extends Phaser.Scene {
                 this.add.tween({
                     targets: this.mainMenuButton,
                     x: {value: 160, duration: 0},
-                    scale: {from: 0.7, to: 0.6},
+                    scale: {from: 0.7, to: 0.5},
                     ease: 'Circular',
                     duration: 300,
                 });
