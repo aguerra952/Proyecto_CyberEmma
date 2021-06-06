@@ -142,16 +142,18 @@ class Play extends Phaser.Scene {
         this.generateEnemies();
 
         //  Genero vida extra cuando se mate a un enemigo aleatorio
-        var randomEnemy = Phaser.Math.Between(2, 7);
+        var randomEnemy = Phaser.Math.Between(2, 6);
         // console.log(randomEnemy);
-        this.registry.events.on('enemy_deaths', (countEnemyDeaths) => {
-            this.countEnemyDeaths += countEnemyDeaths;
+        this.registry.events.on('enemy_deaths', () => {
+            this.countEnemyDeaths++;
             if (randomEnemy === this.countEnemyDeaths) {
                 this.generateHeart();
             }
 
             if (this.countEnemyDeaths === 5) {
                 this.scene.stop('Play');
+                //  Reseteo la cuenta de los enemigos que mueren
+                this.registry.events.removeAllListeners('enemy_deaths');
                 this.registry.events.emit('round_ends');
             }
         });

@@ -85,7 +85,7 @@ class ZapperDroid extends Phaser.GameObjects.Sprite {
           delay: 750,
           callback: () => {
             this.scene.registry.events.emit('update_points', this.points);
-            this.scene.registry.events.emit('enemy_deaths', 1);
+            this.scene.registry.events.emit('enemy_deaths');
             this.destroy();
           }
         });

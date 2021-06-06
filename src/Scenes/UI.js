@@ -67,8 +67,6 @@ class UI extends Phaser.Scene {
         this.registry.events.on('round_ends', () => {
             this.round++;
             this.showRound(this.round);
-            // this.registry.events.emit('set_round', this.round);
-            // this.scene.launch('Play', this.round);
         });
     }
 
