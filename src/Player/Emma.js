@@ -121,7 +121,7 @@ class Emma extends Phaser.GameObjects.Sprite {
     if (!this.hitDelay) {
       this.hitDelay = true;
 
-      // this.scene.sound.play("");
+      this.scene.sound.play("emma_damage");
       
       this.scene.registry.events.emit("remove_life");
 

@@ -34,6 +34,7 @@ class Bootloader extends Phaser.Scene {
         this.load.audio('enemy_black', 'sound_effects/enemy_black.mp3');
         this.load.audio('explosion', 'sound_effects/explosion.mp3');
         this.load.audio('zapper_droid', 'sound_effects/zapper_droid.mp3');
+        this.load.audio('emma_damage', 'sound_effects/emma_damage.mp3');
         //  Cargo a Emma
         this.load.atlas('emma', 'emma/emma.png', 'emma/emma_atlas.json');
         this.load.animation('emmaAnim', 'emma/emma_anim.json');
@@ -51,7 +52,7 @@ class Bootloader extends Phaser.Scene {
             const fontConfig = this.cache.json.get('fontData');
             this.cache.bitmapFont.add('future', Phaser.GameObjects.RetroFont.Parse(this, fontConfig));
 
-            this.scene.start('GameOver');
+            this.scene.start('MainMenu');
         })
     }
 
