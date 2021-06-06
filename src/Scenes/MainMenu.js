@@ -80,7 +80,7 @@ class MainMenu extends Phaser.Scene {
                 callback: () => {
                     this.input.setDefaultCursor('default');
                     this.sound.stopByKey('musicMenu');
-                    this.scene.start('Play');
+                    this.scene.start('UI');
                 },
             });
             

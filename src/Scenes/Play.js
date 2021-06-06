@@ -10,8 +10,8 @@ class Play extends Phaser.Scene {
 
     init() {
         console.log('Se ha iniciado la escena Play');
-        this.sound.play('musicPlay',{volume: 0.8, loop: true});
-        this.scene.launch('UI');
+        this.sound.play('musicPlay', {volume: 0.8, loop: true});
+        // this.scene.launch('UI');
         this.countEnemyDeaths = 0;
     }
 
@@ -148,6 +148,11 @@ class Play extends Phaser.Scene {
             this.countEnemyDeaths += countEnemyDeaths;
             if (randomEnemy === this.countEnemyDeaths) {
                 this.generateHeart();
+            }
+
+            if (this.countEnemyDeaths === 5) {
+                this.scene.stop('Play');
+                this.registry.events.emit('round_ends');
             }
         });
 

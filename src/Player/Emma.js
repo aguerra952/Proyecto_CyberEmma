@@ -29,6 +29,10 @@ class Emma extends Phaser.GameObjects.Sprite {
       key: "bullet"
     });
 
+    // this.scene.registry.events.on('emma_life', (emmaLife) => {
+    //   this.life = emmaLife;
+    // });
+
     this.scene.registry.events.emit("emma_life", this.life);
 
     this.scene.registry.events.on('remove_emma_life', (removeLife) => {
@@ -118,8 +122,7 @@ class Emma extends Phaser.GameObjects.Sprite {
       this.hitDelay = true;
 
       // this.scene.sound.play("");
-
-      this.life--;
+      
       this.scene.registry.events.emit("remove_life");
 
       if (this.life === 0) {

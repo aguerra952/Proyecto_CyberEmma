@@ -253,7 +253,8 @@ class GameOver extends Phaser.Scene {
                 delay: 600,
                 callback: () => {
                     this.sound.stopByKey('gameOver');
-                    this.scene.start('Play');
+                    this.scene.stop('Play');    
+                    this.scene.start('UI');
                 }
             });
         }
@@ -265,6 +266,7 @@ class GameOver extends Phaser.Scene {
                 delay: 600,
                 callback: () => {
                     this.sound.stopByKey('gameOver');
+                    this.scene.stop('Play');    
                     this.scene.start('MainMenu');
                 }
             });
