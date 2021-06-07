@@ -83,7 +83,7 @@ class UI extends Phaser.Scene {
         .setOrigin(0.5)
         .setAlpha(0)
         .setLetterSpacing(-8);
-        //  Cuando la animación se complete carga 
+        //  
         this.add.tween({
             targets: this.roundText,
             alpha: {from: 0, to: 1},

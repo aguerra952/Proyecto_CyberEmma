@@ -9,17 +9,27 @@ class Bootloader extends Phaser.Scene {
         this.load.image([
             'background',
             'menu_background',
+            'invisible_wall',
             'large_floor',
             'floor',
             'wall_end',
-            'invisible_wall',
             'bullet',
             'spark',
             'life',
-            'heart_pixel',
-            'home',
-            'return'
+            'heart_pixel'
         ]);
+        //  Cargo los iconos del juego
+        this.load.image('home', 'icons/home.png');
+        this.load.image('return', 'icons/return.png');
+        this.load.image('cross', 'icons/cross.png');
+        this.load.image('audioOn', 'icons/audioOn.png');
+        this.load.image('audioOff', 'icons/audioOff.png');
+        this.load.image('musicOn', 'icons/musicOn.png');
+        this.load.image('musicOff', 'icons/musicOff.png');
+        this.load.image('fullscreen', 'icons/larger.png');
+        this.load.image('no-fullscreen', 'icons/smaller.png');
+        //  Cargo los elementos del menú principal
+        this.load.image('window', 'gui/Window.png');
         //  Cargo la fuente del videojuego
         this.load.image('font', 'font/font.png');
         this.load.json('fontData', 'font/font.json');
