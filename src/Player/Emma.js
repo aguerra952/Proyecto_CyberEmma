@@ -89,9 +89,9 @@ class Emma extends Phaser.GameObjects.Sprite {
       }
     }
 
-    if ((Phaser.Input.Keyboard.JustDown(this.keys.UP) || 
-      Phaser.Input.Keyboard.JustDown(this.keys.W)) || 
-      Phaser.Input.Keyboard.JustDown(this.keys.SPACE)  
+    if ( (Phaser.Input.Keyboard.JustDown(this.keys.UP) || 
+      Phaser.Input.Keyboard.JustDown(this.keys.W) || 
+      Phaser.Input.Keyboard.JustDown(this.keys.SPACE) )  
       && this.body.onFloor()) {
       this.jumping = true;
       this.body.velocity.y = -850;
@@ -124,7 +124,7 @@ class Emma extends Phaser.GameObjects.Sprite {
 
       if (this.life === 0) {
         this.scene.sound.stopByKey('musicPlay');
-        this.scene.sound.play('gameOver', {volume: 0.4, loop: false});
+        this.scene.sound.play('gameOver', {volume: 0.4, loop: false, });
         this.anims.play("emma_death");
         this.on("animationcomplete", () => {
           this.scene.registry.events.emit("game_over");
