@@ -21,17 +21,13 @@ class Emma extends Phaser.GameObjects.Sprite {
 
     //  Defino las teclas que voy a utilizar
     this.keys = this.scene.input.keyboard.addKeys(
-      "LEFT, RIGHT, UP, DOWN, A, D, W, S, J"
+      "LEFT, RIGHT, UP, DOWN, A, D, W, S, J, SPACE"
     );
     //  Balas que utiliza Emma
     this.bullets = this.scene.physics.add.group({
       classType: Bullets,
       key: "bullet"
     });
-
-    // this.scene.registry.events.on('emma_life', (emmaLife) => {
-    //   this.life = emmaLife;
-    // });
 
     this.scene.registry.events.emit("emma_life", this.life);
 
@@ -93,9 +89,10 @@ class Emma extends Phaser.GameObjects.Sprite {
       }
     }
 
-    if ((Phaser.Input.Keyboard.JustDown(this.keys.UP) ||
-      Phaser.Input.Keyboard.JustDown(this.keys.W)) &&
-      this.body.onFloor()) {
+    if ((Phaser.Input.Keyboard.JustDown(this.keys.UP) || 
+      Phaser.Input.Keyboard.JustDown(this.keys.W)) || 
+      Phaser.Input.Keyboard.JustDown(this.keys.SPACE)  
+      && this.body.onFloor()) {
       this.jumping = true;
       this.body.velocity.y = -850;
 
@@ -121,12 +118,13 @@ class Emma extends Phaser.GameObjects.Sprite {
     if (!this.hitDelay) {
       this.hitDelay = true;
 
-      this.scene.sound.play("emma_damage");
+      this.scene.sound.play("emma_damage", {volume: 0.2});
       
       this.scene.registry.events.emit("remove_life");
 
       if (this.life === 0) {
         this.scene.sound.stopByKey('musicPlay');
+        this.scene.sound.play('gameOver', {volume: 0.4, loop: false});
         this.anims.play("emma_death");
         this.on("animationcomplete", () => {
           this.scene.registry.events.emit("game_over");
