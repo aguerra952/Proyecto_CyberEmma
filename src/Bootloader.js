@@ -3,7 +3,49 @@ class Bootloader extends Phaser.Scene {
         super('Bootloader'); 
     }
 
-    preload() {
+    preload() {	
+        this.cameras.main.setBackgroundColor('#3a3b3e');
+
+        var centerX = this.scale.width / 2;
+        var centerY = this.scale.height / 2;
+
+        var loadingText = this.make.text({
+            y: 50,
+            text: 'Loading...',
+            style: {
+                fontSize: 25,
+                fill: '#ffffff',
+                align: 'center'
+            }
+        });
+        loadingText.setOrigin(0.5, 0.5);
+        
+        var percentText = this.make.text({
+            text: '0%',
+            style: {
+                fontSize: 20,
+                fill: '#ffffff'
+            }
+        });
+        percentText.setOrigin(0.5, 0.5);
+
+        var progressBox = this.add.graphics({x: -175, y: -25});
+        var progressBar = this.add.graphics({x: -175, y: -25});
+
+        progressBox.fillStyle(0x222222, 0.8);
+        progressBox.fillRect(0, 0, 350, 50);
+            
+        this.container = this.add.container(centerX, centerY, 
+            [progressBar, progressBox, loadingText, percentText]
+        );
+
+        this.load.on('progress', function (value) {
+            percentText.setText(parseInt(value * 100) + '%');
+            progressBar.clear();
+            progressBar.fillStyle(0xffffff, 1);
+            progressBar.fillRect(10, 10, 330 * value, 30);
+        });
+        
         this.load.path = './assets/';
 
         this.load.image([
@@ -11,12 +53,12 @@ class Bootloader extends Phaser.Scene {
             'menu_background',
             'invisible_wall',
             'large_floor',
-            'floor',
+            'heart_pixel',
             'wall_end',
+            'floor',
             'bullet',
             'spark',
             'life',
-            'heart_pixel',
             'bg_tile'
         ]);
         //  Cargo los iconos del juego
@@ -68,14 +110,19 @@ class Bootloader extends Phaser.Scene {
         this.load.animation('droneAnim', 'drone/drone_anim.json');
         //  Cargo al droide zapper
         this.load.atlas('zapper_droid','zapper_droid/zapper_droid.png', 'zapper_droid/zapper_droid_atlas.json');
-        this.load.animation('zapperAnim', 'zapper_droid/zapper_droid_anim.json');
-        
+        this.load.animation('zapperAnim', 'zapper_droid/zapper_droid_anim.json');   
+
         this.load.on('complete', () => {
+            progressBar.destroy();
+            progressBox.destroy();
+            loadingText.destroy();
+            percentText.destroy();
+
             const fontConfig = this.cache.json.get('fontData');
             this.cache.bitmapFont.add('future', Phaser.GameObjects.RetroFont.Parse(this, fontConfig));
 
             this.scene.start('MainMenu');
-        });
+        }); 
     }
 
 }
