@@ -6,9 +6,11 @@ class MainMenu extends Phaser.Scene {
     init() {
         this.scene.bringToTop('MainMenu');
         console.log('Se ha iniciado la escena MainMenu');
-        this.sound.play('musicMenu', {volume: 1, loop: true});
+        this.muteFX = false;
+        // this.sound.volume = 0.5;
+        this.sound.play('musicMenu', {volume: 0.4, loop: true});
     }
-
+    
     create() {
         this.add.image(0, 0, 'menu_background')
         .setScale(0.94, 0.53)
@@ -24,7 +26,7 @@ class MainMenu extends Phaser.Scene {
             'future', 
             'PLAY', 
             80
-        ).setLetterSpacing(-5)
+        ).setLetterSpacing(-8)
         .setInteractive({useHandCursor: true});
 
         this.textOptions = this.add.bitmapText(
@@ -33,7 +35,7 @@ class MainMenu extends Phaser.Scene {
             'future', 
             'OPTIONS', 
             80
-        ).setLetterSpacing(-5)
+        ).setLetterSpacing(-8)
         .setInteractive({useHandCursor: true});
 
         this.textLeaderboard = this.add.bitmapText(
@@ -42,7 +44,7 @@ class MainMenu extends Phaser.Scene {
             'future', 
             'LEADERBOARD', 
             80
-        ).setLetterSpacing(-5)
+        ).setLetterSpacing(-8)
         .setInteractive({useHandCursor: true});
         
         this.emmaIdle = this.add.sprite(
@@ -63,46 +65,6 @@ class MainMenu extends Phaser.Scene {
         this.createMainEvents(this.textPlay);
         this.createMainEvents(this.textOptions);
         this.createMainEvents(this.textLeaderboard);
-        //  Eventos de los textos al hacer clic sobre ellos
-        this.textPlay.on('pointerdown', () => {
-            this.textPlay.clearAlpha();
-            this.textPlay.setTint(0x7f5fa2);
-            this.sound.play('menu_selection_2', {volume: 0.5});
-            this.blockMainEvents(true);
-            
-            this.time.addEvent({
-                delay: 400,
-                callback: () => {
-                    this.input.setDefaultCursor('default');
-                    this.sound.stopByKey('musicMenu');
-                    this.scene.start('UI');
-                    this.blockMainEvents(false);
-                },
-            });
-        });
-        
-        this.textOptions.on('pointerdown', () => {
-            this.textOptions.clearAlpha();
-            this.textOptions.setTint(0x7f5fa2);
-            this.sound.play('menu_selection_2', {volume: 0.5});
-            //  Bloqueo los eventos principales
-            this.blockMainEvents(true);
-            //  Creo el menú de opciones
-            this.windowOptions();
-        });
-
-        this.textLeaderboard.on('pointerdown', () => {
-            this.textLeaderboard.clearAlpha();
-            this.textLeaderboard.setTint(0x7f5fa2);
-            
-            this.time.addEvent({
-                delay: 400,
-                callback: () => {
-                    // this.input.setDefaultCursor('default')
-                },
-            })
-            
-        });
     }
 
     windowOptions() {
@@ -179,7 +141,7 @@ class MainMenu extends Phaser.Scene {
             scale: {from: 0, to: 1},
             alpha: {from: 0, to: 1},
             delay: 100,
-            duration: 500,
+            duration: 500
         });
         
         this.createButtonsEvents(this.closeButtonOpt);
@@ -206,11 +168,35 @@ class MainMenu extends Phaser.Scene {
     createMainEvents(button) {
         button.on('pointerover', () => {
             button.alpha = 0.7;
-            this.sound.play('menu_selection_1', {volume: 1, detune: -150});
+            this.sound.play('menu_selection_1', {volume: 0.3, mute: this.muteFX});
         });
 
         button.on('pointerout', () => {
             button.clearAlpha();
+        });
+
+        button.on('pointerdown', () => {
+            button.clearAlpha();
+            button.setTint(0x7f5fa2);
+            this.sound.play('menu_selection_2', {volume: 0.3, mute: this.muteFX});
+            this.blockMainEvents(true);
+            
+            if (button === this.textPlay) {
+                this.time.addEvent({
+                    delay: 400,
+                    callback: () => {
+                        this.input.setDefaultCursor('default');
+                        this.sound.stopByKey('musicMenu');
+                        this.scene.start('HowToPlay');
+                        // this.scene.start('UI');
+                        this.blockMainEvents(false);
+                    },
+                });
+            } else if (button === this.textOptions) {
+                this.windowOptions();
+            } else if (button === this.textLeaderboard) {
+                this.blockMainEvents(false);
+            }
         });
     }
 
@@ -225,7 +211,7 @@ class MainMenu extends Phaser.Scene {
 
         button.on('pointerdown', () => { 
             if (button === this.closeButtonOpt) {
-                this.add.tween({
+                this.tweenClose = this.add.tween({
                     targets: this.containerOpt,
                     ease: 'Circular',
                     scale: {from: 1, to: 0},
@@ -238,25 +224,34 @@ class MainMenu extends Phaser.Scene {
                     }
                 });
             } else if (button === this.muteFXButton) {
-                if (button.texture.key != 'audioOff') {
+                if (button.texture.key !== 'audioOff') {
                     button.setTexture('audioOff');
+                    this.muteFX = true;
                 } else {
                     button.setTexture('audioOn');
+                    this.muteFX = false;
                 }
             } else if (button === this.muteMusicButton) {
-                if (button.texture.key != 'musicOff') {
+                if (button.texture.key !== 'musicOff') {
                     button.setTexture('musicOff');
+                    this.sound.stopByKey('musicMenu');
                 } else {
                     button.setTexture('musicOn');
+                    this.sound.play('musicMenu', {volume: 0.4, loop: true});
                 }
             } else if (button === this.fullscreenButton) {
-                if (button.texture.key != 'no-fullscreen') {
+                if (button.texture.key !== 'no-fullscreen') {
                     button.setTexture('no-fullscreen');
                 } else {
                     button.setTexture('fullscreen');
                 }
-            }
 
+                if(this.scale.isFullscreen) {
+                    this.scale.stopFullscreen();
+                } else {
+                    this.scale.startFullscreen();
+                }
+            }
         });
     }
 

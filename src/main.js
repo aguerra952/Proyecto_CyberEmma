@@ -3,6 +3,7 @@ import UI from './Scenes/UI.js';
 import MainMenu from './Scenes/MainMenu.js';
 import Play from './Scenes/Play.js';
 import GameOver from './Scenes/GameOver.js';
+import HowToPlay from './Scenes/HowToPlay.js';
 
 const config = {
     title: "CyberEmma",
@@ -28,6 +29,7 @@ const config = {
     scene: [
        Bootloader,
        MainMenu,
+       HowToPlay,
        UI,
        Play,
        GameOver,
