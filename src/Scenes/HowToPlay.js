@@ -61,9 +61,9 @@ class HowToPlay extends Phaser.Scene {
             targets: pressToStart,
             delay: 1500,
             ease: 'Circular',
-            alpha: {from: 0.2, to: 1},
+            alpha: {from: 0.3, to: 1},
             repeat: -1,
-            repeatDelay: 100,
+            repeatDelay: 50,
             onStart: () => {
                 this.input.on('pointerdown', () => {
                     this.scene.start('UI');
@@ -87,7 +87,7 @@ class HowToPlay extends Phaser.Scene {
             'keyUp', 'keyS', 'keyDown', 'keyJ', 'keySpace'
         ];
 
-        var delay = 0;
+        var delayInc = 0;
         var x = this.scale.width/2 - 170;
         var y = 0;
         
@@ -95,14 +95,14 @@ class HowToPlay extends Phaser.Scene {
             var key = keysName[i];
             var keyAnim = key + '_anim';
             
-            delay += 200;
+            delayInc += 200;
 
             this.anims.create({
                 key: keyAnim,
                 frames: this.anims.generateFrameNumbers(key),
-                frameRate: 1,
+                frameRate: 2,
                 repeat: -1,
-                delay: delay
+                delay: delayInc
             });
              
             switch(key) {
@@ -113,7 +113,11 @@ class HowToPlay extends Phaser.Scene {
                 case 'keyD':
                     x += 60;
                     y = 190;
-                    this.add.text(895, y - 25, "|", {fontSize: 50, fontStyle: 'bold'});
+                    this.add.text(895, y - 25, "|", {
+                        fontSize: 50, 
+                        fontStyle: 'bold', 
+                        color: '#000000'
+                    });
                     break;
                 case 'keyLeft':
                     x += 80;
@@ -126,12 +130,20 @@ class HowToPlay extends Phaser.Scene {
                 case 'keyW':
                     x -= 140;
                     y = 255;
-                    this.add.text(895, y - 25, "|", {fontSize: 50, fontStyle: 'bold'});
+                    this.add.text(895, y - 25, "|", {
+                        fontSize: 50, 
+                        fontStyle: 'bold',
+                        color: '#000000'
+                    });
                     break;
                 case 'keyUp':
                     x += 80;
                     y = 255;
-                    this.add.text(980, y - 25, "|", {fontSize: 50, fontStyle: 'bold'});
+                    this.add.text(980, y - 25, "|", {
+                        fontSize: 50, 
+                        fontStyle: 'bold',
+                        color: '#000000'
+                    });
                     break;
                 case 'keySpace': 
                     x += 200;
@@ -140,7 +152,11 @@ class HowToPlay extends Phaser.Scene {
                 case 'keyS': 
                     x -= 80;
                     y = 320;
-                    this.add.text(895, y - 25, "|", {fontSize: 50, fontStyle: 'bold'});
+                    this.add.text(895, y - 25, "|", {
+                        fontSize: 50, 
+                        fontStyle: 'bold',
+                        color: '#000000'
+                    });
                     break;
                 case 'keyDown':
                     x += 80;
@@ -152,7 +168,6 @@ class HowToPlay extends Phaser.Scene {
                     break;
             }
 
-            
             var keySprite = this.add.sprite(x, y, key).setScale(1.7);
             keySprite.play(keyAnim);
         }
