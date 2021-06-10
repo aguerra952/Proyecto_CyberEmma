@@ -38,7 +38,7 @@ class UI extends Phaser.Scene {
         .setFontSize(55)
         .setVisible(false);
 
-        this.showRound(0);
+        this.showRound();
 
         //  Eventos
         this.registry.events.on('remove_life', () => {
@@ -60,17 +60,19 @@ class UI extends Phaser.Scene {
 
         this.registry.events.on('game_over', () => {
             //  Reseteo las vidas de Emma en la escena UI
-            this.registry.events.removeAllListeners();
+            this.registry.events.removeListener('emma_life');
             this.scene.start('GameOver', {points: this.actual_points});
         });
-
+        
         this.registry.events.on('round_ends', () => {
+            this.scene.stop('Play');
+            this.registry.events.removeListener('emma_life');
             this.round++;
             this.showRound(this.round);
         });
     }
 
-    showRound(round) {
+    showRound() {
         this.containerLife.setVisible(false);
         this.points.setVisible(false);
 
@@ -89,13 +91,13 @@ class UI extends Phaser.Scene {
             alpha: {from: 0, to: 1},
             scale: {from: 1, to: 1.5},
             ease: 'Linear',
-            duration: 2000,
+            duration: 1000,
             yoyo: true,
             onComplete: () => {
                 this.containerLife.setVisible(true);
                 this.points.setVisible(true);
 
-                this.scene.launch('Play', [round]);
+                this.scene.launch('Play', this.round);
             }
         });
 
