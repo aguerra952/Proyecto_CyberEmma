@@ -4,20 +4,37 @@ class GameOver extends Phaser.Scene {
     }
 
     init(data) {
+        this.scene.bringToTop('GameOver');
         console.log('Se ha iniciado la escena GameOver');
-        this.sound.play('gameOver', {volume: 1, loop: false});
         if(Object.keys(data).length != 0){
             this.points = data.points;
         }
     }
 
     create() {
+        this.newBestScore = this.make.text({
+            x: 140,
+            y: 45,
+            angle: -10,
+            text: 'NEW BEST SCORE', 
+            style: {
+                color: '#e3001b',
+                fontSize: 18,
+                stroke: '#000000',
+                strokeThickness: 3
+            }
+        }).setVisible(false);
+
+        this.add.tween({
+            targets: this.newBestScore,
+            scale: {from: 1, to: 1.2},
+            ease: 'Quintic',
+            repeat: -1,
+            yoyo: true
+        });
+
         const pointsDB = localStorage.getItem('best_points');
         this.bestPoints = (pointsDB !== null) ? pointsDB : 0;
-        
-        if(this.points > this.bestPoints) {
-            localStorage.setItem('best_points', this.points);
-        }
         
         this.gameOverText = this.add.bitmapText(0, 0, 'future', 'GAME OVER', 70)
         .setOrigin(0.5)
@@ -66,11 +83,11 @@ class GameOver extends Phaser.Scene {
             this.scale.height/2.5,
             [
                 this.gameOverText, this.scoreText, this.bestScoreText, 
-                this.playAgainText, this.playAgainButton,
+                this.newBestScore, this.playAgainText, this.playAgainButton,
                 this.mainMenuText, this.mainMenuButton
             ]
         );
-        //  Creo un timeline para agregar efectos al principio
+        //  Creo un timeline para agregar efectos al inicio de la escena
         this.timeline = this.tweens.createTimeline();
         
         this.timeline.add({
@@ -86,6 +103,12 @@ class GameOver extends Phaser.Scene {
             alpha: {from: 0, to: 1},
             ease: 'Sine.easeInOut',
             duration: 500,
+            onComplete: () => {
+                if(this.points > this.bestPoints) {
+                    localStorage.setItem('best_points', this.points);
+                    this.newBestScore.setVisible(true);
+                }
+            }
         });
 
         this.timeline.add({
@@ -115,62 +138,62 @@ class GameOver extends Phaser.Scene {
             ease: 'Linear',
             duration: 500,
         });
-
+        //  
         this.timeline.play();
 
         //  Eventos del jugar de nuevo
         this.playAgainText.on('pointerover', () => {
-            this.tweensScenes('PlayAgain','over');
+            this.tweenTexts('PlayAgain', 'over');
         });
         
         this.playAgainText.on('pointerout', () => {
-            this.tweensScenes('PlayAgain','out');
+            this.tweenTexts('PlayAgain', 'out');
         });
 
         this.playAgainButton.on('pointerover', () => {
-            this.tweensScenes('PlayAgain','over');
+            this.tweenTexts('PlayAgain', 'over');
         });
         
         this.playAgainButton.on('pointerout', () => {
-            this.tweensScenes('PlayAgain','out');
+            this.tweenTexts('PlayAgain', 'out');
         });
 
         this.playAgainText.on('pointerdown', () => {
-            this.startsScenes('PlayAgain');
+            this.startScene('PlayAgain');
         });
         
         this.playAgainButton.on('pointerdown', () => {
-            this.startsScenes('PlayAgain');
+            this.startScene('PlayAgain');
         });
 
         //  Eventos del menú principal
         this.mainMenuText.on('pointerover', () => {
-            this.tweensScenes('MainMenu','over');
+            this.tweenTexts('MainMenu', 'over');
         });
         
         this.mainMenuText.on('pointerout', () => {
-            this.tweensScenes('MainMenu','out');
+            this.tweenTexts('MainMenu', 'out');
         });
 
         this.mainMenuButton.on('pointerover', () => {
-            this.tweensScenes('MainMenu','over');
+            this.tweenTexts('MainMenu', 'over');
         });
         
         this.mainMenuButton.on('pointerout', () => {
-            this.tweensScenes('MainMenu','out');
+            this.tweenTexts('MainMenu', 'out');
         });
 
         this.mainMenuText.on('pointerdown', () => {
-            this.startsScenes('MainMenu');
+            this.startScene('MainMenu');
         });
         
         this.mainMenuButton.on('pointerdown', () => {
-            this.startsScenes('MainMenu');
+            this.startScene('MainMenu');
         });
         
     }
     
-    tweensScenes(scene, pointerevent) {
+    tweenTexts(scene, pointerevent) {
         if (scene === 'PlayAgain') {
             if (pointerevent === 'over') {
                 this.add.tween({
@@ -245,15 +268,16 @@ class GameOver extends Phaser.Scene {
         }
     }
 
-    startsScenes(scene) {
+    startScene(scene) {
         if (scene === 'PlayAgain') {
             this.playAgainText.setTint(0x7f5fa2);
             this.playAgainButton.setTintFill(0x7f5fa2);
             this.time.addEvent({
-                delay: 600,
+                delay: 400,
                 callback: () => {
                     this.sound.stopByKey('gameOver');
                     this.scene.stop('Play');    
+                    this.registry.events.removeAllListeners();
                     this.scene.start('UI');
                 }
             });
@@ -263,10 +287,11 @@ class GameOver extends Phaser.Scene {
             this.mainMenuText.setTint(0x7f5fa2);
             this.mainMenuButton.setTintFill(0x7f5fa2);
             this.time.addEvent({
-                delay: 600,
+                delay: 400,
                 callback: () => {
                     this.sound.stopByKey('gameOver');
-                    this.scene.stop('Play');    
+                    this.scene.stop('Play');  
+                    this.registry.events.removeAllListeners();
                     this.scene.start('MainMenu');
                 }
             });
