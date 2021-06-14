@@ -4,6 +4,7 @@ class Bootloader extends Phaser.Scene {
     }
 
     preload() {	
+        //  Cambio color del fondo
         this.cameras.main.setBackgroundColor('#3a3b3e');
 
         var centerX = this.scale.width / 2;
@@ -28,26 +29,29 @@ class Bootloader extends Phaser.Scene {
             }
         });
         percentText.setOrigin(0.5, 0.5);
-
+        //  Creo una caja de progreso para luego ir rellenándola
         var progressBox = this.add.graphics({x: -175, y: -25});
         var progressBar = this.add.graphics({x: -175, y: -25});
-
+        //  Pinto la barra de progreso
         progressBox.fillStyle(0x222222, 0.8);
         progressBox.fillRect(0, 0, 350, 50);
-            
+        //  Lo meto todo en un contenedor para poder centrarlo en pantalla
         this.container = this.add.container(centerX, centerY, 
             [progressBar, progressBox, loadingText, percentText]
         );
-
+        //  Evento que se está ejecutando mientras el preload está en proceso
         this.load.on('progress', function (value) {
+            //  Actualizo el porcentaje de progreso
             percentText.setText(parseInt(value * 100) + '%');
             progressBar.clear();
+            //  Se va pintando la barra de progreso de blanco
             progressBar.fillStyle(0xffffff, 1);
+            //  Va cambiando la longuitud de la barra de progreso según el valor
             progressBar.fillRect(10, 10, 330 * value, 30);
         });
-        
+        //  Establezco una ruta predeterminada
         this.load.path = './assets/';
-
+        //  Cargo imágenes
         this.load.image([
             'background',
             'menu_background',
@@ -72,7 +76,7 @@ class Bootloader extends Phaser.Scene {
         this.load.image('musicOff', 'icons/musicOff.png');
         this.load.image('fullscreen', 'icons/larger.png');
         this.load.image('no-fullscreen', 'icons/smaller.png');
-        //  Cargo los sprites del HowToPlay
+        //  Cargo los sprites de las teclas del teclado
         this.load.spritesheet('keyW', 'keyboard/W-Key.png', {frameWidth: 32, frameHeight: 32});
         this.load.spritesheet('keyS', 'keyboard/S-Key.png', {frameWidth: 32, frameHeight: 32});
         this.load.spritesheet('keyA', 'keyboard/A-Key.png', {frameWidth: 32, frameHeight: 32});
@@ -110,16 +114,16 @@ class Bootloader extends Phaser.Scene {
         //  Cargo al droide zapper
         this.load.atlas('zapper_droid','zapper_droid/zapper_droid.png', 'zapper_droid/zapper_droid_atlas.json');
         this.load.animation('zapperAnim', 'zapper_droid/zapper_droid_anim.json');   
-
+        //  Evento que se ejecutará cuando se termine de cargar la escena
         this.load.on('complete', () => {
             progressBar.destroy();
             progressBox.destroy();
             loadingText.destroy();
             percentText.destroy();
-
+            //  Creo la configuración para la letra del juego
             const fontConfig = this.cache.json.get('fontData');
             this.cache.bitmapFont.add('future', Phaser.GameObjects.RetroFont.Parse(this, fontConfig));
-
+            
             this.scene.start('MainMenu');
         }); 
     }

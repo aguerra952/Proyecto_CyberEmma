@@ -6,15 +6,18 @@ class GameOver extends Phaser.Scene {
     init(data) {
         this.scene.bringToTop('GameOver');
         console.log('Se ha iniciado la escena GameOver');
+        //  Compruebo que lleguen los datos
         if(Object.keys(data).length != 0){
+            //  Obtengo los puntos
             this.points = data.points;
         }
     }
 
     create() {
+        //  Obtengo los puntos almacenados en la BD
         const pointsDB = localStorage.getItem('best_points');
         this.bestPoints = (pointsDB !== null) ? pointsDB : 0;
-
+        //  Añado los elementos
         this.newBestScore = this.make.text({
             x: 140,
             y: 45,
@@ -27,7 +30,7 @@ class GameOver extends Phaser.Scene {
                 strokeThickness: 3
             }
         }).setVisible(false);
-
+        //  Efecto para cuando aparezca la mejor nueva puntuación
         this.add.tween({
             targets: this.newBestScore,
             scale: {from: 1, to: 1.2},
@@ -77,7 +80,7 @@ class GameOver extends Phaser.Scene {
         .setOrigin(0.5)
         .setAlpha(0)
         .setInteractive({useHandCursor: true});
-
+        //  Creo un contener para añadir los elementos creados
         this.containerGameOver = this.add.container(
             this.scale.width/2,
             this.scale.height/2.5,
@@ -89,7 +92,7 @@ class GameOver extends Phaser.Scene {
         );
         //  Creo un timeline para agregar efectos al inicio de la escena
         this.timeline = this.tweens.createTimeline();
-        
+        //  Añado un efecto a timeline
         this.timeline.add({
             targets: this.gameOverText,
             alpha: {from: 0, to: 1},
@@ -128,7 +131,7 @@ class GameOver extends Phaser.Scene {
         this.timeline.add({
             targets: [this.mainMenuText, this.mainMenuButton],
             delay: 400,
-            x:{
+            x: {
                 from: -100, to: function(target,targetKey,value,targetIndex,totalTargets,tween) {
                     if (targetIndex === 1) return 160;
                     else return 0;
@@ -138,10 +141,9 @@ class GameOver extends Phaser.Scene {
             ease: 'Linear',
             duration: 400,
         });
-        //  
+        //  Reproduzco el timeline
         this.timeline.play();
-
-        //  Eventos del jugar de nuevo
+        //  Eventos del jugar de nuevo (texto)
         this.playAgainText.on('pointerover', () => {
             this.tweenTexts('PlayAgain', 'over');
         });
@@ -150,6 +152,10 @@ class GameOver extends Phaser.Scene {
             this.tweenTexts('PlayAgain', 'out');
         });
 
+        this.playAgainText.on('pointerdown', () => {
+            this.startScene('PlayAgain');
+        });
+        //  Eventos del jugar de nuevo (botón)
         this.playAgainButton.on('pointerover', () => {
             this.tweenTexts('PlayAgain', 'over');
         });
@@ -158,15 +164,10 @@ class GameOver extends Phaser.Scene {
             this.tweenTexts('PlayAgain', 'out');
         });
 
-        this.playAgainText.on('pointerdown', () => {
-            this.startScene('PlayAgain');
-        });
-        
         this.playAgainButton.on('pointerdown', () => {
             this.startScene('PlayAgain');
         });
-
-        //  Eventos del menú principal
+        //  Eventos del menú principal (texto)
         this.mainMenuText.on('pointerover', () => {
             this.tweenTexts('MainMenu', 'over');
         });
@@ -175,6 +176,10 @@ class GameOver extends Phaser.Scene {
             this.tweenTexts('MainMenu', 'out');
         });
 
+        this.mainMenuText.on('pointerdown', () => {
+            this.startScene('MainMenu');
+        });
+        //  Eventos del menú principal (botón)
         this.mainMenuButton.on('pointerover', () => {
             this.tweenTexts('MainMenu', 'over');
         });
@@ -183,16 +188,12 @@ class GameOver extends Phaser.Scene {
             this.tweenTexts('MainMenu', 'out');
         });
 
-        this.mainMenuText.on('pointerdown', () => {
-            this.startScene('MainMenu');
-        });
-        
         this.mainMenuButton.on('pointerdown', () => {
             this.startScene('MainMenu');
         });
         
     }
-    
+    //  Método para agregar efectos a los botones de texto
     tweenTexts(scene, pointerevent) {
         if (scene === 'PlayAgain') {
             if (pointerevent === 'over') {
@@ -267,17 +268,23 @@ class GameOver extends Phaser.Scene {
             }
         }
     }
-
+    //  Método para iniciar escenas
     startScene(scene) {
         if (scene === 'PlayAgain') {
+            //  Pinto los botones
             this.playAgainText.setTint(0x7f5fa2);
             this.playAgainButton.setTintFill(0x7f5fa2);
+            //  Añado un evento de tiempo
             this.time.addEvent({
                 delay: 400,
                 callback: () => {
+                    //  Paro la música
                     this.sound.stopByKey('gameOver');
-                    this.scene.stop('Play');    
+                    //  Paro la escena
+                    this.scene.stop('Play');   
+                    //  Elimino todas los eventos de escucha
                     this.registry.events.removeAllListeners();
+                    //  Inicio la escena
                     this.scene.start('UI');
                 }
             });
@@ -296,7 +303,6 @@ class GameOver extends Phaser.Scene {
                 }
             });
         }
-
     }
 
 }

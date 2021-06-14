@@ -9,6 +9,7 @@ class HowToPlay extends Phaser.Scene {
     }
 
     create() {
+        //  Añado los elementos que quiero mostrar
         this.bgTile = this.add.tileSprite(0, 0, this.scale.width, this.scale.height, 'bg_tile')
         .setOrigin(0).setScale(3).setDepth(-1);
 
@@ -39,13 +40,13 @@ class HowToPlay extends Phaser.Scene {
         ).setOrigin(0.5)
         .setAlpha(0)
         .setLetterSpacing(-8);
-
+        //  Añado los elemento anteriores a un contenedor
         this.container = this.add.container(
             this.scale.width/2,
             this.scale.height/2,
             [text1, text2, text3]
         ).setAlpha(0);
-            
+        //  Añado al contenedor anterior un efecto
         this.tweens.add({
             targets: this.container,
             alpha: {from: 0, to: 1},
@@ -56,7 +57,7 @@ class HowToPlay extends Phaser.Scene {
                 this.createAnimKeys();
             }
         });
-
+        //  Añado un efecto al botón de ap
         this.tweens.add({
             targets: pressToStart,
             delay: 1500,
@@ -65,10 +66,12 @@ class HowToPlay extends Phaser.Scene {
             repeat: -1,
             repeatDelay: 30,
             onStart: () => {
+                //  Cuando se haga clic inicia la escena UI
                 this.input.on('pointerdown', () => {
                     this.scene.start('UI');
                 });
             },
+            //  Se borra la trasparencia al repetirse
             onComplete: () => {
                 this.clearAlpha();
             }
@@ -77,11 +80,13 @@ class HowToPlay extends Phaser.Scene {
     }
 
     update() {
+        //  Actualizo el fondo para que se vaya moviendo
         this.bgTile.tilePositionX -= 0.2;
         this.bgTile.tilePositionY -= 0.2;
     }
-    
+    //  Método que crea las imágenes de las teclas y les da una animación
     createAnimKeys() {
+        //  Defino todas las teclas en un array
         var keysName = [
             'keyA', 'keyD', 'keyLeft', 'keyRight', 'keyW', 
             'keyUp', 'keyS', 'keyDown', 'keyJ', 'keySpace'
@@ -90,7 +95,7 @@ class HowToPlay extends Phaser.Scene {
         var delayInc = 0;
         var x = this.scale.width/2 - 170;
         var y = 0;
-        
+        //  Bucle para crear cada tecla
         for (let i = 0; i < keysName.length; i++) {
             var key = keysName[i];
             var keyAnim = key + '_anim';
@@ -104,7 +109,7 @@ class HowToPlay extends Phaser.Scene {
                 repeat: -1,
                 delay: delayInc
             });
-             
+            //  Añado la posición a cada tecla
             switch(key) {
                 case 'keyA':
                     x += 80;
@@ -113,6 +118,7 @@ class HowToPlay extends Phaser.Scene {
                 case 'keyD':
                     x += 60;
                     y = 190;
+                    //  Añado un barra separadora
                     this.add.text(895, y - 25, "|", {
                         fontSize: 50, 
                         fontStyle: 'bold', 
@@ -167,8 +173,9 @@ class HowToPlay extends Phaser.Scene {
                     y = 385;
                     break;
             }
-
+            //  Creo la tecla
             var keySprite = this.add.sprite(x, y, key).setScale(1.7);
+            //  Reproduzco su animación
             keySprite.play(keyAnim);
         }
 

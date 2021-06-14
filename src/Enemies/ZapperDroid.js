@@ -3,24 +3,25 @@ import Spark from '../Objects/Spark.js';
 class ZapperDroid extends Phaser.GameObjects.Sprite {
   constructor(config) {
     super(config.scene, config.x, config.y, 'zapper_droid')                
-
+    //  Establezco el nombre del sprite como dato
     this.setData({name: "Zapper Droid"});
+    //  Añado la escena al sprite
     this.scene = config.scene;
     this.scene.add.existing(this);
     this.scene.physics.world.enable(this);
-
+    //  Propiedades del sprite
     this.setScale(3);
     this.body.setSize(20, 30);
     this.body.setBounce(0.2);
     this.setDepth(1);
-
     this.life = 3;
     this.points = 40;
     this.velocity = 55;
     this.hitDelay = false;
     this.direction = "left";
-
+    //  Propiedad para controlar la próxima bala que se dispare
     this.nextTick = 0;
+    //  Creo un grupo para ir creando las chispas 
     this.sparks = this.scene.physics.add.group({
       classType: Spark,
       key: 'spark',
@@ -30,22 +31,29 @@ class ZapperDroid extends Phaser.GameObjects.Sprite {
 
   update() {
     if(this.direction === "left") {
+      //  El enemigo se mueve hacia la derecha
       this.body.velocity.x = this.velocity;
       this.setFlipX(false);
+      //  Añado un offset cuando choque con la plataforma
       this.body.setOffset(5, 15);
+
     } else if(this.direction === "right"){
+      //  El enemigo se mueve hacia la izquierda
       this.body.velocity.x = -this.velocity;
       this.setFlipX(true);
+      //  Añado un offset cuando choque con la plataforma
       this.body.setOffset(30, 15);
+
     } else {
+      //  Si no hay ninguna dirección el enemigo se queda quieto
       this.body.velocity.x = 0;
     }
-
-    if(this.active && this.direction != "none") 
+    //  Si el update está activo y el enemigo no ha muerto se reproduce la animación
+    if(this.active && this.direction != "none")
       this.anims.play('zapper_run', true);
 
   }
-
+  //  Este método permite disparar al enemigo
   attack(time, angle) {
     if (time > this.nextTick) {
       //  Es la frecuencia de disparo en milisegundos
@@ -77,22 +85,25 @@ class ZapperDroid extends Phaser.GameObjects.Sprite {
       this.life--;
       
       if(this.life === 0) {
-        //  Cuando muere el enemigo no se mueve
+        //  No establezco ninguna dirección
         this.direction = "none";
         this.anims.play('zapper_death');
-        // this.scene.sound.play('zapper_droid', {volume: 1});
+        //  Emito el evento de reproducir sonido
         this.scene.registry.events.emit('soundAudio', 'zapper_droid');
         //  Se añade un evento de tiempo
         this.scene.time.addEvent({
           delay: 750,
           callback: () => {
+            //  Emito el evento de actualizar los puntos
             this.scene.registry.events.emit('update_points', this.points);
+            //  Emito el evento para incremetar las muertes enemigas
             this.scene.registry.events.emit('enemy_deaths');
             this.destroy();
           }
         });
+        
       } else {
-        // this.scene.sound.play('damage', {volume: 0.2});
+        //  Emito el evento de reproducir sonido
         this.scene.registry.events.emit('soundAudio', 'damage');
         //  El enemigo cambia de color
         this.tint = 0xecd869;

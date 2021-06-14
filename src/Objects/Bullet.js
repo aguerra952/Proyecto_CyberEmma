@@ -9,10 +9,9 @@ class Bullet extends Phaser.Physics.Arcade.Sprite {
         this.setScale(1.1);
         //  Quito la gravedad
         this.body.allowGravity = false;
-        //  Evito que al iniciar el juego el disparo sea hacia la izquierda
+        //  Cambio la dirección de la bala
         switch (direction) {
             case true:
-                //  Cambio la dirección de la bala
                 this.setPosition(x,y) ;
                 this.setVelocityX(speed);
                 break;
@@ -21,6 +20,7 @@ class Bullet extends Phaser.Physics.Arcade.Sprite {
                 this.setFlipX(true);
                 this.setVelocityX(-speed);
                 break;
+            //  Evito que al iniciar el juego el disparo sea hacia la izquierda
             default:
                 this.setPosition(x,y) ;
                 this.setVelocityX(speed);

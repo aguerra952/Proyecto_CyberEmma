@@ -1,10 +1,6 @@
 class Spark extends Phaser.Physics.Arcade.Sprite {
     constructor(scene, x, y) {
         super(scene, x, y, 'spark');
-
-        this.scene = scene;
-        this.scene.add.existing(this);
-        this.scene.physics.world.enable(this);
     }
 
     create(x, y, direction, speed) {
@@ -16,7 +12,6 @@ class Spark extends Phaser.Physics.Arcade.Sprite {
         this.tintBottomRight = 0xf4d247;
         //  Quito la gravedad
         this.body.allowGravity = false;
-        
         //  Cambio la dirección de la chispa
         switch (direction) {
             case true:
@@ -29,7 +24,7 @@ class Spark extends Phaser.Physics.Arcade.Sprite {
                 this.setVelocityX(-speed);
                 break;
         }
-        //  Registro un método para hacer que la chispa gire según la dirección
+        //  Registro un evento para hacer que la chispa gire según la dirección
         this.scene.registry.events.on('update_spark', () => {
             if(direction) {
                 this.angle += 5;

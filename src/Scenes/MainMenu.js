@@ -6,14 +6,18 @@ class MainMenu extends Phaser.Scene {
     init() {
         this.scene.bringToTop('MainMenu');
         console.log('Se ha iniciado la escena MainMenu');
-        
+        //  Obtengo de la BD local los iconos de las opciones
         var iconMusicDB = localStorage.getItem('icon_music');
-        if (iconMusicDB === 'musicOn') {
+        var iconAudioDB = localStorage.getItem('icon_audio');
+        //  Si no se obtienen datos se introduce un icono por defecto
+        var iconMusic = (iconMusicDB !== null) ? iconMusicDB : 'musicOn';
+        var iconAudio = (iconAudioDB !== null) ? iconAudioDB : 'audioOn';
+        //  Si los iconos coinciden se reproducen los sonidos
+        if (iconMusic === 'musicOn') {
             this.sound.play('musicMenu', {volume: 0.4, loop: true});
         }
 
-        var iconAudioDB = localStorage.getItem('icon_audio');
-        if (iconAudioDB === 'audioOn') {
+        if (iconAudio === 'audioOn') {
             this.muteAudio = false;
         } else {
             this.muteAudio = true;
@@ -21,10 +25,11 @@ class MainMenu extends Phaser.Scene {
     }
     
     create() {
+        //  Añado el fondo
         this.add.image(0, 0, 'menu_background')
         .setScale(0.94, 0.53)
         .setOrigin(0);
-
+        //  Creo los botones de texto principales
         this.textTitle = this.add.bitmapText(60, 40, 'future', 'CYBEREMMA', 120)
         .setTint(0x7f5fa2, 0xd61b27, 0xd61b27, 0x7f5fa2)
         .setLetterSpacing(-5);
@@ -62,7 +67,7 @@ class MainMenu extends Phaser.Scene {
             ).setLetterSpacing(-8)
             .setInteractive({useHandCursor: true});
         */
-
+        //  Creo un sprite
         this.emmaIdle = this.add.sprite(
             this.scale.width/1.4, 
             this.scale.height/1.1, 
@@ -81,13 +86,13 @@ class MainMenu extends Phaser.Scene {
         //  Eventos del puntero sobre los textos
         this.createMainEvents(this.textPlay);
         this.createMainEvents(this.textOptions);
-         
+        //  Registro un evento para los efectos de sonido
         this.registry.events.on('soundAudio', (soundName) => {
             if (this.muteAudio !== true) {
                 this.sound.play(soundName, {volume: 0.2});
             } 
         });
-
+        //  Registro un evento para la música
         this.registry.events.on('soundMusic', (soundName) => {
             if (this.muteMusic !== true) {
                 this.sound.play(soundName, {volume: 0.3, loop: true});
@@ -99,13 +104,14 @@ class MainMenu extends Phaser.Scene {
     }
 
     update() {
+        //  Se obtiene continuamente el valor de los iconos
         var iconAudioDB = localStorage.getItem('icon_audio');
-        this.iconAudio = (iconAudioDB !== null) ? iconAudioDB : 'audioOn';
-
         var iconMusicDB = localStorage.getItem('icon_music');
+        //  Si no tienen valor por defecto se le asigna un valor
+        this.iconAudio = (iconAudioDB !== null) ? iconAudioDB : 'audioOn';
         this.iconMusic = (iconMusicDB !== null) ? iconMusicDB : 'musicOn';
     }
-
+    //  Método para crear el menú de opciones
     windowOptions() {
         this.tableOptions = this.add.image(0,0, 'window')
         .setAlpha(0.9)
@@ -162,7 +168,7 @@ class MainMenu extends Phaser.Scene {
         .setTintFill(0xffffff)
         .setScale(0.7)
         .setInteractive({useHandCursor: true});
-
+        //  Añado los elemento anteriores a un contenedor
         this.containerOpt = this.add.container(
             this.scale.width/2, 
             this.scale.height/2,
@@ -172,7 +178,7 @@ class MainMenu extends Phaser.Scene {
                 this.muteMusicButton, fullscreenText, this.fullscreenButton
             ]
         ).setAlpha(0);
-
+        //  Creo un efecto al aparecer
         this.add.tween({
             targets: this.containerOpt,
             ease: 'Bounce',
@@ -190,7 +196,7 @@ class MainMenu extends Phaser.Scene {
         //  Botón de habilitar/deshabilitar la pantalla completa
         this.createButtonsEvents(this.fullscreenButton);
     }
-
+    //  Método para bloquear la interactividad con los botones
     blockMainEvents(ok) {
         if (ok) {
             this.textPlay.disableInteractive();
@@ -200,17 +206,18 @@ class MainMenu extends Phaser.Scene {
             this.textOptions.setInteractive();
         }
     }
-
+    //  Método que crea los eventos de los textos
     createMainEvents(button) {
+        //  Evento al dejar el cursor encima del botón
         button.on('pointerover', () => {
             button.alpha = 0.7;
             this.sound.play('menu_selection_1', {volume: 0.3, mute: this.muteAudio});
         });
-
+        //  Evento al quitar el cursor sobre el botón
         button.on('pointerout', () => {
             button.clearAlpha();
         });
-
+        //  Evento al hacer clic sobre el botón
         button.on('pointerdown', () => {
             button.clearAlpha();
             button.setTint(0x7f5fa2);
@@ -231,7 +238,7 @@ class MainMenu extends Phaser.Scene {
             }
         });
     }
-
+    //  Método que crea los eventos de los botones del menú Opciones
     createButtonsEvents(button) {
         button.on('pointerover', () => { 
             button.setTintFill(0xedcb05); 
@@ -242,7 +249,9 @@ class MainMenu extends Phaser.Scene {
         });
 
         button.on('pointerdown', () => { 
+            //  Compruebo el botón introducido
             if (button === this.closeButtonOpt) {
+                //  Efecto al cerrar la ventana de opciones
                 this.tweenClose = this.add.tween({
                     targets: this.containerOpt,
                     ease: 'Circular',
@@ -255,7 +264,9 @@ class MainMenu extends Phaser.Scene {
                         this.blockMainEvents(false);
                     }
                 });
+
             } else if (button === this.muteFXButton) {
+                //  Cambio la textura del botón
                 if (button.texture.key !== 'audioOff') {
                     button.setTexture('audioOff');
                     localStorage.setItem('icon_audio', 'audioOff');
@@ -265,28 +276,29 @@ class MainMenu extends Phaser.Scene {
                     localStorage.setItem('icon_audio', 'audioOn');
                     this.muteAudio = false;
                 }
-                
+
             } else if (button === this.muteMusicButton) {
+                //  Cambio la textura del botón
                 if (button.texture.key !== 'musicOff') {
                     button.setTexture('musicOff');
                     localStorage.setItem('icon_music', 'musicOff');
-                    // this.sound.stopByKey('musicMenu');
                     this.muteMusic = true;
                 } else {
                     button.setTexture('musicOn');
                     localStorage.setItem('icon_music', 'musicOn');
-                    // this.sound.play('musicMenu', {volume: 0.4, loop: true});
                     this.muteMusic = false;
                 }
-
+                //  Emito el evento para reproducir o parar la música
                 this.registry.events.emit('soundMusic', 'musicMenu');
+
             } else if (button === this.fullscreenButton) {
+                //  Cambio la textura del botón
                 if (button.texture.key !== 'no-fullscreen') {
                     button.setTexture('no-fullscreen');
                 } else {
                     button.setTexture('fullscreen');
                 }
-
+                //  Funcionalidad para la pantalla completa
                 if(this.scale.isFullscreen) {
                     this.scale.stopFullscreen();
                 } else {

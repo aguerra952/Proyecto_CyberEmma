@@ -10,11 +10,12 @@ class Play extends Phaser.Scene {
 
     init(numberRound) {
         console.log('Se ha iniciado la escena Play');
-
+        //  Si la número de ronda no es una no se reproduce la música
         if(numberRound === 1) {
+            //  Evento emisor de música
             this.registry.events.emit('soundMusic', 'musicPlay');
         }
-        
+        //  
         this.countEnemyDeaths = 0;
     }
 
@@ -22,24 +23,22 @@ class Play extends Phaser.Scene {
         //  Establezco la imagen de fondo
         this.add.image(0,0,'background')
         .setOrigin(0);
-        //  Creo el grupo donde introduciré los objetos estáticos
+        //  Creo el grupo donde introduciré los suelos
         this.floors = this.physics.add.staticGroup();
-        
         //  large_floor: 1314x251 px
         this.floors.create(900, this.scale.height + 50,'large_floor');
         this.floors.getChildren()[0]
         .setScale(1.32, 1)
         .setSize(1734.48, 251);
-        
         //  floor: 512x512 px
         this.floors.create(150, 475,'floor');
         this.floors.create(220, 230,'floor');
         this.floors.create(900, 280,'floor');
         this.floors.create(this.scale.width - 265,this.scale.height - 120,'floor');
         this.floors.create(this.scale.width - 215,this.scale.height/2 - 70,'floor');
-
+        //  Añado un offset personalizado
         let offset = 20;
-
+        //  Añado el tamaño a las física a los objetos creados
         this.floors.getChildren()[1]
         .setScale(0.45, 0.15)
         .setSize(230.4, 76.8 - offset);
@@ -59,7 +58,7 @@ class Play extends Phaser.Scene {
         this.floors.refresh();
         //  Añado un offset a cada miembro del grupo para que el size disminuya en el eje Y
         var posY = 0;
-        // 
+        //  Bucle para añadir a cada miembro un offset
         for (let i = 0; i < 6; i++) {
             if (i === 0) {
                 posY = 20;
@@ -69,7 +68,7 @@ class Play extends Phaser.Scene {
             this.floors.getChildren()[i]
             .setOffset(0, posY);     
         }
-        
+        //  Creo el grupo donde introduciré los muros
         this.walls = this.physics.add.staticGroup();
         //  wall_end: 64x1021 px
         this.walls.create(0, 0, 'wall_end')
@@ -82,11 +81,12 @@ class Play extends Phaser.Scene {
         .setFlipX(true);
         //  Actualizo el cuerpo estático de los muros
         this.walls.refresh();
-
+        //  Añado un offset al primer muro
         this.walls.getChildren()[0].setOffset(-25, 0);
         
         this.invisibleWalls = this.physics.add.staticGroup();
         //  invisible_black: 32x113 px
+        //  Creo los muros invisibles con los que los enemigos chocarán
         this.invisibleWalls.create(
             this.floors.getChildren()[0].body.width/2.6,
             this.floors.getChildren()[0].body.y - 55,
@@ -128,38 +128,41 @@ class Play extends Phaser.Scene {
             this.floors.getChildren()[5].body.y - 55,
             'invisible_wall'
         );  
-        
+        //  Pongo invisibles los muros creados
         this.invisibleWalls.setVisible(false);
-
-        //  Personaje principal Emma
+        //  Creo al personaje principal Emma
         this.emma = new Emma({
             scene: this,
             x: 100,
             y: 300
         });
-        //  Grupo donde se irán añadiendo los enemigos
+        //  Cre un grupo para ir añadiendo a los enemigos
         this.enemies = this.physics.add.group();
-
+        //  Creo un evento de tiempo para que cargue primero las plataformas antes que los enemigos
         this.time.addEvent({
             delay: 300,
             callback: () => {
-                //  Genero a todos los enemigos del juego
+                //  Llamo al método
                 this.generateEnemies();
-                //  Genero vida extra cuando se mate a un enemigo aleatorio
-                var randomEnemy = Phaser.Math.Between(2, 6);
-                // console.log(randomEnemy);
+                //  Obtengo una muerte de enemigo aleatorio, es decir, un número
+                var randomEnemyDeath = Phaser.Math.Between(2, 6);
+                //  Registro un evento al morir algún enemigo
                 this.registry.events.on('enemy_deaths', () => {
                     this.countEnemyDeaths++;
-                    if (randomEnemy === this.countEnemyDeaths) {
+                    
+                    if (randomEnemyDeath === this.countEnemyDeaths) {
+                        //  Llamo al método
                         this.generateHeart();
                     }
                     
                     if (this.countEnemyDeaths === 7) {
                         //  Reseteo la cuenta de los enemigos que mueren
                         this.registry.events.removeAllListeners('enemy_deaths');
+                        //  Añado un tiempo de espera para llamar al evento
                         this.time.addEvent({
                             delay: 350,
                             callback: () => {
+                                //  Emito el evento de terminar la ronda
                                 this.registry.events.emit('round_ends');
                             }
                         });
@@ -329,13 +332,13 @@ class Play extends Phaser.Scene {
                         enemy.enemyDamage()
                     }
                 );
-                
+                //  Creo un array para introducir los enemigos EnemBlack
                 this.enemBlacks = [
                     this.enemBlack1,
                     this.enemBlack2,
                     this.enemBlack3
                 ];
-
+                //  Creo un array para introducir las balas de los enemigos EnemBlack
                 this.enemBlacksBullets = [
                     this.enemBlack1.bullets, 
                     this.enemBlack2.bullets,
@@ -345,6 +348,7 @@ class Play extends Phaser.Scene {
                 this.physics.add.overlap(
                     this.enemBlacksBullets,
                     [this.floors, this.walls], () => {
+                        //  Se destruyen las balas de cada enemigo
                         this.enemBlacks.forEach((enemBlack) => {
                             enemBlack.destroyBullet();
                         });
@@ -360,10 +364,12 @@ class Play extends Phaser.Scene {
                         this.emma.emmaDamage();
                     }
                 );
+                //  Creo un array para introducir los enemigos Zapper
                 this.zappers = [
                     this.zapper1,
                     this.zapper2
                 ];
+                //  Creo un array para introducir las chispas de los enemigos Zapper
                 this.zapperBullets = [
                     this.zapper1.sparks,
                     this.zapper2.sparks
@@ -372,6 +378,7 @@ class Play extends Phaser.Scene {
                 this.physics.add.overlap(
                     this.zapperBullets,
                     [this.floors, this.walls], () => {
+                        //  Se destruyen las balas de cada enemigo
                         this.zappers.forEach((zapper) => {
                             zapper.destroySpark();
                         });
@@ -392,17 +399,18 @@ class Play extends Phaser.Scene {
     }
 
     update(time) {
+        //  Compruebo si Emma existe
         if (this.emma) {
             //  Actualizo a Emma para que pueda moverse
             this.emma.update();   
         }
-        
+        //  Compruebo si los enemigos existen
         if (this.enemies) {
             //  Actualizo a todos los enemigos en el update de la escena
             this.enemies.getChildren().forEach((enemy) => {
                 enemy.update();
             })
-
+            //  Compruebo si el array enemBlacks existe
             if (this.enemBlacks) {
                 this.enemBlacks.forEach((enemBlack) => {
                     if (enemBlack.life > 0) {
@@ -410,7 +418,7 @@ class Play extends Phaser.Scene {
                     }
                 });
             }
-    
+            //  Compruebo si el array zappers existe
             if (this.zappers) {
                 this.zappers.forEach((zapper) => {
                     if (zapper.life > 0) {
@@ -420,12 +428,13 @@ class Play extends Phaser.Scene {
                 });
             }
         }
-        
+        //  Genero una velocidad aleatoria entre 30 y 80
         this.randomVelocity = Phaser.Math.Between(30, 80);
     }
-    
+    //  Método que permite que los enemigos ataquen
     enemyAttack(time, emma, enemy) {
         if(enemy.getData('name') === "Enemy Black") {
+            //  Obtengo la distancia entre Emma y el enemigo Enemy Black
             if (Math.abs(emma.x - enemy.x) <= 300 && Math.abs(emma.y - enemy.y) <= 10) {
                 enemy.stopMovement(emma.x);
                 enemy.attack(time);
@@ -433,17 +442,21 @@ class Play extends Phaser.Scene {
         } 
         
         if(enemy.getData('name') === "Zapper Droid") {
+            //  Variable que determina el ángulo entre Emma y el enemigo
             var angle = Math.atan2(emma.x - enemy.x, emma.y - enemy.y);
+            //  Obtengo la distancia entre Emma y el enemigo Zapper
             if(Math.abs(emma.x - enemy.x) <= 300 && Math.abs(emma.y - enemy.y) <= 10) { 
                 enemy.attack(time, angle);
             }
         }  
     }
-
+    //  Método que genera a todos los enemigos
     generateEnemies() {
+        //  Variables de los niveles
         var level1 = 400;
         var level2 = 300;
         var level3 = 90;
+        //  Variables de los muros invisibles
         var block1 = this.invisibleWalls.getChildren()[0].x;
         var block2 = this.invisibleWalls.getChildren()[1].x;
         var block3 = this.invisibleWalls.getChildren()[2].x;
@@ -451,7 +464,7 @@ class Play extends Phaser.Scene {
         var block5 = this.invisibleWalls.getChildren()[4].x;
         var block6 = this.invisibleWalls.getChildren()[5].x;
         var block7 = this.invisibleWalls.getChildren()[6].x;
-
+        //  Variables que se utilizarán el eje x de los enemigos
         var respawn1 = Phaser.Math.Between(350, block1 - 50);
         var respawn2 = Phaser.Math.Between(block1 + 50, block2 - 50);
         var respawn3 = Phaser.Math.Between(block2 + 100, this.floors.getChildren()[4].x - 250);
@@ -516,15 +529,18 @@ class Play extends Phaser.Scene {
         });
         this.enemies.add(this.drone2);
     }
-
+    //  Método que genera un corazón
     generateHeart() {
+        //  Obtengo la posición del corazón de manera aleatoria
         var levels = [400, 90];
-        var positionX = Phaser.Math.Between(200, 1000);
+        var positionX = Phaser.Math.Between(200, 1200);
         var positionY = Phaser.Utils.Array.GetRandom(levels);
-
-        this.heart = this.physics.add.image(positionX, positionY, 'heart_pixel').setScale(1.8);
+        //  Creo el corazón
+        this.heart = this.physics.add.image(positionX, positionY, 'heart_pixel')
+        .setScale(1.8);
+        //  Quito la gravedad de la imagen
         this.heart.body.allowGravity = false;
-
+        //  Creo un efecto de movimiento para el corazón
         this.heartPumping = this.add.tween({
             targets: this.heart,
             repeatDelay: 500,
@@ -533,10 +549,10 @@ class Play extends Phaser.Scene {
             repeat: -1,
             yoyo: true
         });  
-
         //  Colisión de los corazones con Emma
         this.physics.add.overlap(
             this.emma, this.heart, () => { 
+                //  Emito el evento de agregar una vida
                 this.registry.events.emit('add_life');
                 this.heart.destroy();
             }
