@@ -42,7 +42,8 @@ class Drone extends Phaser.GameObjects.Sprite {
       if(this.life === 0) {
         this.direction = "none";
         this.anims.play("drone_death");
-        this.scene.sound.play('explosion', {volume: 0.5});
+        // this.scene.sound.play('explosion', {volume: 0.2});
+        this.scene.registry.events.emit('soundAudio', 'explosion');
         this.scene.time.addEvent({
           delay: 800,
           callback: () => {
@@ -52,7 +53,8 @@ class Drone extends Phaser.GameObjects.Sprite {
           }
         })
       } else {
-        this.scene.sound.play("damage", {volume: 0.2});
+        // this.scene.sound.play("damage", {volume: 0.2});
+        this.scene.registry.events.emit('soundAudio', 'damage');
         
         this.tint = 0xecd869;
         this.scene.time.addEvent({

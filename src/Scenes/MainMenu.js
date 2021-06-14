@@ -6,9 +6,18 @@ class MainMenu extends Phaser.Scene {
     init() {
         this.scene.bringToTop('MainMenu');
         console.log('Se ha iniciado la escena MainMenu');
-        this.muteFX = false;
-        // this.sound.volume = 0.5;
-        this.sound.play('musicMenu', {volume: 0.4, loop: true});
+        
+        var iconMusicDB = localStorage.getItem('icon_music');
+        if (iconMusicDB === 'musicOn') {
+            this.sound.play('musicMenu', {volume: 0.4, loop: true});
+        }
+
+        var iconAudioDB = localStorage.getItem('icon_audio');
+        if (iconAudioDB === 'audioOn') {
+            this.muteAudio = false;
+        } else {
+            this.muteAudio = true;
+        }
     }
     
     create() {
@@ -38,15 +47,22 @@ class MainMenu extends Phaser.Scene {
         ).setLetterSpacing(-8)
         .setInteractive({useHandCursor: true});
 
-        this.textLeaderboard = this.add.bitmapText(
-            150, 
-            this.scale.height/2 + 120, 
-            'future', 
-            'LEADERBOARD', 
-            80
-        ).setLetterSpacing(-8)
-        .setInteractive({useHandCursor: true});
-        
+        /**
+         * FUNCIONALIDAD FUTURA
+         * 
+         * SE PUEDE AÑADIR UN DESPLEGABLE PARA VER LAS MEJORES PUNTUACIONES
+         */
+        /*
+            this.textLeaderboard = this.add.bitmapText(
+                150, 
+                this.scale.height/2 + 120, 
+                'future', 
+                'LEADERBOARD', 
+                80
+            ).setLetterSpacing(-8)
+            .setInteractive({useHandCursor: true});
+        */
+
         this.emmaIdle = this.add.sprite(
             this.scale.width/1.4, 
             this.scale.height/1.1, 
@@ -60,11 +76,34 @@ class MainMenu extends Phaser.Scene {
             frameRate: 3,
             repeat: -1
         }
+        //  Reproduzco la animación
         this.emmaIdle.anims.play(emmaIdle);
         //  Eventos del puntero sobre los textos
         this.createMainEvents(this.textPlay);
         this.createMainEvents(this.textOptions);
-        this.createMainEvents(this.textLeaderboard);
+         
+        this.registry.events.on('soundAudio', (soundName) => {
+            if (this.muteAudio !== true) {
+                this.sound.play(soundName, {volume: 0.2});
+            } 
+        });
+
+        this.registry.events.on('soundMusic', (soundName) => {
+            if (this.muteMusic !== true) {
+                this.sound.play(soundName, {volume: 0.3, loop: true});
+            } else {
+                this.sound.stopByKey(soundName);
+            }
+        });
+
+    }
+
+    update() {
+        var iconAudioDB = localStorage.getItem('icon_audio');
+        this.iconAudio = (iconAudioDB !== null) ? iconAudioDB : 'audioOn';
+
+        var iconMusicDB = localStorage.getItem('icon_music');
+        this.iconMusic = (iconMusicDB !== null) ? iconMusicDB : 'musicOn';
     }
 
     windowOptions() {
@@ -93,7 +132,7 @@ class MainMenu extends Phaser.Scene {
             shadow: { offsetX: 2, color: '#000000', fill: false, offsetY: -1, stroke: false }
         });
 
-        this.muteFXButton = this.add.image(130, muteFXText.y + 20, 'audioOn')
+        this.muteFXButton = this.add.image(130, muteFXText.y + 20, this.iconAudio)
         .setTintFill(0xffffff)
         .setScale(0.7)
         .setInteractive({useHandCursor: true});
@@ -106,7 +145,7 @@ class MainMenu extends Phaser.Scene {
             shadow: { offsetX: 2, color: '#000000', fill: false, offsetY: -1, stroke: false }
         });
 
-        this.muteMusicButton = this.add.image(130, muteMusicText.y + 20, 'musicOn')
+        this.muteMusicButton = this.add.image(130, muteMusicText.y + 20, this.iconMusic)
         .setTintFill(0xffffff)
         .setScale(0.7)
         .setInteractive({useHandCursor: true});
@@ -128,10 +167,9 @@ class MainMenu extends Phaser.Scene {
             this.scale.width/2, 
             this.scale.height/2,
             [
-                this.tableOptions, textOptions, this.closeButtonOpt, 
-                muteFXText, this.muteFXButton,
-                muteMusicText, this.muteMusicButton,
-                fullscreenText, this.fullscreenButton
+                this.tableOptions, textOptions, this.closeButtonOpt,
+                muteFXText, this.muteFXButton, muteMusicText, 
+                this.muteMusicButton, fullscreenText, this.fullscreenButton
             ]
         ).setAlpha(0);
 
@@ -143,13 +181,13 @@ class MainMenu extends Phaser.Scene {
             delay: 100,
             duration: 500
         });
-        
+        //  Botón de cerrar
         this.createButtonsEvents(this.closeButtonOpt);
-
+        //  Botón de mutear efectos de sonido
         this.createButtonsEvents(this.muteFXButton);
-
+        //  Botón de mutear la música
         this.createButtonsEvents(this.muteMusicButton);
-
+        //  Botón de habilitar/deshabilitar la pantalla completa
         this.createButtonsEvents(this.fullscreenButton);
     }
 
@@ -157,18 +195,16 @@ class MainMenu extends Phaser.Scene {
         if (ok) {
             this.textPlay.disableInteractive();
             this.textOptions.disableInteractive();
-            this.textLeaderboard.disableInteractive();
         } else {
             this.textPlay.setInteractive();
             this.textOptions.setInteractive();
-            this.textLeaderboard.setInteractive();
         }
     }
 
     createMainEvents(button) {
         button.on('pointerover', () => {
             button.alpha = 0.7;
-            this.sound.play('menu_selection_1', {volume: 0.3, mute: this.muteFX});
+            this.sound.play('menu_selection_1', {volume: 0.3, mute: this.muteAudio});
         });
 
         button.on('pointerout', () => {
@@ -178,7 +214,7 @@ class MainMenu extends Phaser.Scene {
         button.on('pointerdown', () => {
             button.clearAlpha();
             button.setTint(0x7f5fa2);
-            this.sound.play('menu_selection_2', {volume: 0.3, mute: this.muteFX});
+            this.sound.play('menu_selection_2', {volume: 0.3, mute: this.muteAudio});
             this.blockMainEvents(true);
             
             if (button === this.textPlay) {
@@ -188,14 +224,10 @@ class MainMenu extends Phaser.Scene {
                         this.input.setDefaultCursor('default');
                         this.sound.stopByKey('musicMenu');
                         this.scene.start('HowToPlay');
-                        // this.scene.start('UI');
-                        this.blockMainEvents(false);
                     },
                 });
             } else if (button === this.textOptions) {
                 this.windowOptions();
-            } else if (button === this.textLeaderboard) {
-                this.blockMainEvents(false);
             }
         });
     }
@@ -226,19 +258,28 @@ class MainMenu extends Phaser.Scene {
             } else if (button === this.muteFXButton) {
                 if (button.texture.key !== 'audioOff') {
                     button.setTexture('audioOff');
-                    this.muteFX = true;
+                    localStorage.setItem('icon_audio', 'audioOff');
+                    this.muteAudio = true;
                 } else {
                     button.setTexture('audioOn');
-                    this.muteFX = false;
+                    localStorage.setItem('icon_audio', 'audioOn');
+                    this.muteAudio = false;
                 }
+                
             } else if (button === this.muteMusicButton) {
                 if (button.texture.key !== 'musicOff') {
                     button.setTexture('musicOff');
-                    this.sound.stopByKey('musicMenu');
+                    localStorage.setItem('icon_music', 'musicOff');
+                    // this.sound.stopByKey('musicMenu');
+                    this.muteMusic = true;
                 } else {
                     button.setTexture('musicOn');
-                    this.sound.play('musicMenu', {volume: 0.4, loop: true});
+                    localStorage.setItem('icon_music', 'musicOn');
+                    // this.sound.play('musicMenu', {volume: 0.4, loop: true});
+                    this.muteMusic = false;
                 }
+
+                this.registry.events.emit('soundMusic', 'musicMenu');
             } else if (button === this.fullscreenButton) {
                 if (button.texture.key !== 'no-fullscreen') {
                     button.setTexture('no-fullscreen');

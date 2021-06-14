@@ -24,6 +24,7 @@ class EnemyBlack extends Phaser.GameObjects.Sprite {
     this.bullets = this.scene.physics.add.group({
       classType: Bullets,
       key: 'bullet',
+      visible: false
     });
 
   }
@@ -92,7 +93,8 @@ class EnemyBlack extends Phaser.GameObjects.Sprite {
         //  Cuando muere el enemigo no se mueve
         this.direction = "none";
         this.anims.play('enemblack_death');
-        this.scene.sound.play('enemy_black', {volume: 0.5});
+        // this.scene.sound.play('enemy_black', {volume: 0.2});
+        this.scene.registry.events.emit('soundAudio', 'enemy_black');
         //  Se añade un evento de tiempo
         this.scene.time.addEvent({
           delay: 600,
@@ -103,7 +105,8 @@ class EnemyBlack extends Phaser.GameObjects.Sprite {
           }
         })
       } else {
-        this.scene.sound.play('damage', {volume: 0.2});
+        // this.scene.sound.play('damage', {volume: 0.2});
+        this.scene.registry.events.emit('soundAudio', 'damage');
         //  Cuando recibe daño el enemigo cambia de color
         this.tint = 0xd40000;
         //  Se añade un delay para limpiar el color del enemigo

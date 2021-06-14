@@ -10,7 +10,7 @@ class ZapperDroid extends Phaser.GameObjects.Sprite {
     this.scene.physics.world.enable(this);
 
     this.setScale(3);
-    this.body.setSize(20, 25);
+    this.body.setSize(20, 30);
     this.body.setBounce(0.2);
     this.setDepth(1);
 
@@ -24,6 +24,7 @@ class ZapperDroid extends Phaser.GameObjects.Sprite {
     this.sparks = this.scene.physics.add.group({
       classType: Spark,
       key: 'spark',
+      visible: false
     });
   }
 
@@ -31,11 +32,11 @@ class ZapperDroid extends Phaser.GameObjects.Sprite {
     if(this.direction === "left") {
       this.body.velocity.x = this.velocity;
       this.setFlipX(false);
-      this.body.setOffset(5, 18);
+      this.body.setOffset(5, 15);
     } else if(this.direction === "right"){
       this.body.velocity.x = -this.velocity;
       this.setFlipX(true);
-      this.body.setOffset(30, 18);
+      this.body.setOffset(30, 15);
     } else {
       this.body.velocity.x = 0;
     }
@@ -79,7 +80,8 @@ class ZapperDroid extends Phaser.GameObjects.Sprite {
         //  Cuando muere el enemigo no se mueve
         this.direction = "none";
         this.anims.play('zapper_death');
-        this.scene.sound.play('zapper_droid', {volume: 1});
+        // this.scene.sound.play('zapper_droid', {volume: 1});
+        this.scene.registry.events.emit('soundAudio', 'zapper_droid');
         //  Se añade un evento de tiempo
         this.scene.time.addEvent({
           delay: 750,
@@ -90,7 +92,8 @@ class ZapperDroid extends Phaser.GameObjects.Sprite {
           }
         });
       } else {
-        this.scene.sound.play('damage', {volume: 0.2});
+        // this.scene.sound.play('damage', {volume: 0.2});
+        this.scene.registry.events.emit('soundAudio', 'damage');
         //  El enemigo cambia de color
         this.tint = 0xecd869;
         //  Se añade un evento de tiempo
