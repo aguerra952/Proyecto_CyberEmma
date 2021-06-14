@@ -59,7 +59,8 @@ class Bootloader extends Phaser.Scene {
             'bullet',
             'spark',
             'life',
-            'bg_tile'
+            'bg_tile',
+            'window'
         ]);
         //  Cargo los iconos del juego
         this.load.image('home', 'icons/home.png');
@@ -82,15 +83,13 @@ class Bootloader extends Phaser.Scene {
         this.load.spritesheet('keyLeft', 'keyboard/Left-Key.png', {frameWidth: 32, frameHeight: 32});
         this.load.spritesheet('keyRight', 'keyboard/Right-Key.png', {frameWidth: 32, frameHeight: 32});
         this.load.spritesheet('keySpace', 'keyboard/Space-Key.png', {frameWidth: 64, frameHeight: 32});
-        //  Cargo los elementos del menú principal
-        this.load.image('window', 'gui/Window.png');
         //  Cargo la fuente del videojuego
         this.load.image('font', 'font/font.png');
         this.load.json('fontData', 'font/font.json');
+        this.load.audio('gameOver', 'game_over.wav');
         //  Cargo el sonido del juego
         this.load.audio('musicPlay', 'music_play.mp3');
         this.load.audio('musicMenu', 'music_menu.mp3');
-        this.load.audio('gameOver', 'sound_effects/game_over.wav');
         this.load.audio('shootSound', 'sound_effects/ak47_cut.mp3');
         this.load.audio('damage','sound_effects/damage.mp3');
         this.load.audio('menu_selection_1', 'sound_effects/menu_selection_1.mp3');
