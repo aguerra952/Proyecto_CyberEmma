@@ -12,6 +12,9 @@ class GameOver extends Phaser.Scene {
     }
 
     create() {
+        const pointsDB = localStorage.getItem('best_points');
+        this.bestPoints = (pointsDB !== null) ? pointsDB : 0;
+
         this.newBestScore = this.make.text({
             x: 140,
             y: 45,
@@ -32,9 +35,6 @@ class GameOver extends Phaser.Scene {
             repeat: -1,
             yoyo: true
         });
-
-        const pointsDB = localStorage.getItem('best_points');
-        this.bestPoints = (pointsDB !== null) ? pointsDB : 0;
         
         this.gameOverText = this.add.bitmapText(0, 0, 'future', 'GAME OVER', 70)
         .setOrigin(0.5)
@@ -114,7 +114,7 @@ class GameOver extends Phaser.Scene {
         this.timeline.add({
             targets: [this.playAgainText, this.playAgainButton],
             delay: 300,
-            x:{
+            x: {
                 from: -100, to: function(target,targetKey,value,targetIndex,totalTargets,tween) {
                     if (targetIndex === 1) return 180;
                     else return 0;
@@ -122,7 +122,7 @@ class GameOver extends Phaser.Scene {
             },
             alpha: {from: 0, to: 1},
             ease: 'Linear',
-            duration: 500,
+            duration: 400,
         });
 
         this.timeline.add({
@@ -136,7 +136,7 @@ class GameOver extends Phaser.Scene {
             },
             alpha: {from: 0, to: 1},
             ease: 'Linear',
-            duration: 500,
+            duration: 400,
         });
         //  
         this.timeline.play();
@@ -300,4 +300,5 @@ class GameOver extends Phaser.Scene {
     }
 
 }
+
 export default GameOver;
