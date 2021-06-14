@@ -10,7 +10,11 @@ class Play extends Phaser.Scene {
 
     init(numberRound) {
         console.log('Se ha iniciado la escena Play');
-        numberRound === 1 ? this.sound.play('musicPlay', {volume: 0.4, loop: true}) : null;
+
+        if(numberRound === 1) {
+            this.registry.events.emit('soundMusic', 'musicPlay');
+        }
+        
         this.countEnemyDeaths = 0;
     }
 
@@ -149,10 +153,16 @@ class Play extends Phaser.Scene {
                     if (randomEnemy === this.countEnemyDeaths) {
                         this.generateHeart();
                     }
-                    if (this.countEnemyDeaths === 5) {
+                    
+                    if (this.countEnemyDeaths === 7) {
                         //  Reseteo la cuenta de los enemigos que mueren
                         this.registry.events.removeAllListeners('enemy_deaths');
-                        this.registry.events.emit('round_ends');
+                        this.time.addEvent({
+                            delay: 350,
+                            callback: () => {
+                                this.registry.events.emit('round_ends');
+                            }
+                        });
                     }
                 });
                 //  Colisión de Emma con las plataformas
@@ -382,8 +392,8 @@ class Play extends Phaser.Scene {
     }
 
     update(time) {
-        //  Actualizo a Emma para que pueda moverse
         if (this.emma) {
+            //  Actualizo a Emma para que pueda moverse
             this.emma.update();   
         }
         
@@ -403,14 +413,14 @@ class Play extends Phaser.Scene {
     
             if (this.zappers) {
                 this.zappers.forEach((zapper) => {
-                    if (zapper.life > 0)
+                    if (zapper.life > 0) {
                         this.enemyAttack(time, this.emma, zapper);
                         this.registry.events.emit('update_spark');
+                    }
                 });
             }
         }
         
-            
         this.randomVelocity = Phaser.Math.Between(30, 80);
     }
     
