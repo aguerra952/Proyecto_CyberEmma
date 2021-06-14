@@ -34,7 +34,7 @@ class HowToPlay extends Phaser.Scene {
             this.scale.width/2, 
             this.scale.height - 80,  
             'future', 
-            "TAP TO START", 
+            "TAP THE SCREEN TO START", 
             60
         ).setOrigin(0.5)
         .setAlpha(0)
@@ -61,9 +61,9 @@ class HowToPlay extends Phaser.Scene {
             targets: pressToStart,
             delay: 1500,
             ease: 'Circular',
-            alpha: {from: 0.3, to: 1},
+            alpha: {from: 0.4, to: 1},
             repeat: -1,
-            repeatDelay: 50,
+            repeatDelay: 30,
             onStart: () => {
                 this.input.on('pointerdown', () => {
                     this.scene.start('UI');
