@@ -78,12 +78,10 @@ class Bootloader extends Phaser.Scene {
         this.load.image('no-fullscreen', 'icons/smaller.png');
         //  Cargo los sprites de las teclas del teclado
         this.load.spritesheet('keyW', 'keyboard/W-Key.png', {frameWidth: 32, frameHeight: 32});
-        this.load.spritesheet('keyS', 'keyboard/S-Key.png', {frameWidth: 32, frameHeight: 32});
         this.load.spritesheet('keyA', 'keyboard/A-Key.png', {frameWidth: 32, frameHeight: 32});
         this.load.spritesheet('keyD', 'keyboard/D-Key.png', {frameWidth: 32, frameHeight: 32});
         this.load.spritesheet('keyJ', 'keyboard/J-Key.png', {frameWidth: 32, frameHeight: 32});
         this.load.spritesheet('keyUp', 'keyboard/Up-Key.png', {frameWidth: 32, frameHeight: 32});
-        this.load.spritesheet('keyDown', 'keyboard/Down-Key.png', {frameWidth: 32, frameHeight: 32});
         this.load.spritesheet('keyLeft', 'keyboard/Left-Key.png', {frameWidth: 32, frameHeight: 32});
         this.load.spritesheet('keyRight', 'keyboard/Right-Key.png', {frameWidth: 32, frameHeight: 32});
         this.load.spritesheet('keySpace', 'keyboard/Space-Key.png', {frameWidth: 64, frameHeight: 32});

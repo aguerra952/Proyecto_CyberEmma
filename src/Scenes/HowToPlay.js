@@ -22,12 +22,12 @@ class HowToPlay extends Phaser.Scene {
             shadow: { offsetX: 2, color: '#000000', fill: false, offsetY: -1, stroke: false }
         };
         
-        var text2 = this.add.text(0, -180, 
+        var text2 = this.add.text(0, -180,
             "Eliminate all the enemies you can and beat your own records\nHow far can you go?",
             strokeConfig
         ).setOrigin(0.5);
 
-        var text3 = this.add.text(-200, 10, "MOVE:\n\nJUMP:\n\nCROACH:\n\nATTACK:", strokeConfig)
+        var text3 = this.add.text(-200, 10, "MOVE:\n\nJUMP:\n\nATTACK:", strokeConfig)
         .setOrigin(0.5)
         .setFontSize(30);
 
@@ -88,8 +88,8 @@ class HowToPlay extends Phaser.Scene {
     createAnimKeys() {
         //  Defino todas las teclas en un array
         var keysName = [
-            'keyA', 'keyD', 'keyLeft', 'keyRight', 'keyW', 
-            'keyUp', 'keyS', 'keyDown', 'keyJ', 'keySpace'
+            'keyA', 'keyD', 'keyLeft', 'keyRight', 
+            'keyW', 'keyUp', 'keyJ', 'keySpace'
         ];
 
         var delayInc = 0;
@@ -113,11 +113,11 @@ class HowToPlay extends Phaser.Scene {
             switch(key) {
                 case 'keyA':
                     x += 80;
-                    y = 190;
+                    y = 220;
                     break;
                 case 'keyD':
                     x += 60;
-                    y = 190;
+                    y = 220;
                     //  Añado un barra separadora
                     this.add.text(895, y - 25, "|", {
                         fontSize: 50, 
@@ -127,16 +127,16 @@ class HowToPlay extends Phaser.Scene {
                     break;
                 case 'keyLeft':
                     x += 80;
-                    y = 190;
+                    y = 220;
                     break;
                 case 'keyRight':
                     x += 60;
-                    y = 190;
+                    y = 220;
                     break;
                 case 'keyW':
-                    x -= 140;
-                    y = 255;
-                    this.add.text(895, y - 25, "|", {
+                    x -= 200;
+                    y = 290;
+                    this.add.text(835, y - 25, "|", {
                         fontSize: 50, 
                         fontStyle: 'bold',
                         color: '#000000'
@@ -144,8 +144,8 @@ class HowToPlay extends Phaser.Scene {
                     break;
                 case 'keyUp':
                     x += 80;
-                    y = 255;
-                    this.add.text(980, y - 25, "|", {
+                    y = 290;
+                    this.add.text(920, y - 25, "|", {
                         fontSize: 50, 
                         fontStyle: 'bold',
                         color: '#000000'
@@ -153,24 +153,11 @@ class HowToPlay extends Phaser.Scene {
                     break;
                 case 'keySpace': 
                     x += 200;
-                    y = 255;
-                    break;
-                case 'keyS': 
-                    x -= 80;
-                    y = 320;
-                    this.add.text(895, y - 25, "|", {
-                        fontSize: 50, 
-                        fontStyle: 'bold',
-                        color: '#000000'
-                    });
-                    break;
-                case 'keyDown':
-                    x += 80;
-                    y = 320;
+                    y = 290;
                     break;
                 case 'keyJ':
                     x -= 80;
-                    y = 385;
+                    y = 360;
                     break;
             }
             //  Creo la tecla
