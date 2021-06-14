@@ -19,7 +19,7 @@ class Emma extends Phaser.GameObjects.Sprite {
     this.alive = true;
     //  Defino las teclas que voy a utilizar
     this.keys = this.scene.input.keyboard.addKeys(
-      "LEFT, RIGHT, UP, DOWN, A, D, W, S, J, SPACE"
+      "LEFT, RIGHT, UP, A, D, W, J, SPACE"
     );
     //  Balas que utiliza Emma
     this.bullets = this.scene.physics.add.group({
@@ -146,7 +146,7 @@ class Emma extends Phaser.GameObjects.Sprite {
         this.scene.sound.stopByKey("musicPlay");
         //  Añado un tiempo de espera para que Emma caiga en el suelo si salta
         this.scene.time.addEvent({
-          delay: 800,               
+          delay: 500,               
           callback: () => {
             //  Reproduzco la animación
             this.anims.play("emma_death");
