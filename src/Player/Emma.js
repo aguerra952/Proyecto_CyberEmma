@@ -159,7 +159,7 @@ class Emma extends Phaser.GameObjects.Sprite {
             this.anims.play("emma_death");
             //  Evento que se ejecuta cuando la animación se complete
             this.once("animationcomplete", () => {
-              this.scene.sound.play('gameOver', {volume: 0.2, mute: this.mute});
+              this.scene.sound.play('gameOver', {volume: 0.3, mute: this.mute});
               //  Emito el evento para iniciar la escena GameOver
               this.scene.registry.events.emit("game_over");
               //  Pauso la escena Play
