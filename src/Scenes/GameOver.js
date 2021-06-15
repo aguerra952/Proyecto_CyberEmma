@@ -11,6 +11,7 @@ class GameOver extends Phaser.Scene {
             //  Obtengo los puntos
             this.points = data.points;
         }
+
     }
 
     create() {
@@ -280,8 +281,8 @@ class GameOver extends Phaser.Scene {
                 callback: () => {
                     //  Paro la música
                     this.sound.stopByKey('gameOver');
-                    //  Paro la escena
-                    this.scene.stop('Play');   
+                    //  Detengo la escena
+                    this.scene.stop('Play');
                     //  Elimino todas los eventos de escucha
                     this.registry.events.removeAllListeners();
                     //  Inicio la escena

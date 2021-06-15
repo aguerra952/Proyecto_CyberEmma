@@ -33,7 +33,7 @@ class HowToPlay extends Phaser.Scene {
 
         var pressToStart = this.add.bitmapText(
             this.scale.width/2, 
-            this.scale.height - 80,  
+            this.scale.height - 90,  
             'future', 
             "TAP THE SCREEN TO START", 
             60
