@@ -12,9 +12,9 @@ class MainMenu extends Phaser.Scene {
         //  Si no se obtienen datos se introduce un icono por defecto
         var iconMusic = (iconMusicDB !== null) ? iconMusicDB : 'musicOn';
         var iconAudio = (iconAudioDB !== null) ? iconAudioDB : 'audioOn';
-        //  Si los iconos coinciden se reproducen los sonidos
+        //  Si los iconos coinciden se reproducen los sonidos inicialmentente
         if (iconMusic === 'musicOn') {
-            this.sound.play('musicMenu', {volume: 0.4, loop: true});
+            this.sound.play('musicMenu', {volume: 0.3, loop: true});
         }
 
         if (iconAudio === 'audioOn') {
@@ -86,21 +86,6 @@ class MainMenu extends Phaser.Scene {
         //  Eventos del puntero sobre los textos
         this.createMainEvents(this.textPlay);
         this.createMainEvents(this.textOptions);
-        //  Registro un evento para los efectos de sonido
-        this.registry.events.on('soundAudio', (soundName) => {
-            if (this.muteAudio !== true) {
-                this.sound.play(soundName, {volume: 0.2});
-            } 
-        });
-        //  Registro un evento para la música
-        this.registry.events.on('soundMusic', (soundName) => {
-            if (this.muteMusic !== true) {
-                this.sound.play(soundName, {volume: 0.3, loop: true});
-            } else {
-                this.sound.stopByKey(soundName);
-            }
-        });
-
     }
 
     update() {
@@ -211,7 +196,7 @@ class MainMenu extends Phaser.Scene {
         //  Evento al dejar el cursor encima del botón
         button.on('pointerover', () => {
             button.alpha = 0.7;
-            this.sound.play('menu_selection_1', {volume: 0.3, mute: this.muteAudio});
+            this.sound.play('menu_selection_1', {volume: 0.2, mute: this.muteAudio});
         });
         //  Evento al quitar el cursor sobre el botón
         button.on('pointerout', () => {
@@ -221,7 +206,7 @@ class MainMenu extends Phaser.Scene {
         button.on('pointerdown', () => {
             button.clearAlpha();
             button.setTint(0x7f5fa2);
-            this.sound.play('menu_selection_2', {volume: 0.3, mute: this.muteAudio});
+            this.sound.play('menu_selection_2', {volume: 0.2, mute: this.muteAudio});
             this.blockMainEvents(true);
             
             if (button === this.textPlay) {
@@ -242,6 +227,7 @@ class MainMenu extends Phaser.Scene {
     createButtonsEvents(button) {
         button.on('pointerover', () => { 
             button.setTintFill(0xedcb05); 
+            this.sound.play('menu_selection_1', {volume: 0.2, mute: this.muteAudio});
         });
 
         button.on('pointerout', () => { 
@@ -249,6 +235,7 @@ class MainMenu extends Phaser.Scene {
         });
 
         button.on('pointerdown', () => { 
+            this.sound.play('menu_selection_2', {volume: 0.2, mute: this.muteAudio});
             //  Compruebo el botón introducido
             if (button === this.closeButtonOpt) {
                 //  Efecto al cerrar la ventana de opciones
@@ -282,14 +269,14 @@ class MainMenu extends Phaser.Scene {
                 if (button.texture.key !== 'musicOff') {
                     button.setTexture('musicOff');
                     localStorage.setItem('icon_music', 'musicOff');
-                    this.muteMusic = true;
+                    //  Detengo la música del menú
+                    this.sound.stopByKey('musicMenu');
                 } else {
                     button.setTexture('musicOn');
                     localStorage.setItem('icon_music', 'musicOn');
-                    this.muteMusic = false;
+                    //  Vuelvo a reproducir la música del menú
+                    this.sound.play('musicMenu', {volume: 0.3, loop: true});
                 }
-                //  Emito el evento para reproducir o parar la música
-                this.registry.events.emit('soundMusic', 'musicMenu');
 
             } else if (button === this.fullscreenButton) {
                 //  Cambio la textura del botón

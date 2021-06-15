@@ -19,6 +19,7 @@ class ZapperDroid extends Phaser.GameObjects.Sprite {
     this.velocity = 55;
     this.hitDelay = false;
     this.direction = "left";
+    this.mute = config.mute;
     //  Propiedad para controlar la próxima bala que se dispare
     this.nextTick = 0;
     //  Creo un grupo para ir creando las chispas 
@@ -89,7 +90,7 @@ class ZapperDroid extends Phaser.GameObjects.Sprite {
         this.direction = "none";
         this.anims.play('zapper_death');
         //  Emito el evento de reproducir sonido
-        this.scene.registry.events.emit('soundAudio', 'zapper_droid');
+        this.scene.sound.play('zapper_droid', {volume: 0.3, mute: this.mute});
         //  Se añade un evento de tiempo
         this.scene.time.addEvent({
           delay: 750,
@@ -103,8 +104,7 @@ class ZapperDroid extends Phaser.GameObjects.Sprite {
         });
         
       } else {
-        //  Emito el evento de reproducir sonido
-        this.scene.registry.events.emit('soundAudio', 'damage');
+        this.scene.sound.play('damage', {volume: 0.2, mute: this.mute});
         //  El enemigo cambia de color
         this.tint = 0xecd869;
         //  Se añade un evento de tiempo

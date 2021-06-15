@@ -17,6 +17,7 @@ class Emma extends Phaser.GameObjects.Sprite {
     this.jumping = false;
     this.hitDelay = false;
     this.alive = true;
+    this.mute = config.mute;
     //  Defino las teclas que voy a utilizar
     this.keys = this.scene.input.keyboard.addKeys(
       "LEFT, RIGHT, UP, A, D, W, J, SPACE"
@@ -51,8 +52,10 @@ class Emma extends Phaser.GameObjects.Sprite {
         this.directionBullet = false;
 
         if (this.prevMov !== "left" && !this.jumping) {
+
           this.prevMov = "left";
           this.anims.play("emma_run");
+
         }
 
       } else if (this.keys.RIGHT.isDown || this.keys.D.isDown) {
@@ -72,18 +75,19 @@ class Emma extends Phaser.GameObjects.Sprite {
           this.prevMov = "shoot";
           this.anims.play("emma_shoot");
           this.body.velocity.x = 0;
-          //  Variable que permite que sólo se ejecute una vez
+          //  Variable para controlar el acceso a la condición
           var ok = true;
           //  Evento que se ejecuta cuando la animación se complete
           this.on("animationcomplete", () => {
             if(ok) {
+              //  Evito que se entre más de una vez a la condición
               ok = false;
               
               if (this.prevMov !== "jump") {
                 //  Llamo al método
                 this.shootBullet();
                 //  Emito el evento para reproducir sonido
-                this.scene.registry.events.emit('soundAudio', 'shootSound');
+                this.scene.sound.play('shootSound', {volume: 0.1, mute: this.mute});
               }
               //  Emma dispara continuamente
               this.prevMov = "";
@@ -92,12 +96,14 @@ class Emma extends Phaser.GameObjects.Sprite {
         }
 
       } else {
-        //  Establezco la velocidad a 0
+        //  Emma se detiene
         this.body.velocity.x = 0;
 
         if (this.prevMov !== "idle" && !this.jumping) {
+
           this.prevMov = "idle";
           this.anims.play("emma_idle");
+
         }
 
       }
@@ -112,8 +118,10 @@ class Emma extends Phaser.GameObjects.Sprite {
         this.body.velocity.y = -850;
 
         if (this.prevMov !== "jump") {
+
           this.prevMov = "jump";
           this.anims.play("emma_jump");
+          
         }
         
       } else if (this.body.touching.down) {
@@ -131,8 +139,7 @@ class Emma extends Phaser.GameObjects.Sprite {
     //  Compruebo que Emma que no ha recibido daño
     if (!this.hitDelay) {
       this.hitDelay = true;
-      //  Emito el evento para reproducir sonido
-      this.scene.registry.events.emit('soundAudio', 'emma_damage');
+      this.scene.sound.play('emma_damage', {volume: 0.2, mute: this.mute});
       //  Emito el evento para eliminar vidas
       this.scene.registry.events.emit("remove_life");
       //  Compruebo si emma tiene vidas
@@ -152,8 +159,7 @@ class Emma extends Phaser.GameObjects.Sprite {
             this.anims.play("emma_death");
             //  Evento que se ejecuta cuando la animación se complete
             this.once("animationcomplete", () => {
-              //  //  Emito el evento para reproducir sonido
-              this.scene.registry.events.emit('soundMusic', 'gameOver');
+              this.scene.sound.play('gameOver', {volume: 0.2, mute: this.mute});
               //  Emito el evento para iniciar la escena GameOver
               this.scene.registry.events.emit("game_over");
               //  Pauso la escena Play

@@ -19,6 +19,7 @@ class EnemyBlack extends Phaser.GameObjects.Sprite {
     this.velocity = 50;
     this.direction = "left";
     this.hitDelay = false;
+    this.mute = config.mute;
     //  Propiedad para controlar la próxima bala que se dispare
     this.nextTick = 0;
     //  Creo un grupo para ir creando las balas 
@@ -97,7 +98,7 @@ class EnemyBlack extends Phaser.GameObjects.Sprite {
         //  No establezco ninguna dirección
         this.direction = "none";
         this.anims.play('enemblack_death');
-        this.scene.registry.events.emit('soundAudio', 'enemy_black');
+        this.scene.sound.play('enemy_black', {volume: 0.2, mute: this.mute});
         //  Se añade un evento de tiempo
         this.scene.time.addEvent({
           delay: 600,
@@ -110,8 +111,7 @@ class EnemyBlack extends Phaser.GameObjects.Sprite {
           }
         })
       } else {
-        //  Emito el evento de reproducir sonido
-        this.scene.registry.events.emit('soundAudio', 'damage');
+        this.scene.sound.play('damage', {volume: 0.2, mute: this.mute});
         //  Cuando recibe daño el enemigo cambia de color
         this.tint = 0xd40000;
         //  Se añade un delay para limpiar el color del enemigo

@@ -18,6 +18,7 @@ class Drone extends Phaser.GameObjects.Sprite {
     this.velocity = 55;
     this.hitDelay = false;
     this.direction = "right";
+    this.mute = config.mute;
   }
   
   update() {
@@ -48,7 +49,8 @@ class Drone extends Phaser.GameObjects.Sprite {
         this.direction = "none";
         this.anims.play("drone_death");
         //  Emito el evento de reproducir sonido
-        this.scene.registry.events.emit('soundAudio', 'explosion');
+        this.scene.sound.play('explosion', {volume: 0.2, mute: this.mute});
+        // this.scene.registry.events.emit('soundAudio', 'explosion');
         
         this.scene.time.addEvent({
           delay: 800,
@@ -62,7 +64,7 @@ class Drone extends Phaser.GameObjects.Sprite {
         })
       } else {
         //  Emito el evento de reproducir sonido
-        this.scene.registry.events.emit('soundAudio', 'damage');
+        this.scene.sound.play('damage', {volume: 0.2, mute: this.mute});
         //  Cambio el color
         this.tint = 0xecd869;
 

@@ -10,12 +10,20 @@ class Play extends Phaser.Scene {
 
     init(numberRound) {
         console.log('Se ha iniciado la escena Play');
-        //  Si la número de ronda no es una no se reproduce la música
-        if(numberRound === 1) {
-            //  Evento emisor de música
-            this.registry.events.emit('soundMusic', 'musicPlay');
-        }
+        //  Obtengo la textura de los iconos del Menú Principal
+        var iconAudioDB = localStorage.getItem('icon_audio');
+        var iconMusicDB = localStorage.getItem('icon_music');
+        //  Compruebo que los valores obtenidos no sean nulos, si lo son se asigna valores por defecto
+        this.iconAudio = (iconAudioDB !== null) ? iconAudioDB : 'audioOn';
+        this.iconMusic = (iconMusicDB !== null) ? iconMusicDB : 'musicOn';
         //  
+        this.iconAudio === 'audioOn' ? this.muteAudio = false : this.muteAudio = true; 
+        this.iconMusic === 'musicOn' ? this.muteMusic = false : this.muteMusic = true; 
+        //  Compruebo si es la primera ronda y la música no está silenciada
+        if(numberRound === 1 && this.muteMusic == false) {
+            this.sound.play('musicPlay', {volume: 0.2, loop: true})
+        }
+        //  Contador de las muertes enemigas
         this.countEnemyDeaths = 0;
     }
 
@@ -134,7 +142,8 @@ class Play extends Phaser.Scene {
         this.emma = new Emma({
             scene: this,
             x: 100,
-            y: 300
+            y: 300,
+            mute: this.muteAudio
         });
         //  Cre un grupo para ir añadiendo a los enemigos
         this.enemies = this.physics.add.group();
@@ -477,7 +486,8 @@ class Play extends Phaser.Scene {
             physicsWorld: this.physics.world,
             scene: this,
             x: respawn1,
-            y: level1
+            y: level1,
+            mute: this.muteAudio
         });
         this.enemies.add(this.drone1);
         //  Enemigo 2
@@ -485,7 +495,8 @@ class Play extends Phaser.Scene {
             physicsWorld: this.physics.world,
             scene: this,
             x: respawn2,
-            y: level1
+            y: level1,
+            mute: this.muteAudio
         });
         this.enemies.add(this.enemBlack1);
         //  Enemigo 3
@@ -493,7 +504,8 @@ class Play extends Phaser.Scene {
             physicsWorld: this.physics.world,
             scene: this,
             x: respawn3,
-            y: level1
+            y: level1,
+            mute: this.muteAudio
         });
         this.enemies.add(this.zapper1);
         //  Enemigo 4
@@ -509,7 +521,8 @@ class Play extends Phaser.Scene {
             physicsWorld: this.physics.world,
             scene: this,
             x: respawn5,
-            y: level3
+            y: level3,
+            mute: this.muteAudio
         })
         this.enemies.add(this.zapper2);
         //  Enemigo 6 
@@ -517,7 +530,8 @@ class Play extends Phaser.Scene {
             physicsWorld: this.physics.world,
             scene: this,
             x: respawn6,
-            y: level2
+            y: level2,
+            mute: this.muteAudio
         });
         this.enemies.add(this.enemBlack3);
         //  Enemigo 7
@@ -525,7 +539,8 @@ class Play extends Phaser.Scene {
             physicsWorld: this.physics.world,
             scene: this,
             x: respawn7,
-            y: level3
+            y: level3,
+            mute: this.muteAudio
         });
         this.enemies.add(this.drone2);
     }
