@@ -8,7 +8,7 @@ Primero clona el repositorio en tu disco local
 
 `git clone https://github.com/aguerra952/Proyecto_CyberEmma.git`
 
-Una vez descargado accede al proyecto e instala las depedencias de Phaser
+Una vez descargado accede al proyecto e instala las dependencias de Phaser
 
 ```
 cd Proyecto_CyberEmma
